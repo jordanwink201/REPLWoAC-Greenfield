@@ -1,0 +1,56 @@
+/***
+
+  Nav Module
+
+  Naming Convention:
+  .moduleName{}
+  .moduleName-subModule{}
+  .moduleName.stateName{}
+  .layout-layoutName{}
+  .layout-layoutName--subLayoutName{}
+
+***/
+
+nav.navbar-inverse{
+
+  margin: 2px 2px 0;
+
+  // i{
+  //   font-size: 150%;
+  // }
+  // // To fix the 'i' larger font-size
+  // .navbar-nav>li>a {
+  //   padding-bottom: 0px;
+  // }
+
+  i.signedIn{
+    color: #A0CECB;
+  }
+
+  a{
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  input.form-control{
+    border-radius: 40px;
+    background-color: #3C3B3D;
+    border: 0px solid transparent;
+  }
+
+  .dropdown-menu{
+    padding: 0px;
+    .divider {
+      margin: 0px;
+    }
+  }
+
+  ul.dropdown-menu{
+
+    a{
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+  }
+
+}
