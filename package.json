@@ -1,0 +1,15 @@
+{
+  "name": "crashapp",
+  "version": "1.0.0",
+  "description": "Crash Accident App",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "nodemon": "^1.7.3"
+  }
+}
