@@ -2,6 +2,7 @@ angular.module('crash', [
   'ngRoute'])
 .config(function($routeProvider, $httpProvider) {
 	$routeProvider
+<<<<<<< 75ff45e5c5fc49103db49d038ff9b865c389e4fd
     .when('/home', {
      templateUrl: 'scripts/modules/home/home.html'
    })
@@ -26,8 +27,19 @@ angular.module('crash', [
     .otherwise( {
      redirectTo: '/'
    });
+=======
+		.when('/crashWitness', {
+			templateUrl: 'modules/crash/crashWitness.html'
+		})
+		.when('/home', {
+			templateUrl: 'modules/home/home.html'
+		})
+		.otherwise( {
+			redirectTo: '/'
+		});
+>>>>>>> added .editor config file for overral text editor settings"
 });
-
+//test 123
 
 
 
