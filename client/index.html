@@ -1,7 +1,8 @@
 <<!DOCTYPE html>
-<html>
+<html ng-app='crash'>
 <head>
-  <title></title>
+  <meta charset="utf-8" />
+  <title>Accident App</title>
 </head>
 
   <!-- Modernizr -->
@@ -17,9 +18,11 @@
   <script src="//localhost:35729/livereload.js"></script>
 
 <body>
-
+  <div ng-view></div>
 
   <!-- Library Scrips -->
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-route/angular-route.min.js"></script>
   <script src="scripts/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="scripts/jquery/dist/jquery.min.js"></script>
 
