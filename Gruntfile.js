@@ -47,14 +47,14 @@ module.exports = function(grunt) {
     concat : {
       dist : {
         src : 'client/scripts/**/*.js',
-        dest : 'client/scripts/production.js'
+        dest : 'client/production.js'
       }
     },
 
     uglify : {
       build : {
-        src : 'client/scripts/production.js',
-        dest : 'client/scripts/production.min.js'
+        src : 'client/production.js',
+        dest : 'client/production.min.js'
       }
     },
 
