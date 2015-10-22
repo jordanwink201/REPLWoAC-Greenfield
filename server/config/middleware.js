@@ -21,6 +21,6 @@ module.exports = function(app, express){
   app.use('/api/users', userRouter); // use the userRouter for all user requests, note the '/api/users'
 
   // Pass the userRouter to the function in userRouters
-  require('../users/userRoutes.js')(userRouter);
+  require('../users/userRoute.js')(userRouter);
 
 };
