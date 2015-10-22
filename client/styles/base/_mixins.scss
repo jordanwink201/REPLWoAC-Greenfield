@@ -6,39 +6,5 @@
 
 @import 'variables';
 
-/** TEXT **/
-@mixin headers(){
-  h1, h2, h3 {
-    font-family: $font;
-    font-weight: light;
-    font-size : $sub-header;
-    color : $darkSecondary;
-  }
-}
-
-@mixin subHeaders() {
-  h4, h5, h6{
-    font-family: $font;
-    font-weight: light;
-    font-size : $sub-header;
-    color : $darkSecondary;
-  }
-}
-
-@mixin textElems() {
-  p, span {
-    font-family: $font;
-    font-weight: normal;
-    font-size : $text;
-    color : $darkSecondary;
-  }
-}
-
-@mixin lists(){
-  padding-left: 0px;
-  margin-bottom: 0px;
-  text-transform: uppercase; // design specific
-  list-style-type: none;
-}
 
 

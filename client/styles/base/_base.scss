@@ -17,11 +17,6 @@
 @import 'mixins';
 
 body {
-  @include headers();
-  @include subHeaders();
-  @include textElems();
-  @include lists();
 
-  font-family: 'Lato', sans-serif;
 }
 
