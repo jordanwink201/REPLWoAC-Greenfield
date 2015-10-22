@@ -16,6 +16,6 @@ module.exports = function(app){
 
   // POST 
   app.post('/createAccount', userController.createAccount);
-  app.post('/updateuser', userController.updateUserInfo);
+  app.post('/updateuser', userController.updateUser);
 
 };
