@@ -1,26 +1,15 @@
 /***
 
-
-
   Crash Model
 
 ***/
-
   
 var mongoose = require("mongoose");
-
 var Schema = mongoose.Schema;
-
-
-//credentials
-//mongodb://<dbuser>:<dbpassword>@ds041934.mongolab.com:41934/crashdata
-
-//create connection
-
 
 var crashSchema = new Schema({
 
-  timeStamp: Date, //need to parse this when fetch
+  timeStamp: { type: Date, default: Date.now }, //need to parse this when fetch
 
   location : String,//investigate format google api returns
 
@@ -36,7 +25,6 @@ var crashSchema = new Schema({
     licensePhotoUrl : String,
     insuranceCardPhotoUrl : String,
   }
-
 
 });
 

@@ -8,6 +8,7 @@
 
 var User = require('./userModel.js');
 var Utils = require('../config/utility.js');
+var Q = require('q');
 
 module.exports = {
 
@@ -22,7 +23,7 @@ module.exports = {
 
   // POST
   createAccount : function(){
-
+    
   },
 
   updateUser : function(){
