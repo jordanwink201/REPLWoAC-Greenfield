@@ -132,8 +132,6 @@ module.exports = function(grunt) {
 
   ***/
 
-  // grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'copy', 'clean']);
-
-  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'copy', 'clean']);
+  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'copy', 'clean']);
 
 };
