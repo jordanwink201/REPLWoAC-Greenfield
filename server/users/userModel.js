@@ -1,9 +1,11 @@
 /***
 
 
+
   User Model
 
 ***/
+
 
 
 //connect:
@@ -44,4 +46,7 @@ module.exports = User;
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0350e61654924cf762fa14a03bdd3d907b8e5108
