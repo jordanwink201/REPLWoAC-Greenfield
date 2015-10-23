@@ -11,6 +11,7 @@ module.exports = function(app, express){
 
   // Define Routers
   var userRouter = express.Router();
+  var eventRouter = express.Router();
 
   // Define Middleware
   app.use(bodyParser.json());
@@ -18,9 +19,11 @@ module.exports = function(app, express){
   app.use(express.static(__dirname + '/../../client'));
 
   // Define URL
-  app.use('/api/users', userRouter); // use the userRouter for all user requests, note the '/api/users'
+  app.use('/api/user', userRouter); // use the userRouter for all user requests, note the '/api/user'
+  app.use('/api/event', eventRouter); // use the eventRouter for all crash event requests, note the '/api/event'
 
   // Pass the userRouter to the function in userRouters
-  require('../users/userRoute.js')(userRouter);
+  require('../user/userRoute.js')(userRouter);
+  require('../event/eventRoute.js')(eventRouter);
 
 };
