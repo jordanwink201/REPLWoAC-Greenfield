@@ -4,6 +4,5 @@ client/lib
 
 .sass-cache/
 
-client/production.js
 client/styles/main.css
 client/styles/main.css.map
