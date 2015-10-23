@@ -1,34 +1,30 @@
 /***
 
-
-
   User Model
 
 ***/
 
-
-
-//connect:
-
-// var db = mongoose.connect('mongodb://localhost/URL', function(error){
-//   if(!error){
-//       console.log("mongo is a-ok");
-//   }
-// });
-
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema;
-
 
 var userSchema = new Schema({
 
   firstName : String,
   lastName : String,
-  username : { type : String, required : true, unique : true },
-  password : { type : String, required : true },
+  username : { 
+    type : String, 
+    required : true, 
+    unique : true
+  },
+  password : { 
+    type : String,
+    required : true
+  },
   phoneNumber : String,
-  dob : Date,//need to parse this when we fetch
+  dob : { 
+    type: Date, 
+    default: Date.now 
+  }, 
   email : String,
   driverLicenseNum : String,
   driverLicenseState : String,
@@ -37,7 +33,7 @@ var userSchema = new Schema({
   agentName : String,
   agentEmail : String,
 
-  //add a documentPhoto feature after MVP is acheived
+  // add a documentPhoto feature after MVP is acheived
 
 });
 
