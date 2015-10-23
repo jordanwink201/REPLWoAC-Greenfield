@@ -22,7 +22,7 @@ var crashSchema = new Schema({
 
   timeStamp: Date, //need to parse this when fetch
 
-  location : String,//investigate format google api returns
+  location : Schema.Types.Mixed,//investigate format google api returns
 
   witness: { 
     firstname : String,
@@ -33,8 +33,10 @@ var crashSchema = new Schema({
   accidentPhotoUrls : Array,
 
   otherPartyInfo: {
+    otherUser : Schema.Types.Mixed,
     licensePhotoUrl : String,
     insuranceCardPhotoUrl : String,
+    licensePlatePhotoUrl : String
   }
 
 
