@@ -14,7 +14,8 @@ mongoose.connect('mongodb://jordanw16:jordanw16@ds041934.mongolab.com:41934/cras
 // Call the middleware function and pass the app and express as parameters
 require('./config/middleware.js')(app, express);
 
-console.log('listening on port 3001');
-app.listen(3001);
+var port = process.env.PORT || 3001;
+console.log('listening on port:', port);
+app.listen(port);
 
 module.exports = app;
