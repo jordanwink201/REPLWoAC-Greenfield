@@ -31,7 +31,7 @@ module.export = {
 		var newCrashEvent = new Crash(req.body);
 		newCrashEvent.save(function (argument) {
 			// body...
-		})
+		});
 		//create new instance of Crash Model
 		//store geo-location
 		//save
