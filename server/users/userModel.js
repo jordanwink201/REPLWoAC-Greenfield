@@ -31,6 +31,7 @@ var userSchema = new Schema({
   dob : Date,//need to parse this when we fetch
   email : String,
   driverLicenseNum : String,
+  driverLicenseState : String,
   insuranceCompany : String,
   policyNum : String,
   agentName : String,
@@ -46,7 +47,3 @@ module.exports = User;
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0350e61654924cf762fa14a03bdd3d907b8e5108
