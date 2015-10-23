@@ -23,6 +23,15 @@ eventRouter = 'api/event/'
 
 /*** 
 
+  DATABASE
+
+***/
+
+connection is in server.js (no need to change it), view all database data at mongolabs.com
+- mongoose.connect('mongodb://jordanw16:jordanw16@ds041934.mongolab.com:41934/crashdata'); // connect to mongo database
+
+/*** 
+
   CLIENT
 
 ***/
