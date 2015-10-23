@@ -50,7 +50,7 @@ angular.module('crash.crashDriverInfo', [])
 });
 angular.module('crash.crashDriverSearch', [])
 
-.controller('crashDriverSearch', function() {
+.controller('CrashDriverSearchController', function() {
 
 });
 angular.module('crash.crashEmail', [])

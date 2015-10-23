@@ -1,5 +1,5 @@
 angular.module('crash.crashDriverSearch', [])
 
-.controller('crashDriverSearch', function() {
+.controller('CrashDriverSearchController', function() {
 
 });
