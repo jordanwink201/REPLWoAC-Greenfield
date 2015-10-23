@@ -27,14 +27,7 @@ angular.module('crash', [
      redirectTo: '/'
    });
 });
-//test 123
 
 
 
 
-//test 123
-var z = 1;
-
-//test 123
-
-//test
