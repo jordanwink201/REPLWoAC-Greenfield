@@ -1,0 +1,95 @@
+/*** 
+
+  NOTES & Reminders
+
+***/
+
+- ADD COMMENTS TO YOUR CODE!!!
+- keep whitespaces and spacing the same throughout, adhere to the styleguide!
+
+- ALL API URL's are singular and are all lowercase ex : 'api/user/signin'
+
+userRouter = 'api/user/'
+              - /signin
+              - /signout
+              - /create
+              
+eventRouter = 'api/event/'
+               - /create
+               - /read
+
+- ALL FUNCTIONS should be camelCase
+- ALL HTTP and DATABASE functions should use & return promises 
+
+/*** 
+
+  CLIENT
+
+***/
+
+/* User
+
+  signIn :
+  - controller : (user obj & validation)
+  - factory/service : url = 'api/user/signin' ($http send user obj) 
+  - return from server : success or failure
+  
+  createAccount :
+  - controller : (user obj & validation)
+  - factory/service : url = 'api/user/create' ($http send user obj)
+  - return from server : success or failure (future : get the user object and store the user info into window.localStorage)
+
+  signOut (NOT for MVP, need tokenization for this to work): 
+  - controller : destroy token
+  
+/* Crash Events
+
+  createCrashEvent :
+  - controller : (crash obj & validation)
+  - factory/service : url = 'api/event/create' ($http send crash obj and user obj)
+  - return from server : success or failure
+
+  readCrashEvent : 
+  - controller : (username to lookup by future: get this info from window.localStorage)
+  - factory/service : url = 'api/event/read' ($http send current user object)
+  - return from server : all crash events related to the current user
+
+/*** 
+
+  SERVER 
+
+***/
+
+/* GET
+  
+  signIn : 
+  - input : (user object & validation)
+  - output : success = 200 & (query and send the user object to be stored in localStorage), failure = 404
+  - db : check if user exists
+  signIn : function(){}
+
+  readCrashEvent
+  - input : user object
+  - output : success = return the array of event objects, failure = 404
+  - db : get the username from the user object and use it as a WHERE clause for querying from the event collection
+  readCrashEvent : function(){}
+
+/* POST
+
+  createAccount
+  - input : 
+  - output : success = return the user object, failure = 404
+  - db : create new instance of user model with user object, store
+  createAccount : function(){}
+  
+  createEvent
+  - input : event object and user object
+  - output : success = 200, failure = 404
+  - db : pull the username out of the user object and store it into the event object, then store into DB
+  createEvent : function(){}
+
+  updateUser (NOT MVP)
+  - input : new user object
+  - output : success = return updated user object, failure = 404
+  - db : retrieve user object from collection, update entire object
+  updateUser : function(){}
