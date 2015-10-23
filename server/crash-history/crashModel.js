@@ -11,30 +11,28 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-//create connection
 
-var db = mongoose.connection("url", function (error) {
-  if(!error) {
-    console.log("Everything is 200");
-  }
-})
+
+//credentials
+//mongodb://<dbuser>:<dbpassword>@ds041934.mongolab.com:41934/crashdata
 
 var crashSchema = new Schema({
 
   timeStamp: Date, //need to parse this when fetch
+  location : String,//investigate format google api returns
   witness: { 
     firstname : String,
     lastName : String,
     phone: String
   },
+
+  accidentPhotoUrls : Array,
+
   otherPartyInfo: {
-    firstname: String,
-    lastName: String,
-    phoneNum: String,
-    email: String,
-    driverLicenseNum: String,
-    insuranceCompany: String,
-    insurancePolicyNum: String, 
+
+    licensePhotoUrl : String,
+    insuranceCardPhotoUrl : String,
+
   }
 
 
