@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app='crash'>
+<head>
+  <meta charset="utf-8" />
+  <!-- Needed for Emulating Mobile Devices in Chrome -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Crash</title>
+</head>
+
+  <!-- Modernizr -->
+  <script src="lib/modernizr/modernizr.js"></script>
+
+  <!-- Bootstrap Styles -->
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+
+  <!-- User Styles -->
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+
+  <!-- Live Reload -->
+  <script src="//localhost:35729/livereload.js"></script>
+
+<body>
+
+  <h1>CrashNinja</h1>
+  
+  <div ng-view></div>
+
+  <!-- Library Scrips -->
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-route/angular-route.min.js"></script>
+
+  <!-- User Scripts -->
+  <script src="production.js"></script>
+
+</body>
+</html>

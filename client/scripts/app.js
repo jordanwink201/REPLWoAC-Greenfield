@@ -6,6 +6,7 @@ angular.module('crash', [
   'crash.crashDriverSearch',
   'crash.crashDriverInfo',
   'crash.crashEmail',
+  'crash.crashFinalInfo',
   'ngRoute'
 ])
 .config(function($routeProvider, $httpProvider) {
@@ -16,27 +17,38 @@ angular.module('crash', [
    })
     .when('/crashWitness', {
      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
-     controller: 'CrashWitnessController'
+     controller: 'CrashWitnessController',
+     controllerAs: 'crashWitnessCtrl'
    })
     .when('/crashWitnessInfo', {
       templateUrl: 'scripts/modules/crash/crashWitnessInfo/crashWitnessInfo.html',
-      controller: 'CrashWitnessInfoController'
+      controller: 'CrashWitnessInfoController',
+     controllerAs: 'crashWitnessInfoCtrl'
     })
     .when('/crashPhoto', {
       templateUrl: 'scripts/modules/crash/crashPhoto/crashPhoto.html',
-      controller: 'CrashPhotoController'
+      controller: 'CrashPhotoController',
+     controllerAs: 'crashPhotoCtrl'
     })
     .when('/crashDriverSearch', {
       templateUrl: 'scripts/modules/crash/crashDriverSearch/crashDriverSearch.html',
-      controller: 'CrashDriverSearchController'
+      controller: 'CrashDriverSearchController',
+     controllerAs: 'crashDriverSearchCtrl'
     })
     .when('/crashDriverInfo', {
       templateUrl: 'scripts/modules/crash/crashDriverInfo/crashDriverInfo.html',
-      controller: 'CrashDriverInfoController'
+      controller: 'CrashDriverInfoController',
+      controllerAs: 'crashDriverInfoCtrl'
     })
     .when('/crashEmail', {
       templateUrl: 'scripts/modules/crash/crashEmail/crashEmail.html',
-      controller: 'CrashEmailController'
+      controller: 'CrashEmailController',
+      controllerAs: 'crashEmailCtrl'
+    })
+    .when('/crashFinalInfo', {
+      templateUrl: 'scripts/modules/crash/crashFinalInfo/crashFinalInfo.html',
+      controller: 'CrashFinalInfoController',
+      controllerAs: 'crashFinalInfoCtrl'
     })
     .otherwise( {
      redirectTo: '/'
