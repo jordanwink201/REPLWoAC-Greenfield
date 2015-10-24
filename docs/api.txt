@@ -13,6 +13,7 @@ userRouter = 'api/user/'
               - /signin
               - /signout
               - /create
+              - /read
               
 eventRouter = 'api/event/'
                - /create
@@ -48,6 +49,11 @@ connection is in server.js (no need to change it), view all database data at mon
   - factory/service : url = 'api/user/create' ($http send user obj)
   - return from server : success or failure (future : get the user object and store the user info into window.localStorage)
 
+  readAccount : 
+  - controller : (username)
+  - factory/service : url = 'api/user/read' ($http send user name)
+  - return from server : success and response with the user object asked to retreive or failure if that user doesn't exist
+
   signOut (NOT for MVP, need tokenization for this to work): 
   - controller : destroy token
   
@@ -78,6 +84,12 @@ connection is in server.js (no need to change it), view all database data at mon
   signIn : function(){}
 
   readCrashEvent
+  - input : user object
+  - output : success = return the array of event objects, failure = 404
+  - db : get the username from the user object and use it as a WHERE clause for querying from the event collection
+  readCrashEvent : function(){}
+
+  readAccount
   - input : user object
   - output : success = return the array of event objects, failure = 404
   - db : get the username from the user object and use it as a WHERE clause for querying from the event collection
