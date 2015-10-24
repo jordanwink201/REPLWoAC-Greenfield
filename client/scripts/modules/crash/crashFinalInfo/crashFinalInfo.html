@@ -1,59 +1,62 @@
 <div id='crashFinalInfo'>
-  <h1>Please Review If Everything is Correct.</h1>
+  <h3>Please Review If Everything is Correct.</h3>
   <div class='crashFinalInfoPage'>
-    <div class='witnessInfo'>
-      <h2>Witness Info</h2>
-      <table>
-        <tr>
-          <td>Name: {{person.firstname}} + {{person.lastname}}</td>
-        </tr>
-        <tr>
-          <td>Phone Number: {{person.phoneNumber}} </td>
-        </tr>
-        <tr>
-          <td>Email: {{person.email}} </td>
-        </tr> 
-      </table>  
-    </div>
-    <div class='OtherDriverInfo'>
-      <h2>Other Driver Info</h2>
-      <table>
-        <tr>
-          <td>Name: {{person.firstname}} + {{person.lastname}}</td>
-          <td>DOB: {{person.dob}}</td>
-        </tr>
-        <tr>
-          <td>Phone Number: {{person.phoneNumber}} </td>
-        </tr>
-        <tr>
-          <td>Email: {{person.email}} </td>
-        </tr>        
-        <tr>
-          <td>Driver License Number: {{person.driverLicenseNum}} </td>
-        </tr>
-        <tr>
-          <td>Insurance Company: {{person.insuranceCompany}} </td>
-        </tr>
-        <tr>
-          <td>Insurance Policy Number: {{person.policyNum}} </td>
-        </tr>
-        <tr>
-          <td>Agent Name : {{person.agentName}} </td>
-        </tr> 
-        <tr>
-          <td>Agent Email: {{person.agentEmail}} </td>
-        </tr>                           
-      </table>
-    </div>
-  </div>
 
+    <!-- This form and the input fields should be preloaded with the information the user put in already. They should be able to then edit any information they want and click save to make changes directly in this page.  -->
+
+    <h4>Witness Info</h4>
+    <form name='witnessForm'>
+
+      <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+
+      <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+
+      <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+
+      <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+
+      <!-- This button should only show if any changes are being made to the form. Validation should be checked as well... -->
+      <button class="btn btn-primary">Save Changes</button>
+
+    </form>
+
+    <h4>Other Driver Info</h4>
+
+    <form name='crashDriverInfo'>
+
+      <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+
+      <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+
+      <input type="text" class="form-control" placeholder="DOB" ng-model="person.dob">
+
+      <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+
+      <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+
+      <input type="text" class="form-control" placeholder="Driver License Number" ng-model="person.driverLicenseNum">
+
+      <input type="text" class="form-control" placeholder
+     ="Insurance Company" ng-model="person.insuranceCompany">
+
+      <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="person.policyNum">
+
+      <input type="text" class="form-control" placeholder="Agent Name" ng-model="person.agentName">
+
+      <input type="text" class="form-control" placeholder="Agent Email" ng-model="person.agentEmail">   
+
+      <!-- This button should only show if any changes are being made to the form. Validation should be checked as well... -->
+      <button class="btn btn-primary">Save Changes</button> 
+
+    </form> 
 
   <div class='bottomButtons'>
     <a href='#/crashEmail'>
-      <button class='back'>Back</button>
+      <button class='btn btn-default pull-left back'>Back</button>
     </a>
-    <a href='#/home'>    
-      <button class='next'>Done</button>
+    <a href='#/home'>
+      <button class='btn btn-default pull-right next'>Next</button>
     </a>
-  </div>  
+  </div>
+
 </div>

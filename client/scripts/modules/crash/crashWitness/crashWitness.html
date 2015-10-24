@@ -3,16 +3,35 @@
 	<div class='crashWitnessPage'>
 		<p>Check on the other driver's status. If injured, please call 911 immediately.</p>
 		<p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
-    <a href='#/crashWitnessInfo'>
-		  <button>Input witness Info</button>
-    </a>
 	</div>
+
+  <form name='witnessForm'>
+
+    <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+
+    <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+
+    <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+
+    <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+
+    <!-- This Button will take the input from the input fields and store the witness info into an object, it will then clear the input fields so that the user can add more than one witness. It will also add the list of witnesses dynamically so the viewer can see who they've added. Also add validation here... -->
+    <button class="btn btn-primary">Add Another Witness</button>
+
+  </form>
+
+  <!-- Add the witnesses that have been added here -->
+  <ul>
+    <!-- <li ng-repeat=""></li> -->
+  </ul>
+  
+
 	<div class='bottomButtons'>
 		<a href='#/home'>
-      <button class='back'>Back</button>
+      <button class='btn btn-default pull-left back'>Back</button>
     </a>
     <a href='#/crashPhoto'>
-  		<button class='next'>Next</button>
+  		<button class='btn btn-default pull-right next'>Next</button>
     </a>
 	</div>
 </div>

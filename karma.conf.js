@@ -22,7 +22,7 @@ module.exports = function(config) {
       'client/lib/angular-mocks/angular-mocks.js',
 
       // our app code
-      'client/app/**/*.js',
+      'client/scripts/**/*.js',
 
       // our spec files
       'node_modules/expect.js/index.js',

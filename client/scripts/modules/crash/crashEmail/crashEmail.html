@@ -1,16 +1,25 @@
 <div id='crashEmail'>
-  <h1> Step 4</h1>
-  <div class='crashEmailPage'>
+
+  <h1>Step 4</h1>
+
+  <form name='crashEmailForm'>
+
     <p>Email crash info to insurance company</p>
-    <p>Insurance email: {{person.agentEmail}}</p>
-    <button class='sendEmail'>send Email</button>
-  </div>
+
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Insurance Email" ng-model="person.agentEmail">
+      <a class="btn btn-success input-group-addon sendEmail">Send Email</a>
+    </div>
+    
+  </form>
+
   <div class='bottomButtons'>
     <a href='#/crashDriverInfo'>
-      <button class='back'>Back</button>
+      <button class='btn btn-default pull-left back'>Back</button>
     </a>
     <a href='#/crashFinalInfo'>
-      <button class='next'>Next</button>
+      <button class='btn btn-default pull-right next'>Next</button>
     </a>
   </div>
+
 </div>

@@ -1,20 +1,29 @@
 <div id='crashDriverSearch'>
+
 	<h1>Step 3</h1>
 	<div class='crashDriverSearchPage'>
 		<p>Get other driver's information. If other person has crash App account,
 			have them input their username. Otherwise, click on the next button to input their info.
 		</p>
+
 		<form name='crashDriverSearchForm'>
-			<input type="text">
-			<button type="submit">HIT ME!!</button>
+
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="User's Username">
+        <a class="btn btn-success input-group-addon">Add User</a>
+      </div>
+      
 		</form>
-		<div class='bottomButtons'>
-			<a href='#/crashPhoto'>
-        <button class='back'>Back</button>
+
+    <div class='bottomButtons'>
+      <a href='#/crashPhoto'>
+        <button class='btn btn-default pull-left back'>Back</button>
       </a>
       <a href='#/crashDriverInfo'>
-        <button class='next'>Next</button>
+        <button class='btn btn-default pull-right next'>Next</button>
       </a>
-		</div>
+    </div>
+
 	</div>
+
 </div>
