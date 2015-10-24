@@ -1,7 +1,10 @@
 angular.module('crash', [
+  'crash.eventService',
+  'crash.userService',
+  'crash.profile',
+  'crash.history',
   'crash.home',
   'crash.crashWitness',
-  'crash.crashWitnessInfo',
   'crash.crashPhoto',
   'crash.crashDriverSearch',
   'crash.crashDriverInfo',
@@ -11,29 +14,34 @@ angular.module('crash', [
 ])
 .config(function($routeProvider, $httpProvider) {
 	$routeProvider
-    .when('/home', {
-     templateUrl: 'scripts/modules/home/home.html',
-     controller: 'HomeController'
-   })
+    .when('/', {
+      templateUrl: 'scripts/modules/home/home.html',
+      controller: 'HomeController'
+    })
+    .when('/profile', {
+      templateUrl: 'scripts/modules/profile/profile.html',
+      controller: 'ProfileController',
+      controllerAs : 'profileCtrl'
+    })
+    .when('/history', {
+      templateUrl: 'scripts/modules/history/history.html',
+      controller: 'HistoryController',
+      controllerAs : 'historyCtrl'
+    })
     .when('/crashWitness', {
-     templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
-     controller: 'CrashWitnessController',
-     controllerAs: 'crashWitnessCtrl'
-   })
-    .when('/crashWitnessInfo', {
-      templateUrl: 'scripts/modules/crash/crashWitnessInfo/crashWitnessInfo.html',
-      controller: 'CrashWitnessInfoController',
-     controllerAs: 'crashWitnessInfoCtrl'
+      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
+      controller: 'CrashWitnessController',
+      controllerAs: 'crashWitnessCtrl'
     })
     .when('/crashPhoto', {
       templateUrl: 'scripts/modules/crash/crashPhoto/crashPhoto.html',
       controller: 'CrashPhotoController',
-     controllerAs: 'crashPhotoCtrl'
+      controllerAs: 'crashPhotoCtrl'
     })
     .when('/crashDriverSearch', {
       templateUrl: 'scripts/modules/crash/crashDriverSearch/crashDriverSearch.html',
       controller: 'CrashDriverSearchController',
-     controllerAs: 'crashDriverSearchCtrl'
+      controllerAs: 'crashDriverSearchCtrl'
     })
     .when('/crashDriverInfo', {
       templateUrl: 'scripts/modules/crash/crashDriverInfo/crashDriverInfo.html',
@@ -51,6 +59,6 @@ angular.module('crash', [
       controllerAs: 'crashFinalInfoCtrl'
     })
     .otherwise( {
-     redirectTo: '/'
-   });
+      redirectTo: '/'
+    });
 });

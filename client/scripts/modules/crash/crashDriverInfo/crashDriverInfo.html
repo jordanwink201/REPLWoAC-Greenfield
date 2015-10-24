@@ -1,41 +1,42 @@
 <div id='crashDriverInfo'>
+
   <h1>Other Driver's Info</h1>
-  <div class='crashDriverInfoPage'>
-    <table>
-      <tr>
-        <td>Name: {{person.firstname}} + {{person.lastname}}</td>
-        <td>DOB: {{person.dob}}</td>
-      </tr>
-      <tr>
-        <td>Phone Number: {{person.phoneNumber}} </td>
-      </tr>
-      <tr>
-        <td>Email: {{person.email}} </td>
-      </tr>        
-      <tr>
-        <td>Driver License Number: {{person.driverLicenseNum}} </td>
-      </tr>
-      <tr>
-        <td>Insurance Company: {{person.insuranceCompany}} </td>
-      </tr>
-      <tr>
-        <td>Insurance Policy Number: {{person.policyNum}} </td>
-      </tr>
-      <tr>
-        <td>Agent Name : {{person.agentName}} </td>
-      </tr> 
-      <tr>
-        <td>Agent Email: {{person.agentEmail}} </td>
-      </tr>                           
-    </table>
-  </div>
+
+  <form name='crashDriverInfo'>
+
+    <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+
+    <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+
+    <input type="text" class="form-control" placeholder="DOB" ng-model="person.dob">
+
+    <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+
+    <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+
+    <input type="text" class="form-control" placeholder="Driver License Number" ng-model="person.driverLicenseNum">
+
+    <input type="text" class="form-control" placeholder
+    ="Insurance Company" ng-model="person.insuranceCompany">
+
+    <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="person.policyNum">
+
+    <input type="text" class="form-control" placeholder="Agent Name" ng-model="person.agentName">
+
+    <input type="text" class="form-control" placeholder="Agent Email" ng-model="person.agentEmail">   
+
+    <!-- Can check for validation here... -->
+    <button class="btn btn-success">Save</button> 
+
+  </form>
 
   <div class='bottomButtons'>
     <a href='#/crashDriverSearch'>
-      <button class='back'>Back</button>
+      <button class='btn btn-default pull-left back'>Back</button>
     </a>
-    <a href='#/crashEmail'>    
-      <button class='next'>Next</button>
+    <a href='#/crashEmail'>
+      <button class='btn btn-default pull-right next'>Next</button>
     </a>
-  </div>  
+  </div>
+
 </div>

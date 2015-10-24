@@ -11,7 +11,7 @@ var crashSchema = new Schema({
 
   timeStamp: { type: Date, default: Date.now }, //need to parse this when fetch
 
-  location : Schema.Types.Mixed,//investigate format google api returns
+  location : String, // investigate format google api returns
 
   witness: { 
     firstname : String,
@@ -22,10 +22,10 @@ var crashSchema = new Schema({
   accidentPhotoUrls : Array,
 
   otherPartyInfo: {
-    otherUser : Schema.Types.Mixed,
+
     licensePhotoUrl : String,
     insuranceCardPhotoUrl : String,
-    licensePlatePhotoUrl : String
+
   }
 
 });
@@ -33,7 +33,5 @@ var crashSchema = new Schema({
 var Crash = mongoose.model("Crash", crashSchema);
 
 module.exports = Crash;
-
-
 
 
