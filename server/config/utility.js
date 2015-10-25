@@ -28,6 +28,7 @@ module.exports = {
       req.user = user;
       next();
     } catch(err){
+      console.log('ERROR DECODING : ', err);
       return next(err);
     }
 

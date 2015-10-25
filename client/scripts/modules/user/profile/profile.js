@@ -16,6 +16,7 @@ angular.module('crash.profile', [])
   self.getUser = function(){
     UserService.readAccount()
       .then(function(user){
+        console.log('user : ', user);
         self.userObj = user.data;
       })
       .catch(function(err){

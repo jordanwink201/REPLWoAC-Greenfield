@@ -13,30 +13,6 @@ var User = require('./userModel.js');
 
 module.exports = {
 
-  // GET
-  readAccount : function(req, res, next){
-
-    // utility decode function get's the token that was sent and attaches it to the request object as req.user
-
-    var username = req.user.username;
-    var findOne = Q.nbind(User.findOne, User);
-
-    //find user in DB
-    User.findOne(username)
-      .then(function (user) {
-        if(!user) {
-          next(new Error('User does not exist'));
-        } else {
-          //TODO: authenication(Password)
-          //TODO: create session
-          console.log('user found', user);
-          // send back the user
-          res.json({data : user});
-        }
-      });
-
-  },
-
   // POST
   signin : function(req, res, next){
 

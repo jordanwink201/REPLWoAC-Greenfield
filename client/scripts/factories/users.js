@@ -32,8 +32,6 @@ angular.module('crash.userService', [])
       data : userObj
     })
     .then(function(res){ 
-      console.log('response  :', res);
-      console.log('response data :', res.data);
       return res.data;
     });
   };
@@ -46,10 +44,9 @@ angular.module('crash.userService', [])
   var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'api/user/read'
+      url : 'api/userAction/read'
     })
     .then(function(res){
-      console.log('response : ', res.data);
       return res.data;
     });
   };
@@ -58,7 +55,6 @@ angular.module('crash.userService', [])
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
-    console.log('isAuthorized : ', !!$window.localStorage.getItem('com.crash'));
     return !!$window.localStorage.getItem('com.crash');
   };
 

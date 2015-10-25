@@ -23,7 +23,7 @@ angular.module('crash.signIn', [])
         Reset the input so the user can enter the information again
       ***/
       .catch(function(err){
-        console.log('Error creating account...', err.data);
+        console.log('Error signing in the user ...', err.data);
         self.errorMessage = err.data.error;
         self.user.username = '';
         self.user.password = '';
