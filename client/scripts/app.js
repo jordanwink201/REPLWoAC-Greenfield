@@ -3,6 +3,8 @@ angular.module('crash', [
   'crash.userService',
   'crash.crashEventObj',
   'crash.profile',
+  'crash.createAccount',
+  'crash.signIn',
   'crash.history',
   'crash.crashWitness',
   'crash.crashPhoto',
@@ -20,9 +22,19 @@ angular.module('crash', [
       controllerAs: 'crashWitnessCtrl'
     })
     .when('/profile', {
-      templateUrl: 'scripts/modules/profile/profile.html',
+      templateUrl: 'scripts/modules/user/profile/profile.html',
       controller: 'ProfileController',
       controllerAs : 'profileCtrl'
+    })
+    .when('/signin', {
+      templateUrl: 'scripts/modules/user/signIn/signIn.html',
+      controller: 'SignInController',
+      controllerAs : 'signInCtrl'
+    })
+    .when('/createAccount', {
+      templateUrl: 'scripts/modules/user/createAccount/createAccount.html',
+      controller: 'CreateAccountController',
+      controllerAs : 'createAccountCtrl'
     })
     .when('/history', {
       templateUrl: 'scripts/modules/history/history.html',

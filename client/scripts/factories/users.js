@@ -8,8 +8,9 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
+    console.log('userObj : ', userObj);
     return $http({
-      method : 'GET',
+      method : 'POST',
       url : 'api/user/signin',
       data : userObj
     })
@@ -30,8 +31,10 @@ angular.module('crash.userService', [])
       url : 'api/user/create',
       data : userObj
     })
-    .then(function(res){
-      return res;
+    .then(function(res){ 
+      console.log('response  :', res);
+      console.log('response data :', res.data);
+      return res.data;
     });
   };
 

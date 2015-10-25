@@ -3,6 +3,8 @@ angular.module('crash', [
   'crash.userService',
   'crash.crashEventObj',
   'crash.profile',
+  'crash.createAccount',
+  'crash.signIn',
   'crash.history',
   'crash.crashWitness',
   'crash.crashPhoto',
@@ -20,9 +22,19 @@ angular.module('crash', [
       controllerAs: 'crashWitnessCtrl'
     })
     .when('/profile', {
-      templateUrl: 'scripts/modules/profile/profile.html',
+      templateUrl: 'scripts/modules/user/profile/profile.html',
       controller: 'ProfileController',
       controllerAs : 'profileCtrl'
+    })
+    .when('/signin', {
+      templateUrl: 'scripts/modules/user/signIn/signIn.html',
+      controller: 'SignInController',
+      controllerAs : 'signInCtrl'
+    })
+    .when('/createAccount', {
+      templateUrl: 'scripts/modules/user/createAccount/createAccount.html',
+      controller: 'CreateAccountController',
+      controllerAs : 'createAccountCtrl'
     })
     .when('/history', {
       templateUrl: 'scripts/modules/history/history.html',
@@ -120,8 +132,9 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
+    console.log('userObj : ', userObj);
     return $http({
-      method : 'GET',
+      method : 'POST',
       url : 'api/user/signin',
       data : userObj
     })
@@ -142,8 +155,10 @@ angular.module('crash.userService', [])
       url : 'api/user/create',
       data : userObj
     })
-    .then(function(res){
-      return res;
+    .then(function(res){ 
+      console.log('response  :', res);
+      console.log('response data :', res.data);
+      return res.data;
     });
   };
 
@@ -364,9 +379,48 @@ angular.module('crash.history', [])
 
 });
 
+angular.module('crash.createAccount', [])
+
+.controller('CreateAccountController', function(UserService, $window, $location){
+
+  var self = this;
+  self.user = {};
+  self.errorMessage = '';
+
+  /***
+    send the new user to the server to be stored in the database
+    get a session token and the newly created user back to be stored into window localStorage
+  ***/
+  self.createAccount = function(){
+    console.log('create account for user : ', self.user);
+    UserService.createAccount(self.user)
+      /***
+        response will be an {token:token, user:user}
+      ***/
+      .then(function(data){
+        console.log('created account, session :', data.token);
+        console.log('created account, user :', data.user);
+
+        $window.localStorage.setItem('com.crash', data.token);
+        $window.localStorage.setItem('currentUser', data.user);
+
+        $location.path('/');
+      })
+      /***
+        Tell the user the error, ex: username already exists, allow them to enter in a different username...
+      ***/
+      .catch(function(err){
+        console.log('Error creating account...', err.data);
+        self.errorMessage = err.data.error;
+        self.user.username = '';
+      });
+  };
+
+});
+
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function($scope, UserService){
+.controller('ProfileController', function(UserService, $window, $location){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -389,4 +443,37 @@ angular.module('crash.profile', [])
       });
   };
 
+  /***
+    sign the user out by destroying the window.localStorage token and info
+  ***/
+  self.signOut = function(){
+    $window.localStorage.clear();
+    $location.path('/signin');
+  };
+
+});
+
+angular.module('crash.signIn', [])
+
+.controller('SignInController', function(UserService){
+  
+  var self = this;
+
+  self.user = {};
+
+  /***
+    Pass the user object to the signin function which holds the username and password
+    Sign the User In and get a session back from the server
+  ***/
+  self.signIn = function(){
+    console.log('sign user in...');
+    UserService.signin(self.user)
+      .then(function(session){
+        console.log('session : ', session);
+      })
+      .catch(function(err){
+        console.log('Error signing in...', err);
+      });
+  };
+  
 });
