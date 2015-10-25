@@ -13,9 +13,10 @@ module.exports = function(app){
   // GET
   app.get('/signin', userController.signin);
   app.get('/signout', userController.signout);
+  app.get('/read', userController.readAccount);
 
   // POST 
-  app.post('/createAccount', userController.createAccount);
-  app.post('/updateuser', userController.updateUser);
+  app.post('/create', userController.createAccount);
+  app.post('/updateuser', userController.updateUser);  //TODO: after MVP
 
 };

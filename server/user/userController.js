@@ -13,20 +13,79 @@ var Q = require('q');
 module.exports = {
 
   // GET
-  signin : function(){
+  signin : function(req, res, next){
+    var username = req.body.username;
+    var password = req.body.password;
 
+    //find user in DB
+    User.findOne({username: username})
+      .then(function (user) {
+        if(!user) {
+          next(new Error('User does not exist'));
+        } else {
+          //TODO: authenication(Password)
+          //TODO: create session
+        }
+      });
   },
 
   signout : function(){
+    //TODO: terminate session
+  },
+
+  readAccount : function(req, res, next){
+    console.log('read username account: ', username);
+    var username = req.query.username;
+    //find user in DB
+    User.findOne(req.query.username)
+      .then(function (user) {
+        if(!user) {
+          next(new Error('User does not exist'));
+        } else {
+          //TODO: authenication(Password)
+          //TODO: create session
+          console.log('user found', user);
+          // send back the user
+          res.json({data : user});
+        }
+      });
 
   },
 
   // POST
-  createAccount : function(){
-    
-  },
+  createAccount : function(req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
+    var newUser;
 
-  updateUser : function(){
+    //checking if username already exits
+    User.findOne({ username: username })
+      .then(function (user) {
+        if(user) {
+          next(new Error('Username already exist'));
+        } else {
+
+          //create a new user
+          var newUser = new User({username: username, password: password});
+          //debugging
+          console.log(newUser);
+
+          //saving user to Database
+          newUser.save(function (err, newUser) {
+            if(err) {
+              console.error(err);
+            }else {
+              //debugging
+              console.dir(newUser);
+              res.send(newUser.JSON());
+            }
+          });
+        }
+    });
+
+  },
+  //updating the user i.e Address, Phone Number, Email, Insurance Data..etc
+  updateUser : function(req, res, next) {
 
   }
   
