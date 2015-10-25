@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function($scope, UserService){
+.controller('ProfileController', function(UserService, $window, $location){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -21,6 +21,14 @@ angular.module('crash.profile', [])
       .catch(function(err){
         console.log('user not received...', err);
       });
+  };
+
+  /***
+    sign the user out by destroying the window.localStorage token and info
+  ***/
+  self.signOut = function(){
+    $window.localStorage.clear();
+    $location.path('/signin');
   };
 
 });

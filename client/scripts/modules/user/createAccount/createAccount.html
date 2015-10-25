@@ -1,0 +1,42 @@
+<h1>Create Account</h1>
+
+<!-- Error Messages -->
+<!-- This should disappear once the user starts entering in a new username -->
+<div ng-show="createAccountCtrl.errorMessage !== ''" class="alert alert-danger" role="alert">
+    {{createAccountCtrl.errorMessage}}
+</div>
+
+<form name='createAccountCtrl.createAccountForm'>
+
+    <!-- Future, should be able to take photos of everything to get the same information -->
+    <input type="text" class="form-control" placeholder="Username" ng-model="createAccountCtrl.user.username">
+
+    <input type="password" class="form-control" placeholder="Password" ng-model="createAccountCtrl.user.password">
+
+    <input type="text" class="form-control" placeholder="First Name" ng-model="createAccountCtrl.user.firstname">
+
+    <input type="text" class="form-control" placeholder="Last Name" ng-model="createAccountCtrl.user.lastname">
+
+    <input type="date" class="form-control" placeholder="DOB" ng-model="createAccountCtrl.user.dob">
+
+    <input type="number" class="form-control" placeholder="Phone Number" ng-model="createAccountCtrl.user.phoneNumber">
+
+    <input type="email" class="form-control" placeholder="Email Address" ng-model="createAccountCtrl.user.email">
+
+    <input type="number" class="form-control" placeholder="Driver License Number" ng-model="createAccountCtrl.user.driverLicenseNum">
+
+    <input type="text" class="form-control" placeholder="Driver License State" ng-model="createAccountCtrl.user.driverLicenseState">
+
+    <input type="text" class="form-control" placeholder
+    ="Insurance Company" ng-model="createAccountCtrl.user.insuranceCompany">
+
+    <input type="number" class="form-control" placeholder="Insurance Policy Number" ng-model="createAccountCtrl.user.policyNum">
+
+    <input type="text" class="form-control" placeholder="Agent Name" ng-model="createAccountCtrl.user.agentName">
+
+    <input type="email" class="form-control" placeholder="Agent Email" ng-model="createAccountCtrl.user.agentEmail">  
+
+  <!-- Add validation to the form... -->
+  <button class="btn btn-success" ng-click="createAccountCtrl.createAccount()">Sign In</button>
+
+</form>
