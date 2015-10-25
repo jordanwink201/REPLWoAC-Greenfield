@@ -6,17 +6,13 @@
 
 var userController = require('./userController.js');
 
+/***
+  app is equal to userRouter from the middleware.js
+***/
 module.exports = function(app){
 
-  // app is equal to userRouter from the middleware.js
-
-  // GET
-  app.get('/signin', userController.signin);
-  app.get('/signout', userController.signout);
-  app.get('/read', userController.readAccount);
-
   // POST 
+  app.post('/signin', userController.signin);
   app.post('/create', userController.createAccount);
-  app.post('/updateuser', userController.updateUser);  //TODO: after MVP
 
 };

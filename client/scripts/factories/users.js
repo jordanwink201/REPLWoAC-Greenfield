@@ -1,6 +1,6 @@
 angular.module('crash.userService', [])
 
-.factory('UserService', function($http){ 
+.factory('UserService', function($http, $window, $location){ 
 
   /***
     url = 'api/user/signin' ($http send user obj) 
@@ -8,8 +8,9 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
+    console.log('userObj : ', userObj);
     return $http({
-      method : 'GET',
+      method : 'POST',
       url : 'api/user/signin',
       data : userObj
     })
@@ -30,33 +31,47 @@ angular.module('crash.userService', [])
       url : 'api/user/create',
       data : userObj
     })
-    .then(function(res){
-      return res;
+    .then(function(res){ 
+      return res.data;
     });
   };
 
   /***
-    url = 'api/user/read' ($http send user name)
+    url = 'api/user/read' ($http send user token)
     return from server
       success and response with the user object asked to retreive or failure if that user doesn't exist
   ***/
-  var readAccount = function(username){
-    console.log('username : ', username);
+  var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'api/user/read',
-      params: { username: username }
+      url : 'api/userAction/read'
     })
     .then(function(res){
-      console.log('response : ', res.data);
       return res.data;
     });
+  };
+
+  /***
+    return a boolean value if there is a token in the window local storage
+  ***/
+  var isAuthorized = function(){
+    return !!$window.localStorage.getItem('com.crash');
+  };
+
+  /***
+    clear all information in local storage and send the user to the signin page
+  ***/
+  var signout = function(){
+    $window.localStorage.clear();
+    $location.path('/signin');
   };
 
   return {
     signin : signin,
     createAccount : createAccount,
-    readAccount : readAccount
+    readAccount : readAccount,
+    signout : signout,
+    isAuthorized : isAuthorized
   };
 
 });

@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function($scope, UserService){
+.controller('ProfileController', function(UserService){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -14,13 +14,21 @@ angular.module('crash.profile', [])
     get the username from window.localStorage
   ***/
   self.getUser = function(){
-    UserService.readAccount('jordanw16')
+    UserService.readAccount()
       .then(function(user){
+        console.log('user : ', user);
         self.userObj = user.data;
       })
       .catch(function(err){
         console.log('user not received...', err);
       });
+  };
+
+  /***
+    sign the user out by destroying the window.localStorage token and info
+  ***/
+  self.signOut = function(){
+    UserService.signout();
   };
 
 });

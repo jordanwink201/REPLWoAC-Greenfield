@@ -1,0 +1,20 @@
+<h1>Sign In</h1>
+
+<!-- Error Messages -->
+<!-- This should disappear once the user starts entering in a new username -->
+<div ng-show="signInCtrl.errorMessage !== ''" class="alert alert-danger" role="alert">
+    {{signInCtrl.errorMessage}}
+</div>
+
+<form name='signInCtrl.signInForm'>
+
+  <input type="text" class="form-control" placeholder="Username" ng-model="signInCtrl.user.username">
+
+  <input type="password" class="form-control" placeholder="" ng-model="signInCtrl.user.password">
+
+  <!-- Add validation to the form... -->
+  <button class="btn btn-success" ng-click="signInCtrl.signIn()">Sign In</button>
+
+</form>
+
+<a href="#/createAccount">Don't have an account? Sign Up</a>

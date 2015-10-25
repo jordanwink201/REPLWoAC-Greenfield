@@ -3,6 +3,8 @@ angular.module('crash', [
   'crash.userService',
   'crash.crashEventObj',
   'crash.profile',
+  'crash.createAccount',
+  'crash.signIn',
   'crash.history',
   'crash.crashWitness',
   'crash.crashPhoto',
@@ -17,47 +19,126 @@ angular.module('crash', [
     .when('/', {
       templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
       controller: 'CrashWitnessController',
-      controllerAs: 'crashWitnessCtrl'
+      controllerAs: 'crashWitnessCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/profile', {
-      templateUrl: 'scripts/modules/profile/profile.html',
+      templateUrl: 'scripts/modules/user/profile/profile.html',
       controller: 'ProfileController',
-      controllerAs : 'profileCtrl'
+      controllerAs : 'profileCtrl',
+      data : {
+        authenticate : true  
+      }
+    })
+    .when('/signin', {
+      templateUrl: 'scripts/modules/user/signIn/signIn.html',
+      controller: 'SignInController',
+      controllerAs : 'signInCtrl',
+      data : {
+        authenticate : false  
+      }
+    })
+    .when('/createAccount', {
+      templateUrl: 'scripts/modules/user/createAccount/createAccount.html',
+      controller: 'CreateAccountController',
+      controllerAs : 'createAccountCtrl',
+      data : {
+        authenticate : false  
+      }
     })
     .when('/history', {
       templateUrl: 'scripts/modules/history/history.html',
       controller: 'HistoryController',
-      controllerAs : 'historyCtrl'
+      controllerAs : 'historyCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/crashPhoto', {
       templateUrl: 'scripts/modules/crash/crashPhoto/crashPhoto.html',
       controller: 'CrashPhotoController',
-      controllerAs: 'crashPhotoCtrl'
+      controllerAs: 'crashPhotoCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/crashDriverSearch', {
       templateUrl: 'scripts/modules/crash/crashDriverSearch/crashDriverSearch.html',
       controller: 'CrashDriverSearchController',
-      controllerAs: 'crashDriverSearchCtrl'
+      controllerAs: 'crashDriverSearchCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/crashDriverInfo', {
       templateUrl: 'scripts/modules/crash/crashDriverInfo/crashDriverInfo.html',
       controller: 'CrashDriverInfoController',
-      controllerAs: 'crashDriverInfoCtrl'
+      controllerAs: 'crashDriverInfoCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/crashEmail', {
       templateUrl: 'scripts/modules/crash/crashEmail/crashEmail.html',
       controller: 'CrashEmailController',
-      controllerAs: 'crashEmailCtrl'
+      controllerAs: 'crashEmailCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .when('/crashFinalInfo', {
       templateUrl: 'scripts/modules/crash/crashFinalInfo/crashFinalInfo.html',
       controller: 'CrashFinalInfoController',
-      controllerAs: 'crashFinalInfoCtrl'
+      controllerAs: 'crashFinalInfoCtrl',
+      data : {
+        authenticate : true  
+      }
     })
     .otherwise( {
       redirectTo: '/'
     });
+
+  /***
+    On every single call to the server, the httpProvider intercepts the call and attaches the current token to the header
+  ***/
+  $httpProvider.interceptors.push('AttachToken');
+
+})
+
+/***
+  Attach the user's token to the header of the server call
+***/
+.factory('AttachToken', function($window){
+  return {
+    request : function(object){
+      var jwt = $window.localStorage.getItem('com.crash');
+      if (jwt) {
+        object.headers['x-access-token'] = jwt; // store the token into the header
+      }
+      object.headers['Allow-Control-Allow-Origin'] = '*';
+      return object;
+    }
+  };
+})
+
+/***
+  Everytime the route changes, check if the url data.authenticate property is true, check if a session token exists, otherwise redirect the user back to the sign in page
+***/
+.run(function($rootScope, $location, UserService){
+
+  $rootScope.$on('$routeChangeStart', function(evt, next, current){
+    if (next.$$route && next.data.authenticate && !UserService.isAuthorized()) {
+      $location.path('/signin');
+    }
+  });
+
 });
+
+
+
+
 
 angular.module('crash.crashEventObj', [])
 
@@ -112,7 +193,7 @@ angular.module('crash.eventService', [])
 
 angular.module('crash.userService', [])
 
-.factory('UserService', function($http){ 
+.factory('UserService', function($http, $window, $location){ 
 
   /***
     url = 'api/user/signin' ($http send user obj) 
@@ -120,8 +201,9 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
+    console.log('userObj : ', userObj);
     return $http({
-      method : 'GET',
+      method : 'POST',
       url : 'api/user/signin',
       data : userObj
     })
@@ -142,33 +224,47 @@ angular.module('crash.userService', [])
       url : 'api/user/create',
       data : userObj
     })
-    .then(function(res){
-      return res;
+    .then(function(res){ 
+      return res.data;
     });
   };
 
   /***
-    url = 'api/user/read' ($http send user name)
+    url = 'api/user/read' ($http send user token)
     return from server
       success and response with the user object asked to retreive or failure if that user doesn't exist
   ***/
-  var readAccount = function(username){
-    console.log('username : ', username);
+  var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'api/user/read',
-      params: { username: username }
+      url : 'api/userAction/read'
     })
     .then(function(res){
-      console.log('response : ', res.data);
       return res.data;
     });
+  };
+
+  /***
+    return a boolean value if there is a token in the window local storage
+  ***/
+  var isAuthorized = function(){
+    return !!$window.localStorage.getItem('com.crash');
+  };
+
+  /***
+    clear all information in local storage and send the user to the signin page
+  ***/
+  var signout = function(){
+    $window.localStorage.clear();
+    $location.path('/signin');
   };
 
   return {
     signin : signin,
     createAccount : createAccount,
-    readAccount : readAccount
+    readAccount : readAccount,
+    signout : signout,
+    isAuthorized : isAuthorized
   };
 
 });
@@ -364,9 +460,46 @@ angular.module('crash.history', [])
 
 });
 
+angular.module('crash.createAccount', [])
+
+.controller('CreateAccountController', function(UserService, $window, $location){
+
+  var self = this;
+  self.user = {};
+  self.errorMessage = '';
+
+  /***
+    send the new user to the server to be stored in the database
+    get a session token back to be stored into window localStorage
+  ***/
+  self.createAccount = function(){
+    console.log('create account for user : ', self.user);
+    UserService.createAccount(self.user)
+      /***
+        response will be an {token:token, user:user}
+      ***/
+      .then(function(data){
+        console.log('created account, session :', data.token);
+
+        $window.localStorage.setItem('com.crash', data.token);
+
+        $location.path('/');
+      })
+      /***
+        Tell the user the error, ex: username already exists, allow them to enter in a different username...
+      ***/
+      .catch(function(err){
+        console.log('Error creating account...', err.data);
+        self.errorMessage = err.data.error;
+        self.user.username = '';
+      });
+  };
+
+});
+
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function($scope, UserService){
+.controller('ProfileController', function(UserService){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -380,8 +513,9 @@ angular.module('crash.profile', [])
     get the username from window.localStorage
   ***/
   self.getUser = function(){
-    UserService.readAccount('jordanw16')
+    UserService.readAccount()
       .then(function(user){
+        console.log('user : ', user);
         self.userObj = user.data;
       })
       .catch(function(err){
@@ -389,4 +523,45 @@ angular.module('crash.profile', [])
       });
   };
 
+  /***
+    sign the user out by destroying the window.localStorage token and info
+  ***/
+  self.signOut = function(){
+    UserService.signout();
+  };
+
+});
+
+angular.module('crash.signIn', [])
+
+.controller('SignInController', function(UserService, $window, $location){
+  
+  var self = this;
+  self.errorMessage = '';
+  self.user = {};
+
+  /***
+    Pass the user object to the signin function which holds the username and password
+    Sign the User In and get a session back from the server
+  ***/
+  self.signIn = function(){
+    console.log('sign user in...');
+    UserService.signin(self.user)
+      .then(function(data){
+        console.log('token : ', data);
+        $window.localStorage.setItem('com.crash', data.token);
+        $location.path('/');
+      })
+      /***
+        Tell the user the error, ex: the username or password provided didn't match the DB
+        Reset the input so the user can enter the information again
+      ***/
+      .catch(function(err){
+        console.log('Error signing in the user ...', err.data);
+        self.errorMessage = err.data.error;
+        self.user.username = '';
+        self.user.password = '';
+      });
+  };
+  
 });
