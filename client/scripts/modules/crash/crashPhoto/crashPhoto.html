@@ -8,7 +8,7 @@
     <!--      Take Image -->
 
     <div class="camera">
-      <video ng-model="video">Video stream not available.</video>
+      <video ng-model="crashPhotoCtrl.video">Video stream not available.</video>
       <button id="startButton">Take photo</button>
     </div>
 
@@ -26,7 +26,7 @@
       <button class='btn btn-default pull-left back'>Back</button>
     </a>
     <a href='#/crashDriverSearch'>
-      <button class='btn btn-default pull-right next'>Next</button>
+      <button class='btn btn-default pull-right next' ng-click="crashPhotoCtrl.save()">Next</button>
     </a>
   </div>
 

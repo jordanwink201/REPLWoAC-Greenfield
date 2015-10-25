@@ -10,8 +10,27 @@
 
   <!-- Profile Information should be loaded from the database and displayed -->
 
+  <h4>User</h4>
+  <p>{{profileCtrl.userObj.firstName}}</p>
+  <p>{{profileCtrl.userObj.lastName}}</p>
+  <p>{{profileCtrl.userObj.username}}</p>
+  <p>{{profileCtrl.userObj.email}}</p>
+  <p>{{profileCtrl.userObj.phoneNumber}}</p>
+  <p>{{profileCtrl.userObj.dob}}</p>
+  <p>{{profileCtrl.userObj.password}}</p>
+
+  <h4>Driver Info</h4>
+  <p>{{profileCtrl.userObj.driverLicenseNum}}</p>
+  <p>{{profileCtrl.userObj.driverLicenseState}}</p>
+
+  <h4>Insurance Info</h4>
+  <p>{{profileCtrl.userObj.agentEmail}}</p>
+  <p>{{profileCtrl.userObj.agentName}}</p>
+  <p>{{profileCtrl.userObj.insuranceCompany}}</p>
+  <p>{{profileCtrl.userObj.policyNum}}</p>
+
   <div>
-    <a href="#/logout"  class="btn btn-danger">Logout</a>  
+    <a href="#/logout"  class="btn btn-danger">Logout</a
   </div>
 </div>
 

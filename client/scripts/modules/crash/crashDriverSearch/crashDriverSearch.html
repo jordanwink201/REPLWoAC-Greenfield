@@ -9,8 +9,8 @@
 		<form name='crashDriverSearchForm'>
 
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="User's Username">
-        <a class="btn btn-success input-group-addon">Add User</a>
+        <input ng-model="crashDriverSearchCtrl.username" type="text" class="form-control" placeholder="User's Username">
+        <a class="btn btn-success input-group-addon" ng-click="crashDriverSearchCtrl.getUser()">Add User</a>
       </div>
       
 		</form>

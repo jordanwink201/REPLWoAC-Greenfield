@@ -1,6 +1,7 @@
 angular.module('crash', [
   'crash.eventService',
   'crash.userService',
+  'crash.crashEventObj',
   'crash.profile',
   'crash.history',
   'crash.crashWitness',
@@ -56,6 +57,14 @@ angular.module('crash', [
     .otherwise( {
       redirectTo: '/'
     });
+});
+
+angular.module('crash.crashEventObj', [])
+
+.service('CrashEventObj', function(){ 
+
+  this.crashEvent = {};
+
 });
 
 angular.module('crash.eventService', [])
@@ -166,81 +175,192 @@ angular.module('crash.userService', [])
 
 angular.module('crash.crashDriverInfo', [])
 
-.controller('CrashDriverInfoController', function () {
+.controller('CrashDriverInfoController', function(CrashEventObj){
+
+  // Things to think about... maybe there's more than one other drive info that you want to enter...
+  // Maybe by you entering their info since they don't have an account, this actually creates one for them and sends them the info to signup and everything...
+  
   var self = this;
+  self.person = {};
+  self.personMaster = {
+    firstname : '',
+    lastname : '',
+    dob : '',
+    phoneNumber : '',
+    email : '',
+    driverLicenseNum : '',
+    insuranceCompany : '',
+    policyNum : '',
+    agentName : '',
+    agentEmail : ''
+  };
+
+  /***
+    save the crash user obj into the CrashEventObj.crashEvent object
+  ***/
+  self.save = function(){
+    console.log('saving...');
+    CrashEventObj.crashEvent.crashDriver = self.person;
+    self.person = self.personMaster;
+  };
+
 });
 
 angular.module('crash.crashDriverSearch', [])
 
-.controller('CrashDriverSearchController', function() {
+.controller('CrashDriverSearchController', function(UserService, CrashEventObj) {
+  
   var self = this;
+
+  self.crashDriver = {};
+
+  /***
+    retreive the user's information by their username
+    save the crash driver obj into the CrashEventObj.crashEvent object
+  ***/
+  self.getUser = function(){
+    var inputUsername = self.username;
+    UserService.readAccount('')
+      .then(function(user){
+        self.crashDriver = user.data;
+        CrashEventObj.crashEvent.crashDriver = self.crashDriver;
+      })
+      .catch(function(err){
+        console.log('user not received...', err);
+      });
+  };
+
 });
+
 angular.module('crash.crashEmail', [])
 
 .controller('CrashEmailController', function() {
-  var self = this;
-});
-angular.module('crash.crashFinalInfo', [])
+  
+  // Possibly in the future connect to any insurance API's...
 
-.controller('CrashFinalInfoController', function () {
-  var self = this;
-});
-angular.module('crash.crashPhoto', [])
-
-.controller('CrashPhotoController', function() {
   var self = this;
 
-  self = {
-    video : null
+  /***
+    send email to insurance company
+  ***/
+  self.sendEmail = function(){
+    
   };
 
-  var width = 320; // We will scale the photo width to this
-  var height = 0; // This will be computed based on the input stream
+});
 
-  var streaming = false;
+angular.module('crash.crashFinalInfo', [])
 
-  function startup() {
-    video = document.getElementById('video');
-    canvas = document.getElementById('canvas');
-    photo = document.getElementById('photo');
-    startbutton = document.getElementById('startbutton');
-  }
+.controller('CrashFinalInfoController', function(CrashEventObj){
+  
+  var self = this;
 
-  console.log('self : ', self.video);
+  /***
+    load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
+  ***/
+  self.loadCrashObj = function(){
+    console.log('CrashEventObj : ', CrashEventObj);
+  };
 
-  navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+});
 
-  navigator.getMedia( { video: true, audio: false },
-    function(stream) {
-      console.log('stream : ', stream);
-      console.log('navigator.mozGetUserMedia : ', navigator.mozGetUserMedia);
-      if (navigator.mozGetUserMedia) {
-        video.mozSrcObject = stream;
-      } else {
-        var vendorURL = window.URL || window.webkitURL;
-        console.log('vendorURL : ', vendorURL);
-        console.log('video : ', video);
-        video.src = vendorURL.createObjectURL(stream);
-      }
-      video.play();
-    },
-    function(err) {
-      console.log("An error occured! " + err);
-    }
-  );
+angular.module('crash.crashPhoto', [])
+
+.controller('CrashPhotoController', function(CrashEventObj) {
+  var self = this;
+  self.images = [];
+
+  // self = {
+  //   video : null
+  // };
+
+  // var width = 320; // We will scale the photo width to this
+  // var height = 0; // This will be computed based on the input stream
+
+  // var streaming = false;
+
+  // function startup() {
+  //   video = document.getElementById('video');
+  //   canvas = document.getElementById('canvas');
+  //   photo = document.getElementById('photo');
+  //   startbutton = document.getElementById('startbutton');
+  // }
+
+  // console.log('self : ', self.video);
+
+  // navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+  // navigator.getMedia( { video: true, audio: false },
+  //   function(stream) {
+  //     console.log('stream : ', stream);
+  //     console.log('navigator.mozGetUserMedia : ', navigator.mozGetUserMedia);
+  //     if (navigator.mozGetUserMedia) {
+  //       video.mozSrcObject = stream;
+  //     } else {
+  //       var vendorURL = window.URL || window.webkitURL;
+  //       console.log('vendorURL : ', vendorURL);
+  //       console.log('video : ', video);
+  //       video.src = vendorURL.createObjectURL(stream);
+  //     }
+  //     video.play();
+  //   },
+  //   function(err) {
+  //     console.log("An error occured! " + err);
+  //   }
+  // );
+
+  /***
+    save the images into the CrashEventObj.crashEvent object
+  ***/
+  self.save = function(){
+    console.log('saving...');
+    CrashEventObj.crashEvent.images = self.images;
+  };
 
 });
 
 angular.module('crash.crashWitness', [])
 
-.controller('CrashWitnessController', function() {
+.controller('CrashWitnessController', function(CrashEventObj) {
+  
   var self = this;
+  self.witnessArr = [];
+  self.person = {};
+  self.personMaster = {
+    firstname : '',
+    lastname : '',
+    phoneNumber : '',
+    email : ''
+  };
+
+  /***
+    store the person object into the witness array
+    clear the input text fields after adding the person, so the user can easily add another witness
+  ***/
+  self.addWitness = function(){
+    console.log('add witness...');
+    self.witnessArr.push(self.person);
+    self.person = angular.copy(self.master);
+  };
+
+  /***
+    save the witness array into the CrashEventObj.crashEvent object
+  ***/
+  self.save = function(){
+    console.log('saving...');
+    CrashEventObj.crashEvent.witnessArr = self.witnessArr;
+  };
+
 });
+
 angular.module('crash.history', [])
 
 .controller('HistoryController', function(EventService){
 
   // user the event service to retreive crash events by the curret user name 
+  var self = this;
+
+  
 
 });
 
@@ -254,16 +374,15 @@ angular.module('crash.profile', [])
 
   var self = this;
 
-  self.user = {};
+  self.userObj = {};
 
+  /***
+    get the username from window.localStorage
+  ***/
   self.getUser = function(){
-    // get the username from somewhere
     UserService.readAccount('jordanw16')
       .then(function(user){
-        console.log('user received : ', user);
         self.userObj = user.data;
-        console.log('self.userObj : ', self.userObj);
-
       })
       .catch(function(err){
         console.log('user not received...', err);

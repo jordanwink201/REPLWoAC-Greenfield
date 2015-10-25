@@ -1,4 +1,4 @@
-<div id='crashFinalInfo'>
+<div id='crashFinalInfo' ng-init="crashFinalInfoCtrl.loadCrashObj()">
   <h3>Please Review If Everything is Correct.</h3>
   <div class='crashFinalInfoPage'>
 
@@ -6,6 +6,8 @@
 
     <h4>Witness Info</h4>
     <form name='witnessForm'>
+
+      <!-- There could be mutliple witnesses so use ng-repeat -->
 
       <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
 
@@ -15,13 +17,11 @@
 
       <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
 
-      <!-- This button should only show if any changes are being made to the form. Validation should be checked as well... -->
-      <button class="btn btn-primary">Save Changes</button>
-
     </form>
 
     <h4>Other Driver Info</h4>
 
+    <!-- This form doesn't need to be shown if they didn't enter in this information manually, if they got the other drive info by looking it up in the database by username then no edits should be allowed and should show in a different format such as a bootstrap panel or card -->
     <form name='crashDriverInfo'>
 
       <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
@@ -45,17 +45,14 @@
 
       <input type="text" class="form-control" placeholder="Agent Email" ng-model="person.agentEmail">   
 
-      <!-- This button should only show if any changes are being made to the form. Validation should be checked as well... -->
-      <button class="btn btn-primary">Save Changes</button> 
-
     </form> 
+
+    <!-- Validation should be checked as well... -->
+    <a href="#/home" class="btn btn-success">Save</a> 
 
   <div class='bottomButtons'>
     <a href='#/crashEmail'>
       <button class='btn btn-default pull-left back'>Back</button>
-    </a>
-    <a href='#/home'>
-      <button class='btn btn-default pull-right next'>Next</button>
     </a>
   </div>
 

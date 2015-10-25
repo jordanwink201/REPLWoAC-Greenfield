@@ -8,16 +8,15 @@ angular.module('crash.profile', [])
 
   var self = this;
 
-  self.user = {};
+  self.userObj = {};
 
+  /***
+    get the username from window.localStorage
+  ***/
   self.getUser = function(){
-    // get the username from somewhere
     UserService.readAccount('jordanw16')
       .then(function(user){
-        console.log('user received : ', user);
         self.userObj = user.data;
-        console.log('self.userObj : ', self.userObj);
-
       })
       .catch(function(err){
         console.log('user not received...', err);

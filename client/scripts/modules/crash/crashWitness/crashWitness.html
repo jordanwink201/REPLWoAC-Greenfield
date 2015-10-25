@@ -5,26 +5,29 @@
 		<p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
 	</div>
 
-  <input type="text" id="tester">
+  <form name='crashWitnessCtrl.witnessForm'>
 
-  <form name='witnessForm'>
+    <input type="text" class="form-control" placeholder="First Name" ng-model="crashWitnessCtrl.person.firstname">
 
-    <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+    <input type="text" class="form-control" placeholder="Last Name" ng-model="crashWitnessCtrl.person.lastname">
 
-    <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+    <input type="text" class="form-control" placeholder="Phone Number" ng-model="crashWitnessCtrl.person.phoneNumber">
 
-    <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
-
-    <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+    <input type="text" class="form-control" placeholder="Email Address" ng-model="crashWitnessCtrl.person.email">
 
     <!-- This Button will take the input from the input fields and store the witness info into an object, it will then clear the input fields so that the user can add more than one witness. It will also add the list of witnesses dynamically so the viewer can see who they've added. Also add validation here... -->
-    <button class="btn btn-primary">Add Another Witness</button>
+    <button class="btn btn-primary" ng-click="crashWitnessCtrl.addWitness()">Add Another Witness</button>
 
   </form>
 
   <!-- Add the witnesses that have been added here -->
   <ul>
-    <!-- <li ng-repeat=""></li> -->
+    <li ng-repeat="personObj in crashWitnessCtrl.witnessArr">
+      <p>{{personObj.firstname}}</p>
+      <p>{{personObj.lastname}}</p>
+      <p>{{personObj.phonNumber}}</p>
+      <p>{{personObj.email}}</p>
+    </li>
   </ul>
   
 
@@ -33,7 +36,7 @@
       <button class='btn btn-default pull-left back'>Back</button>
     </a>
     <a href='#/crashPhoto'>
-  		<button class='btn btn-default pull-right next'>Next</button>
+  		<button class='btn btn-default pull-right next' ng-click="crashWitnessCtrl.save()">Next</button>
     </a>
 	</div>
 </div>
