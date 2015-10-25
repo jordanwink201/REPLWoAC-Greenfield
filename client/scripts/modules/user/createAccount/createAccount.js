@@ -8,7 +8,7 @@ angular.module('crash.createAccount', [])
 
   /***
     send the new user to the server to be stored in the database
-    get a session token and the newly created user back to be stored into window localStorage
+    get a session token back to be stored into window localStorage
   ***/
   self.createAccount = function(){
     console.log('create account for user : ', self.user);
@@ -18,10 +18,8 @@ angular.module('crash.createAccount', [])
       ***/
       .then(function(data){
         console.log('created account, session :', data.token);
-        console.log('created account, user :', data.user);
 
         $window.localStorage.setItem('com.crash', data.token);
-        $window.localStorage.setItem('currentUser', data.user);
 
         $location.path('/');
       })

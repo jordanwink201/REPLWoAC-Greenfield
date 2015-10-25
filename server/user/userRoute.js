@@ -11,7 +11,6 @@ module.exports = function(app){
   // app is equal to userRouter from the middleware.js
 
   // GET
-  app.get('/signout', userController.signout);
   app.get('/read', userController.readAccount);
 
   // POST 

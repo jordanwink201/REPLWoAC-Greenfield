@@ -14,18 +14,15 @@ var User = require('./userModel.js');
 module.exports = {
 
   // GET
-  signout : function(){
-    //TODO: terminate session
-  },
-
   readAccount : function(req, res, next){
-    console.log('read username account: ', username);
-    var username = req.query.username;
 
+    // utility decode function get's the token that was sent and attaches it to the request object as req.user
+
+    var username = req.user.username;
     var findOne = Q.nbind(User.findOne, User);
 
     //find user in DB
-    User.findOne(req.query.username)
+    User.findOne(username)
       .then(function (user) {
         if(!user) {
           next(new Error('User does not exist'));
@@ -47,19 +44,36 @@ module.exports = {
     var username = req.body.username;
     var password = req.body.password;
 
-    //find user in DB
-    User.findOne({username: username})
+    // this binding must take place in order to access the userSchema.methods
+    var findUser = Q.nbind(User.findOne, User);
+
+    /***
+      Find the user based on the username in the DB
+      then check the save password for that found user and see if it's the same as the one entered by the user attached to the request object
+      if the passwords match, create a token for the user and send it back to the client
+    ***/
+    findUser({username: username})
       .then(function (user) {
         if(!user) {
-          next(new Error('User does not exist'));
+          throw(new Error('User could not be found'));
         } else {
-          
-          console.log('found the user : ', user, ' now check the password...');
-          //TODO: authenication(Password)
-          
-          //TODO: create session
+
+          return user.comparePasswords(password)
+            .then(function(doesMatch){
+              if(!doesMatch){
+                throw(new Error('Password does not match the username'));
+              } else {
+                // Create a session token for the user and send it back
+                var token = jwt.encode(user, 'secret');
+                res.json({ token : token });
+              }
+            });
 
         }
+      })
+      .catch(function(err){
+        console.log('error signing the user in...', err);
+        res.status(404).send({error : err.message});
       });
   },
 
@@ -100,9 +114,9 @@ module.exports = {
       })
       .then(function(newUserCreated){
         console.log('new user successfully stored in database : ', newUserCreated);
-        // Create a session token for the user and send it back along with the newly created user object
+        // Create a session token for the user and send it back
         var token = jwt.encode(newUserCreated, 'secret');
-        res.json({ token : token, user : newUserCreated });
+        res.json({ token : token });
 
       })
       .catch(function(err){

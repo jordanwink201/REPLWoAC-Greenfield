@@ -10,6 +10,24 @@
 
 - ALL API URL's are singular and are all lowercase ex : 'api/user/signin'
 
+/*** 
+
+  Tokens and Auth
+
+***/
+
+client -> server
+  |--> using $httpProvider to attach the token from window.localStorage
+
+server -> client
+  |--> every incoming request to api/event/ calls the decode token method which then attachs the decoded user object to the request object
+
+/*** 
+
+  Routes
+
+***/
+
 userRouter = 'api/user/'
               - /signin
               - /signout

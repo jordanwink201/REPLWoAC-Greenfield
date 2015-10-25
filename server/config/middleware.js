@@ -5,7 +5,8 @@
 ***/
 
 var Utils = require('./utility.js');
-var bodyParser = require('body-parser'); // for parsing the req body
+    bodyParser = require('body-parser'); // for parsing the req body
+
 
 module.exports = function(app, express){
 
@@ -20,6 +21,7 @@ module.exports = function(app, express){
 
   // Define URL
   app.use('/api/user', userRouter); // use the userRouter for all user requests, note the '/api/user'
+  app.use('/api/event', Utils.decode); // decode user token before proceeding any further
   app.use('/api/event', eventRouter); // use the eventRouter for all crash event requests, note the '/api/event'
 
   // Pass the userRouter to the function in userRouters

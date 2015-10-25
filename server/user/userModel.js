@@ -38,14 +38,32 @@ var userSchema = new Schema({
     default: Date.now 
   }, 
 
-  
   //add a documentPhoto feature after MVP is acheived
 
 });
 
-var User = mongoose.model("User", userSchema);
+/***
+  Compare the password from the database associated to the user with the password that is attached to the request object
+***/
+userSchema.methods.comparePasswords = function(reqestObjPassword){
+  console.log('COMPARE PASSWORDS...');
+  var defer = Q.defer();
+  var databasePassword = this.password;
 
-module.exports = User;
+  console.log('databasePassword : ', this.password);
+  console.log('reqestObjPassword : ', reqestObjPassword);
+
+  bcrypt.compare(reqestObjPassword, databasePassword, function(err, isMatch){
+    if (err) {
+      defer.reject(err);
+    } else {
+      defer.resolve(isMatch);
+    }
+  });
+
+  return defer.promise;
+
+};
 
 /***
   Before the user gets saved into the database, the password that was provided to create the account needs to be encrypted...
@@ -79,9 +97,13 @@ userSchema.pre('save', function(next){
       next();
     });
 
-
   });
   
 });
+
+/***
+  Export the User model based on the user schema 
+***/
+module.exports = mongoose.model("User", userSchema);
 
 

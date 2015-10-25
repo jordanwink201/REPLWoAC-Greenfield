@@ -1,5 +1,11 @@
 <h1>Sign In</h1>
 
+<!-- Error Messages -->
+<!-- This should disappear once the user starts entering in a new username -->
+<div ng-show="signInCtrl.errorMessage !== ''" class="alert alert-danger" role="alert">
+    {{signInCtrl.errorMessage}}
+</div>
+
 <form name='signInCtrl.signInForm'>
 
   <input type="text" class="form-control" placeholder="Username" ng-model="signInCtrl.user.username">
