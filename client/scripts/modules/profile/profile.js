@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(UserService){
+.controller('ProfileController', function($scope, UserService){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -8,8 +8,20 @@ angular.module('crash.profile', [])
 
   var self = this;
 
-  self.navigate = function(){
-    $location.path('/home');
+  self.user = {};
+
+  self.getUser = function(){
+    // get the username from somewhere
+    UserService.readAccount('jordanw16')
+      .then(function(user){
+        console.log('user received : ', user);
+        self.userObj = user.data;
+        console.log('self.userObj : ', self.userObj);
+
+      })
+      .catch(function(err){
+        console.log('user not received...', err);
+      });
   };
 
 });

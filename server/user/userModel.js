@@ -1,5 +1,10 @@
 /***
 
+<<<<<<< HEAD
+
+  
+=======
+>>>>>>> tested db connection and interaction, work
   User Model
 
 ***/
@@ -33,13 +38,13 @@ var userSchema = new Schema({
   agentName : String,
   agentEmail : String,
 
-  // add a documentPhoto feature after MVP is acheived
+  
+  //add a documentPhoto feature after MVP is acheived
 
 });
 
 var User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
 
 

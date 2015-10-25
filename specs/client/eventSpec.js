@@ -1,18 +1,26 @@
-describe('profile controller testing', function(){
+describe('ProfileController', function(){
 
-  beforeEach(module('crash.profile'));
+  var $scope, $rootScope, createController, UserService, $httpBackend;
 
-  var ctrl, $loc;
+  beforeEach(module('crash'));
+  beforeEach(inject(function($injector){
 
-  beforeEach(inject(function($controller, $location){
-    ctrl = $controller('ProfileController');
-    $loc = $location;
+    $rootScope = $injector.get('$rootScope');
+    $httpBackend = $injector.get('$httpBackend');
+    UserService = $injector.get('UserService');
+    $scope = $rootScope.$new();
+
+    var $controller = $injector.get('$controller');
+
+    createController = function(){
+      return $controller('ProfileController', {
+        $scope : $scope,
+        UserService : UserService
+      });
+    };
+
   }));
 
-  it('should navigate away from the current page', function(){
-    $loc.path('/somePath');
-    ctrl.navigate(); // call the function
-    expect($loc.path()).toEqual('/home');
-  });
+  // it('should have a ')
 
 });

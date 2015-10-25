@@ -1,5 +1,17 @@
-<h1>Profile</h1>
+<div ng-init="profileCtrl.getUser()">
+  <h1>Profile</h1>
 
-<!-- Have the ability to display and change their user information and logout (destroy session) -->
+  <!-- Have the ability to display and change their user information and logout (destroy session) -->
 
-<a href="#/logout"  class="btn btn-danger">Logout</a>
+  <!-- Profile Image -->
+  <div> 
+    <img src="../../../assets/images/crashProfile.jpg" alt="..." width="30%" class="img-thumbnail">
+  </div>
+
+  <!-- Profile Information should be loaded from the database and displayed -->
+
+  <div>
+    <a href="#/logout"  class="btn btn-danger">Logout</a>  
+  </div>
+</div>
+

@@ -3,7 +3,6 @@ angular.module('crash', [
   'crash.userService',
   'crash.profile',
   'crash.history',
-  'crash.home',
   'crash.crashWitness',
   'crash.crashPhoto',
   'crash.crashDriverSearch',
@@ -15,8 +14,9 @@ angular.module('crash', [
 .config(function($routeProvider, $httpProvider) {
 	$routeProvider
     .when('/', {
-      templateUrl: 'scripts/modules/home/home.html',
-      controller: 'HomeController'
+      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
+      controller: 'CrashWitnessController',
+      controllerAs: 'crashWitnessCtrl'
     })
     .when('/profile', {
       templateUrl: 'scripts/modules/profile/profile.html',
@@ -27,11 +27,6 @@ angular.module('crash', [
       templateUrl: 'scripts/modules/history/history.html',
       controller: 'HistoryController',
       controllerAs : 'historyCtrl'
-    })
-    .when('/crashWitness', {
-      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
-      controller: 'CrashWitnessController',
-      controllerAs: 'crashWitnessCtrl'
     })
     .when('/crashPhoto', {
       templateUrl: 'scripts/modules/crash/crashPhoto/crashPhoto.html',
@@ -116,7 +111,7 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
-    $http({
+    return $http({
       method : 'GET',
       url : 'api/user/signin',
       data : userObj
@@ -133,13 +128,13 @@ angular.module('crash.userService', [])
       (future : get the user object and store the user info into window.localStorage)
   ***/
   var createAccount = function(userObj){
-    $http({
+    return $http({
       method : 'POST',
       url : 'api/user/create',
       data : userObj
     })
     .then(function(res){
-      return res.data;
+      return res;
     });
   };
 
@@ -149,12 +144,14 @@ angular.module('crash.userService', [])
       success and response with the user object asked to retreive or failure if that user doesn't exist
   ***/
   var readAccount = function(username){
-    $http({
+    console.log('username : ', username);
+    return $http({
       method : 'GET',
       url : 'api/user/read',
-      data : username
+      params: { username: username }
     })
     .then(function(res){
+      console.log('response : ', res.data);
       return res.data;
     });
   };
@@ -192,16 +189,52 @@ angular.module('crash.crashPhoto', [])
 
 .controller('CrashPhotoController', function() {
   var self = this;
+
+  self = {
+    video : null
+  };
+
+  var width = 320; // We will scale the photo width to this
+  var height = 0; // This will be computed based on the input stream
+
+  var streaming = false;
+
+  function startup() {
+    video = document.getElementById('video');
+    canvas = document.getElementById('canvas');
+    photo = document.getElementById('photo');
+    startbutton = document.getElementById('startbutton');
+  }
+
+  console.log('self : ', self.video);
+
+  navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+  navigator.getMedia( { video: true, audio: false },
+    function(stream) {
+      console.log('stream : ', stream);
+      console.log('navigator.mozGetUserMedia : ', navigator.mozGetUserMedia);
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        console.log('vendorURL : ', vendorURL);
+        console.log('video : ', video);
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    }
+  );
+
 });
+
 angular.module('crash.crashWitness', [])
 
 .controller('CrashWitnessController', function() {
   var self = this;
-});
-angular.module('crash.crashWitnessInfo', [])
-
-.controller('CrashWitnessInfoController', function() {
-
 });
 angular.module('crash.history', [])
 
@@ -211,18 +244,30 @@ angular.module('crash.history', [])
 
 });
 
-angular.module('crash.home', [])
-
-.controller('HomeController', function() {
-
-});
-
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(UserService){
+.controller('ProfileController', function($scope, UserService){
 
   // Get the current user's information either from window.localStorage or using GET request
 
   // Be able to update the user's information (everything just be able to be updated except for their username, if they want to change their password then they'll be signed out and have to sign back in with their new password)
+
+  var self = this;
+
+  self.user = {};
+
+  self.getUser = function(){
+    // get the username from somewhere
+    UserService.readAccount('jordanw16')
+      .then(function(user){
+        console.log('user received : ', user);
+        self.userObj = user.data;
+        console.log('self.userObj : ', self.userObj);
+
+      })
+      .catch(function(err){
+        console.log('user not received...', err);
+      });
+  };
 
 });

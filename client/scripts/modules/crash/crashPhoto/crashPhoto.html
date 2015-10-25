@@ -7,10 +7,22 @@
     <p>Take Photos</p>
     <!--      Take Image -->
 
+    <div class="camera">
+      <video ng-model="video">Video stream not available.</video>
+      <button id="startButton">Take photo</button>
+    </div>
+
+    <!-- Caputred the frames  -->
+    <canvas id="canvas"></canvas>
+
+    <div class="output">
+      <img id="photo" alt="The screen capture will appear in this box.">
+    </div>
+
   </div>
 
   <div class='bottomButtons'>
-    <a href='#/crashWitness'>
+    <a href='#/'>
       <button class='btn btn-default pull-left back'>Back</button>
     </a>
     <a href='#/crashDriverSearch'>

@@ -8,7 +8,7 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
-    $http({
+    return $http({
       method : 'GET',
       url : 'api/user/signin',
       data : userObj
@@ -25,13 +25,13 @@ angular.module('crash.userService', [])
       (future : get the user object and store the user info into window.localStorage)
   ***/
   var createAccount = function(userObj){
-    $http({
+    return $http({
       method : 'POST',
       url : 'api/user/create',
       data : userObj
     })
     .then(function(res){
-      return res.data;
+      return res;
     });
   };
 
@@ -41,12 +41,14 @@ angular.module('crash.userService', [])
       success and response with the user object asked to retreive or failure if that user doesn't exist
   ***/
   var readAccount = function(username){
-    $http({
+    console.log('username : ', username);
+    return $http({
       method : 'GET',
       url : 'api/user/read',
-      data : username
+      params: { username: username }
     })
     .then(function(res){
+      console.log('response : ', res.data);
       return res.data;
     });
   };

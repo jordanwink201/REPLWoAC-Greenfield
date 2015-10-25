@@ -3,7 +3,6 @@ angular.module('crash', [
   'crash.userService',
   'crash.profile',
   'crash.history',
-  'crash.home',
   'crash.crashWitness',
   'crash.crashPhoto',
   'crash.crashDriverSearch',
@@ -15,8 +14,9 @@ angular.module('crash', [
 .config(function($routeProvider, $httpProvider) {
 	$routeProvider
     .when('/', {
-      templateUrl: 'scripts/modules/home/home.html',
-      controller: 'HomeController'
+      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
+      controller: 'CrashWitnessController',
+      controllerAs: 'crashWitnessCtrl'
     })
     .when('/profile', {
       templateUrl: 'scripts/modules/profile/profile.html',
@@ -27,11 +27,6 @@ angular.module('crash', [
       templateUrl: 'scripts/modules/history/history.html',
       controller: 'HistoryController',
       controllerAs : 'historyCtrl'
-    })
-    .when('/crashWitness', {
-      templateUrl: 'scripts/modules/crash/crashWitness/crashWitness.html',
-      controller: 'CrashWitnessController',
-      controllerAs: 'crashWitnessCtrl'
     })
     .when('/crashPhoto', {
       templateUrl: 'scripts/modules/crash/crashPhoto/crashPhoto.html',
