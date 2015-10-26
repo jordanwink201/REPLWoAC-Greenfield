@@ -24,18 +24,17 @@ module.exports = {
     get the user from the database and send back to the client
   ***/
   readAccount : function(req, res, next){
-    console.log('reqest : ', req.user);
+    console.log('REQUEST : ', req.user);
 
     // this binding must take place in order to access the userSchema.methods
     var findUser = Q.nbind(User.findOne, User);
 
     //find user in DB
-    findUser(req.user.username)
+    findUser({ 'username' : req.user.username })
       .then(function (user) {
         if(!user) {
           next(new Error('User does not exist'));
         } else {
-          // send back the user
           res.json({data : user});
         }
       })

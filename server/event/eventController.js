@@ -24,7 +24,26 @@ module.exports = {
   readCrashEvent :  function (req, res, next) {
 
     console.log('read all crash events... for user ', req.user.username);
+    var usernameToLookUp = req.user.username;
 
+    // this binding must take place in order to access the eventSchema.methods
+    var findCrashEvents = Q.nbind(CrashEvent.find, CrashEvent);
+
+    findCrashEvents({ 'user' : usernameToLookUp })
+      .then(function (crashEvents) {
+        if(!crashEvents) {
+          throw(new Error('No crash events could be found'));
+        } else {
+
+          console.log('CRASH EVENTS : ', crashEvents);
+          res.send(crashEvents);
+
+        }
+      })
+      .catch(function(err){
+        console.log('error finding the crash events in...', err);
+        res.status(404).send({error : err.message});
+      });
     
       
   },

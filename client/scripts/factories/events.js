@@ -26,8 +26,7 @@ angular.module('crash.eventService', [])
   var readCrashEvent = function(username){
     return $http({
       method : 'GET',
-      url : 'api/event/read',
-      data : username
+      url : 'api/event/read'
     })
     .then(function(res){
       return res.data;

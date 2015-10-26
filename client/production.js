@@ -176,8 +176,7 @@ angular.module('crash.eventService', [])
   var readCrashEvent = function(username){
     return $http({
       method : 'GET',
-      url : 'api/event/read',
-      data : username
+      url : 'api/event/read'
     })
     .then(function(res){
       return res.data;
@@ -549,7 +548,18 @@ angular.module('crash.history', [])
   // user the event service to retreive crash events by the curret user name 
   var self = this;
 
-  
+  /***
+    Retreive all crash events that are in the database associated to the current user
+  ***/
+  self.getCrashEvents = function(){
+    EventService.readCrashEvent()
+      .then(function(data){
+        console.log('events : ', data);
+      })
+      .catch(function(err){
+        console.log('ERror getting events...', err);
+      });
+  };
 
 });
 
