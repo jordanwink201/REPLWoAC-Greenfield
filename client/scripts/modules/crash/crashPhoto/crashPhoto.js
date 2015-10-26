@@ -75,7 +75,7 @@ angular.module('crash.crashPhoto', [])
   $scope.takePhoto = function(){
     console.log('take photo...');
     takepicture();
-    clearphoto();
+    // clearphoto();
     
   };
 

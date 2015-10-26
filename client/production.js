@@ -245,6 +245,22 @@ angular.module('crash.userService', [])
   };
 
   /***
+    url = 'api/user/read' ($http send user name via params)
+    return from server
+      success and response with the user object asked to retreive or failure if that user doesn't exist
+  ***/
+  var getAccountByUsername = function(username){
+    return $http({
+      method : 'GET',
+      url : 'api/user/read',
+      params : {username : username}
+    })
+    .then(function(res){
+      return res.data;
+    });
+  };
+
+  /***
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
@@ -264,7 +280,8 @@ angular.module('crash.userService', [])
     createAccount : createAccount,
     readAccount : readAccount,
     signout : signout,
-    isAuthorized : isAuthorized
+    isAuthorized : isAuthorized,
+    getAccountByUsername : getAccountByUsername
   };
 
 });
@@ -307,7 +324,7 @@ angular.module('crash.crashDriverSearch', [])
 .controller('CrashDriverSearchController', function(UserService, CrashEventObj) {
   
   var self = this;
-
+  self.errorMessage = '';
   self.crashDriver = {};
 
   /***
@@ -316,13 +333,14 @@ angular.module('crash.crashDriverSearch', [])
   ***/
   self.getUser = function(){
     var inputUsername = self.username;
-    UserService.readAccount('')
+    UserService.getAccountByUsername(inputUsername)
       .then(function(user){
         self.crashDriver = user.data;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
       })
       .catch(function(err){
-        console.log('user not received...', err);
+        console.log('user not received...', err.data);
+        self.errorMessage = err.data.error;
       });
   };
 
@@ -437,7 +455,7 @@ angular.module('crash.crashPhoto', [])
   $scope.takePhoto = function(){
     console.log('take photo...');
     takepicture();
-    clearphoto();
+    // clearphoto();
     
   };
 

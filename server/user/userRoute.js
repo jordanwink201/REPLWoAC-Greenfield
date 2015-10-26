@@ -11,6 +11,9 @@ var userController = require('./userController.js');
 ***/
 module.exports = function(app){
 
+  // GET
+  app.get('/read', userController.getAccountByUserName);
+
   // POST 
   app.post('/signin', userController.signin);
   app.post('/create', userController.createAccount);

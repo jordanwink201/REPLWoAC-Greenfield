@@ -6,6 +6,15 @@
 			have them input their username. Otherwise, click on the next button to input their info.
 		</p>
 
+    <!-- 
+      Error Messages
+      This should disappear once the user starts entering in a new username
+      After failing to find a user, they should be prompted to enter the information in manually... 
+    -->
+    <div ng-show="crashDriverSearchCtrl.errorMessage !== ''" class="alert alert-danger" role="alert">
+        {{crashDriverSearchCtrl.errorMessage}}
+    </div>
+
 		<form name='crashDriverSearchForm'>
 
       <div class="input-group">

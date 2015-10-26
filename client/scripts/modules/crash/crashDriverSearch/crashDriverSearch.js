@@ -3,7 +3,7 @@ angular.module('crash.crashDriverSearch', [])
 .controller('CrashDriverSearchController', function(UserService, CrashEventObj) {
   
   var self = this;
-
+  self.errorMessage = '';
   self.crashDriver = {};
 
   /***
@@ -12,13 +12,14 @@ angular.module('crash.crashDriverSearch', [])
   ***/
   self.getUser = function(){
     var inputUsername = self.username;
-    UserService.readAccount('')
+    UserService.getAccountByUsername(inputUsername)
       .then(function(user){
         self.crashDriver = user.data;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
       })
       .catch(function(err){
-        console.log('user not received...', err);
+        console.log('user not received...', err.data);
+        self.errorMessage = err.data.error;
       });
   };
 
