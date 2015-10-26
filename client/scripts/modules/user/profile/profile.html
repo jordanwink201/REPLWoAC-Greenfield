@@ -10,24 +10,22 @@
 
   <!-- Profile Information should be loaded from the database and displayed -->
 
-  <h4>User</h4>
-  <p>{{profileCtrl.userObj.firstName}}</p>
-  <p>{{profileCtrl.userObj.lastName}}</p>
-  <p>{{profileCtrl.userObj.username}}</p>
-  <p>{{profileCtrl.userObj.email}}</p>
-  <p>{{profileCtrl.userObj.phoneNumber}}</p>
-  <p>{{profileCtrl.userObj.dob}}</p>
+  <p>Name: {{profileCtrl.userObj.firstName}} {{profileCtrl.userObj.lastName}}</p>
+  <p>Username: {{profileCtrl.userObj.username}}</p>
+  <p>Email: {{profileCtrl.userObj.email}}</p>
+  <p>Phone #: {{profileCtrl.userObj.phoneNumber}}</p>
+  <p>DOB: {{profileCtrl.userObj.dob.slice(0,10)}}</p>
   <p>{{profileCtrl.userObj.password}}</p>
 
   <h4>Driver Info</h4>
-  <p>{{profileCtrl.userObj.driverLicenseNum}}</p>
-  <p>{{profileCtrl.userObj.driverLicenseState}}</p>
+  <p>Driver License #: {{profileCtrl.userObj.driverLicenseNum}}</p>
+  <p>License State: {{profileCtrl.userObj.driverLicenseState}}</p>
 
   <h4>Insurance Info</h4>
-  <p>{{profileCtrl.userObj.agentEmail}}</p>
-  <p>{{profileCtrl.userObj.agentName}}</p>
-  <p>{{profileCtrl.userObj.insuranceCompany}}</p>
-  <p>{{profileCtrl.userObj.policyNum}}</p>
+  <p>Agent Email: {{profileCtrl.userObj.agentEmail}}</p>
+  <p>Agent Name: {{profileCtrl.userObj.agentName}}</p>
+  <p>Insurance: {{profileCtrl.userObj.insuranceCompany}}</p>
+  <p>Policy #: {{profileCtrl.userObj.policyNum}}</p>
 
   <div>
     <a href="#/logout" class="btn btn-danger" ng-click="profileCtrl.signOut()">Logout</a
