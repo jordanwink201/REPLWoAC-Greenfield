@@ -8,7 +8,7 @@ angular.module('crash.eventService', [])
       success or failure
   ***/
   var createCrashEvent = function(crashObj){
-    $http({
+    return $http({
       method : 'POST',
       url : 'api/event/create',
       data : crashObj
@@ -23,8 +23,8 @@ angular.module('crash.eventService', [])
     return from server
       all crash events related to the current user
   ***/
-  var readCrashEventByUser = function(username){
-    $http({
+  var readCrashEvent = function(username){
+    return $http({
       method : 'GET',
       url : 'api/event/read',
       data : username
@@ -34,13 +34,9 @@ angular.module('crash.eventService', [])
     });
   };
 
-  /***
-    url = 'api/'
-  ***/
-
   return {  
     createCrashEvent : createCrashEvent,
-    readCrashEventByUser : readCrashEventByUser
+    readCrashEvent : readCrashEvent
   };
 
 });

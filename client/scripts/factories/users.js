@@ -8,7 +8,6 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
-    console.log('userObj : ', userObj);
     return $http({
       method : 'POST',
       url : 'api/user/signin',

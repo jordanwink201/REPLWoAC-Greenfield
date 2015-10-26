@@ -22,18 +22,58 @@ module.exports = {
   
   // GET
   readCrashEvent :  function (req, res, next) {
+
+    console.log('read all crash events... for user ', req.user.username);
+
+    
       
   },
 
   // POST
   createCrashEvent : function (req, res, next) {
-    var newCrashEvent = new Crash(req.body);
-    newCrashEvent.save(function (argument) {
-      // body...
-    });
-    //create new instance of Crash Model
-    //store geo-location
-    //save
+
+    console.log('create a crash event... :', req.body);
+    
+    var create = Q.nbind(CrashEvent.create, CrashEvent);
+
+    var newCrashEvent = {
+
+      user : req.user.username,
+
+      witness : req.body.witnessArr,
+
+      accidentPhotoUrls : [],
+
+      otherPartyInfo : {
+        firstName : req.body.crashDriver.firstName,
+        lastName : req.body.crashDriver.lastName,
+        username : req.body.crashDriver.username, 
+
+        phoneNumber : req.body.crashDriver.phoneNumber,
+        dob : req.body.crashDriver.dob,
+        email : req.body.crashDriver.email,
+        driverLicenseNum : req.body.crashDriver.driverLicenseNum,
+        driverLicenseState : req.body.crashDriver.driverLicenseState,
+        insuranceCompany : req.body.crashDriver.insuranceCompany,
+        policyNum : req.body.crashDriver.policyNum,
+        agentName : req.body.crashDriver.agentName,
+        agentEmail : req.body.crashDriver.agentEmail,
+
+        licensePhotoUrl : '',
+        insuranceCardPhotoUrl : '',
+      }
+
+    };
+
+    create(newCrashEvent)
+      .then(function(crashEvent){
+        console.log('new user successfully stored in database : ', crashEvent);
+      })
+      .catch(function(err){
+        console.log('error created the crash event...', err);
+        res.status(404).send({error : err.message});
+      });
+
 
   }
 

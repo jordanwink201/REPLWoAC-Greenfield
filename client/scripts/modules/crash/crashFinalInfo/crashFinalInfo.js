@@ -1,6 +1,6 @@
 angular.module('crash.crashFinalInfo', [])
 
-.controller('CrashFinalInfoController', function(CrashEventObj){
+.controller('CrashFinalInfoController', function(CrashEventObj, EventService){
   
   var self = this;
 
@@ -39,7 +39,13 @@ angular.module('crash.crashFinalInfo', [])
 
     console.log('final crash object : ', self.finalCrashObj);
 
-    
+    EventService.createCrashEvent(self.finalCrashObj)
+      .then(function(data){
+        console.log('success data : ', data);
+      })
+      .catch(function(err){
+        console.log('error saving crash object...', err);
+      });
 
   };
 

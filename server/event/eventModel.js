@@ -1,6 +1,6 @@
 /***
 
-  Crash Model
+  Crash Event Model
 
 ***/
   
@@ -9,23 +9,33 @@ var Schema = mongoose.Schema;
 
 var crashSchema = new Schema({
 
-  timeStamp: { type: Date, default: Date.now }, //need to parse this when fetch
+  user : String, // username that created the crash event
 
-  location : String, // investigate format google api returns
+  createdAt: { type: Date, default: Date.now }, //need to parse this when fetch
 
-  witness: { 
-    firstname : String,
-    lastName : String,
-    phone: String
-  },
+  // location : String, // investigate format google api returns
+
+  witness : Array,
 
   accidentPhotoUrls : Array,
 
   otherPartyInfo: {
+    firstName : String,
+    lastName : String,
+    username : String, 
+
+    phoneNumber : String,
+    dob : Date,
+    email : String,
+    driverLicenseNum : String,
+    driverLicenseState : String,
+    insuranceCompany : String,
+    policyNum : String,
+    agentName : String,
+    agentEmail : String,
 
     licensePhotoUrl : String,
     insuranceCardPhotoUrl : String,
-
   }
 
 });
