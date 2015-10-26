@@ -158,7 +158,7 @@ angular.module('crash.eventService', [])
       success or failure
   ***/
   var createCrashEvent = function(crashObj){
-    $http({
+    return $http({
       method : 'POST',
       url : 'api/event/create',
       data : crashObj
@@ -173,24 +173,19 @@ angular.module('crash.eventService', [])
     return from server
       all crash events related to the current user
   ***/
-  var readCrashEventByUser = function(username){
-    $http({
+  var readCrashEvent = function(username){
+    return $http({
       method : 'GET',
-      url : 'api/event/read',
-      data : username
+      url : 'api/event/read'
     })
     .then(function(res){
       return res.data;
     });
   };
 
-  /***
-    url = 'api/'
-  ***/
-
   return {  
     createCrashEvent : createCrashEvent,
-    readCrashEventByUser : readCrashEventByUser
+    readCrashEvent : readCrashEvent
   };
 
 });
@@ -205,7 +200,6 @@ angular.module('crash.userService', [])
       success or failure
   ***/
   var signin = function(userObj){
-    console.log('userObj : ', userObj);
     return $http({
       method : 'POST',
       url : 'api/user/signin',
@@ -371,7 +365,7 @@ angular.module('crash.crashEmail', [])
 
 angular.module('crash.crashFinalInfo', [])
 
-.controller('CrashFinalInfoController', function(CrashEventObj){
+.controller('CrashFinalInfoController', function(CrashEventObj, EventService){
   
   var self = this;
 
@@ -410,7 +404,13 @@ angular.module('crash.crashFinalInfo', [])
 
     console.log('final crash object : ', self.finalCrashObj);
 
-    
+    EventService.createCrashEvent(self.finalCrashObj)
+      .then(function(data){
+        console.log('success data : ', data);
+      })
+      .catch(function(err){
+        console.log('error saving crash object...', err);
+      });
 
   };
 
@@ -548,7 +548,21 @@ angular.module('crash.history', [])
   // user the event service to retreive crash events by the curret user name 
   var self = this;
 
-  
+  self.crashEvents = [];
+
+  /***
+    Retreive all crash events that are in the database associated to the current user
+  ***/
+  self.getCrashEvents = function(){
+    EventService.readCrashEvent()
+      .then(function(data){
+        console.log('events : ', data);
+        self.crashEvents = data;
+      })
+      .catch(function(err){
+        console.log('ERror getting events...', err);
+      });
+  };
 
 });
 

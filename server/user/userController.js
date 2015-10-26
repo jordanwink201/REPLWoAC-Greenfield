@@ -21,7 +21,7 @@ module.exports = {
     // this binding must take place in order to access the userSchema.methods
     var findUser = Q.nbind(User.findOne, User);
 
-    findUser({ username: usernameToLookUp })
+    findUser({ 'username' : usernameToLookUp })
       .then(function (user) {
         if(!user) {
           throw(new Error('User could not be found'));
@@ -42,7 +42,7 @@ module.exports = {
   signin : function(req, res, next){
 
     console.log('sign the user in by checking the database...', req.body);
-    var username = req.body.username;
+    var usernameToLookUp = req.body.username;
     var password = req.body.password;
 
     // this binding must take place in order to access the userSchema.methods
@@ -53,7 +53,7 @@ module.exports = {
       then check the save password for that found user and see if it's the same as the one entered by the user attached to the request object
       if the passwords match, create a token for the user and send it back to the client
     ***/
-    findUser({username: username})
+    findUser({ 'username' : usernameToLookUp })
       .then(function (user) {
         if(!user) {
           throw(new Error('User could not be found'));
@@ -81,13 +81,13 @@ module.exports = {
   createAccount : function(req, res, next) {
     console.log('create an account... :', req.body);
     
-    var username = req.body.username;
+    var usernameToLookUp = req.body.username;
     
     var findOne = Q.nbind(User.findOne, User); // find user in DB
     var create = Q.nbind(User.create, User); // create new user in DB
 
     // checking if username already exits
-    User.findOne({ username: username })
+    User.findOne({ 'username' : usernameToLookUp })
       .then(function (user) {
         if(user) {
           throw new Error('Username already exists');

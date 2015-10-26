@@ -7,7 +7,7 @@
 var eventController = require('./eventController.js');
 
 /***
-  app is equal to userRouter from the middleware.js
+  app is equal to eventRouter from the middleware.js
 ***/
 module.exports = function(app){
 
