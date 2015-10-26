@@ -184,6 +184,10 @@ angular.module('crash.eventService', [])
     });
   };
 
+  /***
+    url = 'api/'
+  ***/
+
   return {  
     createCrashEvent : createCrashEvent,
     readCrashEventByUser : readCrashEventByUser
@@ -330,13 +334,15 @@ angular.module('crash.crashDriverSearch', [])
   /***
     retreive the user's information by their username
     save the crash driver obj into the CrashEventObj.crashEvent object
+    (Future: only be able to retreive non personal data of the other user)
   ***/
   self.getUser = function(){
     var inputUsername = self.username;
     UserService.getAccountByUsername(inputUsername)
       .then(function(user){
-        self.crashDriver = user.data;
+        self.crashDriver = user;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
+        console.log('crash event object : ', CrashEventObj.crashEvent);
       })
       .catch(function(err){
         console.log('user not received...', err.data);
@@ -369,11 +375,43 @@ angular.module('crash.crashFinalInfo', [])
   
   var self = this;
 
+  self.finalCrashObj = {};
+
+  self.witnessArr = [];
+  self.crashDriver = {};
+
   /***
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
   ***/
   self.loadCrashObj = function(){
     console.log('CrashEventObj : ', CrashEventObj);
+
+    var crashObj = CrashEventObj.crashEvent;
+
+    // Load witnesses information
+    if (crashObj.witnessArr) {
+      self.witnessArr = crashObj.witnessArr;
+    }
+
+    // Load crash driver's information
+    if (crashObj) {
+      self.crashDriver = crashObj.crashDriver;
+    }
+
+    self.finalCrashObj = crashObj;
+
+  };
+
+  /***
+    save the final crash object into the database, which will be added to the driver's crash history
+  ***/
+  self.save = function(){
+    console.log('save final information...');
+
+    console.log('final crash object : ', self.finalCrashObj);
+
+    
+
   };
 
 });
