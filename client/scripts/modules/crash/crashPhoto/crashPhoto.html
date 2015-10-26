@@ -8,15 +8,14 @@
     <!--      Take Image -->
 
     <div class="camera">
-      <video ng-model="crashPhotoCtrl.video">Video stream not available.</video>
-      <button id="startButton">Take photo</button>
+      <video id="video">Video stream not available</video>
+      <button ng-click="takePhoto()">Take photo</button>
     </div>
 
-    <!-- Caputred the frames  -->
-    <canvas id="canvas"></canvas>
+    <canvas ng-show="crashPhotoCtrl.streaming" id="canvas"></canvas>
 
     <div class="output">
-      <img id="photo" alt="The screen capture will appear in this box.">
+      <img id="photo" alt="The screen capture will appear in this box">
     </div>
 
   </div>
