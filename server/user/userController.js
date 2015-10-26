@@ -13,6 +13,31 @@ var User = require('./userModel.js');
 
 module.exports = {
 
+  // GET
+  getAccountByUserName : function(req, res, next){
+    console.log('read the account by username : ', req.query);
+    var usernameToLookUp = req.query.username;
+
+    // this binding must take place in order to access the userSchema.methods
+    var findUser = Q.nbind(User.findOne, User);
+
+    findUser({ username: usernameToLookUp })
+      .then(function (user) {
+        if(!user) {
+          throw(new Error('User could not be found'));
+        } else {
+
+          res.send(user);
+
+        }
+      })
+      .catch(function(err){
+        console.log('error finding the user in...', err);
+        res.status(404).send({error : err.message});
+      });
+
+  },
+
   // POST
   signin : function(req, res, next){
 
@@ -99,10 +124,6 @@ module.exports = {
         console.log('error created the user...', err);
         res.status(404).send({error : err.message});
       });
-
-  },
-  //updating the user i.e Address, Phone Number, Email, Insurance Data..etc
-  updateUser : function(req, res, next) {
 
   }
   

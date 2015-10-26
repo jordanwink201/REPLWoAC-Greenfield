@@ -48,6 +48,8 @@ module.exports = {
 
   /***
     Update the user information, should be restricted to only change parts of the user's information
+    updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
+  }
   ***/
   updateUser : function(req, res, next){
 

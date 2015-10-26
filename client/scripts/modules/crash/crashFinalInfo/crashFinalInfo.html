@@ -5,53 +5,55 @@
     <!-- This form and the input fields should be preloaded with the information the user put in already. They should be able to then edit any information they want and click save to make changes directly in this page.  -->
 
     <h4>Witness Info</h4>
-    <form name='witnessForm'>
 
-      <!-- There could be mutliple witnesses so use ng-repeat -->
+    <ul>
+      <li ng-repeat="person in crashFinalInfoCtrl.witnessArr">
+        <form name='witnessForm'>
+        
+          <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
 
-      <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+          <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
 
-      <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
 
-      <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+          <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
 
-      <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
-
-    </form>
+        </form>
+      </li>
+    </ul>
 
     <h4>Other Driver Info</h4>
 
     <!-- This form doesn't need to be shown if they didn't enter in this information manually, if they got the other drive info by looking it up in the database by username then no edits should be allowed and should show in a different format such as a bootstrap panel or card -->
     <form name='crashDriverInfo'>
+      <input type="text" class="form-control" placeholder="First Name" ng-model="crashFinalInfoCtrl.crashDriver.firstName">
 
-      <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+      <input type="text" class="form-control" placeholder="Last Name" ng-model="crashFinalInfoCtrl.crashDriver.lastName">
 
-      <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+      <input type="text" class="form-control" placeholder="DOB" ng-model="crashFinalInfoCtrl.crashDriver.dob">
 
-      <input type="text" class="form-control" placeholder="DOB" ng-model="person.dob">
+      <input type="text" class="form-control" placeholder="Phone Number" ng-model="crashFinalInfoCtrl.crashDriver.phoneNumber">
 
-      <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+      <input type="text" class="form-control" placeholder="Email Address" ng-model="crashFinalInfoCtrl.crashDriver.email">
 
-      <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
-
-      <input type="text" class="form-control" placeholder="Driver License Number" ng-model="person.driverLicenseNum">
+      <input type="text" class="form-control" placeholder="Driver License Number" ng-model="crashFinalInfoCtrl.crashDriver.driverLicenseNum">
 
       <input type="text" class="form-control" placeholder
-     ="Insurance Company" ng-model="person.insuranceCompany">
+     ="Insurance Company" ng-model="crashFinalInfoCtrl.crashDriver.insuranceCompany">
 
-      <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="person.policyNum">
+      <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="crashFinalInfoCtrl.crashDriver.policyNum">
 
-      <input type="text" class="form-control" placeholder="Agent Name" ng-model="person.agentName">
+      <input type="text" class="form-control" placeholder="Agent Name" ng-model="crashFinalInfoCtrl.crashDriver.agentName">
 
-      <input type="text" class="form-control" placeholder="Agent Email" ng-model="person.agentEmail">   
+      <input type="text" class="form-control" placeholder="Agent Email" ng-model="crashFinalInfoCtrl.crashDriver.agentEmail">   
 
     </form> 
 
     <!-- Validation should be checked as well... -->
-    <a href="#/home" class="btn btn-success">Save</a> 
+    <a href="#/home" class="btn btn-success" ng-click="crashFinalInfoCtrl.save()">Save</a> 
 
   <div class='bottomButtons'>
-    <a href='#/crashEmail'>
+    <a href='#/history'>
       <button class='btn btn-default pull-left back'>Back</button>
     </a>
   </div>

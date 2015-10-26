@@ -34,6 +34,10 @@ angular.module('crash.eventService', [])
     });
   };
 
+  /***
+    url = 'api/'
+  ***/
+
   return {  
     createCrashEvent : createCrashEvent,
     readCrashEventByUser : readCrashEventByUser

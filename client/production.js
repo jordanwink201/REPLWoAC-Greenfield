@@ -184,6 +184,10 @@ angular.module('crash.eventService', [])
     });
   };
 
+  /***
+    url = 'api/'
+  ***/
+
   return {  
     createCrashEvent : createCrashEvent,
     readCrashEventByUser : readCrashEventByUser
@@ -245,6 +249,22 @@ angular.module('crash.userService', [])
   };
 
   /***
+    url = 'api/user/read' ($http send user name via params)
+    return from server
+      success and response with the user object asked to retreive or failure if that user doesn't exist
+  ***/
+  var getAccountByUsername = function(username){
+    return $http({
+      method : 'GET',
+      url : 'api/user/read',
+      params : {username : username}
+    })
+    .then(function(res){
+      return res.data;
+    });
+  };
+
+  /***
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
@@ -264,7 +284,8 @@ angular.module('crash.userService', [])
     createAccount : createAccount,
     readAccount : readAccount,
     signout : signout,
-    isAuthorized : isAuthorized
+    isAuthorized : isAuthorized,
+    getAccountByUsername : getAccountByUsername
   };
 
 });
@@ -307,22 +328,25 @@ angular.module('crash.crashDriverSearch', [])
 .controller('CrashDriverSearchController', function(UserService, CrashEventObj) {
   
   var self = this;
-
+  self.errorMessage = '';
   self.crashDriver = {};
 
   /***
     retreive the user's information by their username
     save the crash driver obj into the CrashEventObj.crashEvent object
+    (Future: only be able to retreive non personal data of the other user)
   ***/
   self.getUser = function(){
     var inputUsername = self.username;
-    UserService.readAccount('')
+    UserService.getAccountByUsername(inputUsername)
       .then(function(user){
-        self.crashDriver = user.data;
+        self.crashDriver = user;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
+        console.log('crash event object : ', CrashEventObj.crashEvent);
       })
       .catch(function(err){
-        console.log('user not received...', err);
+        console.log('user not received...', err.data);
+        self.errorMessage = err.data.error;
       });
   };
 
@@ -351,59 +375,127 @@ angular.module('crash.crashFinalInfo', [])
   
   var self = this;
 
+  self.finalCrashObj = {};
+
+  self.witnessArr = [];
+  self.crashDriver = {};
+
   /***
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
   ***/
   self.loadCrashObj = function(){
     console.log('CrashEventObj : ', CrashEventObj);
+
+    var crashObj = CrashEventObj.crashEvent;
+
+    // Load witnesses information
+    if (crashObj.witnessArr) {
+      self.witnessArr = crashObj.witnessArr;
+    }
+
+    // Load crash driver's information
+    if (crashObj) {
+      self.crashDriver = crashObj.crashDriver;
+    }
+
+    self.finalCrashObj = crashObj;
+
+  };
+
+  /***
+    save the final crash object into the database, which will be added to the driver's crash history
+  ***/
+  self.save = function(){
+    console.log('save final information...');
+
+    console.log('final crash object : ', self.finalCrashObj);
+
+    
+
   };
 
 });
 
 angular.module('crash.crashPhoto', [])
 
-.controller('CrashPhotoController', function(CrashEventObj) {
+.controller('CrashPhotoController', function($scope, CrashEventObj) {
   var self = this;
   self.images = [];
 
-  // self = {
-  //   video : null
-  // };
+  var streaming = false;
+  var width = 320;    // We will scale the photo width to this
+  var height = 0;     // This will be computed based on the input stream
 
-  // var width = 320; // We will scale the photo width to this
-  // var height = 0; // This will be computed based on the input stream
+  video = document.getElementById('video');
+  canvas = document.getElementById('canvas');
+  photo = document.getElementById('photo');
 
-  // var streaming = false;
+  // Get the Media Stream
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
+  // Fetch and start the stream
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+    // Success Callback
+    function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    // Error Callback
+    function(err) {
+      console.log("An error occured! " + err);
+    }
+  );
 
-  // function startup() {
-  //   video = document.getElementById('video');
-  //   canvas = document.getElementById('canvas');
-  //   photo = document.getElementById('photo');
-  //   startbutton = document.getElementById('startbutton');
-  // }
+  video.addEventListener('canplay', function(ev){
+    if (!streaming) {
+      height = video.videoHeight / (video.videoWidth/width);
 
-  // console.log('self : ', self.video);
+      // Firefox currently has a bug where the height can't be read from
+      // the video, so we will make assumptions if this happens.
 
-  // navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+      if (isNaN(height)) {
+        height = width / (4/3);
+      }
 
-  // navigator.getMedia( { video: true, audio: false },
-  //   function(stream) {
-  //     console.log('stream : ', stream);
-  //     console.log('navigator.mozGetUserMedia : ', navigator.mozGetUserMedia);
-  //     if (navigator.mozGetUserMedia) {
-  //       video.mozSrcObject = stream;
-  //     } else {
-  //       var vendorURL = window.URL || window.webkitURL;
-  //       console.log('vendorURL : ', vendorURL);
-  //       console.log('video : ', video);
-  //       video.src = vendorURL.createObjectURL(stream);
-  //     }
-  //     video.play();
-  //   },
-  //   function(err) {
-  //     console.log("An error occured! " + err);
-  //   }
-  // );
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+      streaming = true;
+    }
+  }, false);
+
+  function takepicture() {
+    var context = canvas.getContext('2d');
+    if (width && height) {
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(video, 0, 0, width, height);
+
+      var data = canvas.toDataURL('image/png');
+      photo.setAttribute('src', data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  $scope.takePhoto = function(){
+    console.log('take photo...');
+    takepicture();
+    // clearphoto();
+    
+  };
 
   /***
     save the images into the CrashEventObj.crashEvent object
