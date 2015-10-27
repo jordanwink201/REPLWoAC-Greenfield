@@ -1,6 +1,6 @@
 angular.module('crash.crashPhoto', [])
 
-.controller('CrashPhotoController', function($scope, CrashEventObj) {
+.controller('CrashPhotoController', function($scope, CrashEventObj, S3Service) {
   var self = this;
   self.images = [];
 
@@ -65,9 +65,25 @@ angular.module('crash.crashPhoto', [])
       canvas.height = height;
       context.drawImage(video, 0, 0, width, height);
 
-      var data = canvas.toDataURL('image/png');
-      photo.setAttribute('src', data);
-    } else {
+      var imageData = canvas.toDataURL('image/png');
+      photo.setAttribute('src', imageData);
+      console.log('image data : ', imageData);
+
+      // convert imageData to blob
+      // var byteCharacters = atob(imageData);
+
+      // console.log('byteCharacters : ', byteCharacters);
+
+      // Send the buffer to the server
+      // S3Service.uploadImage(imageData)
+      //   .then(function(data){
+      //     console.log('DATA received : ', data);
+      //   })
+      //   .catch(function(err){
+      //     console.log('error saving image...', err);
+      //   });
+
+    } else { 
       clearphoto();
     }
   }
@@ -76,7 +92,6 @@ angular.module('crash.crashPhoto', [])
     console.log('take photo...');
     takepicture();
     // clearphoto();
-    
   };
 
   /***
