@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(UserService){
+.controller('ProfileController', function(UserService, $window, $location){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -24,6 +24,28 @@ angular.module('crash.profile', [])
       });
   };
 
+  /***
+    update the user's profile
+  ***/
+  self.updateUser = function() {
+    UserService.updateUserAccount(self.userObj)
+      /***
+        response will be an {token:token, user:user}
+      ***/
+      .then(function(data){
+        console.log('updated account, session :', data.token);
+
+        $window.localStorage.setItem('com.crash', data.token);
+
+        $location.path('/profile');
+      })
+      .catch(function(err){
+        console.log('Error updating account...', err.data);
+        self.errorMessage = err.data.error;
+        self.user.username = '';
+      });
+  };
+  
   /***
     sign the user out by destroying the window.localStorage token and info
   ***/

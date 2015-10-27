@@ -18,4 +18,5 @@ module.exports = function(app){
   app.post('/signin', userController.signin);
   app.post('/create', userController.createAccount);
 
+  app.post('/updateuser', userController.updateUser);  // TODO: after MVP
 };

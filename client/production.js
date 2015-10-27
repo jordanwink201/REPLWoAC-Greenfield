@@ -243,6 +243,22 @@ angular.module('crash.userService', [])
   };
 
   /***
+    url = 'api/user/updateuser' ($http send user token)
+    return from server : 
+      success or failure 
+  ***/
+  var updateUserAccount = function(userObj){
+    return $http({
+      method : 'POST',
+      url : 'api/user/updateuser',
+      data : userObj
+    })
+    .then(function(res){
+      return res.data;
+    });
+  };
+
+  /***
     url = 'api/user/read' ($http send user name via params)
     return from server
       success and response with the user object asked to retreive or failure if that user doesn't exist
@@ -276,6 +292,7 @@ angular.module('crash.userService', [])
   return {
     signin : signin,
     createAccount : createAccount,
+    updateUserAccount: updateUserAccount,
     readAccount : readAccount,
     signout : signout,
     isAuthorized : isAuthorized,
@@ -620,7 +637,7 @@ angular.module('crash.createAccount', [])
 
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(UserService){
+.controller('ProfileController', function(UserService, $window, $location){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -629,6 +646,8 @@ angular.module('crash.profile', [])
   var self = this;
 
   self.userObj = {};
+
+  self.updateObj = {};
 
   /***
     get the username from window.localStorage
@@ -644,6 +663,29 @@ angular.module('crash.profile', [])
       });
   };
 
+  /***
+    update the user's profile
+  ***/
+  self.updateUser = function() {
+    console.log('BEFORE I SEND THE DATA', self.userObj);
+    UserService.updateUserAccount(self.userObj)
+      /***
+        response will be an {token:token, user:user}
+      ***/
+      .then(function(data){
+        console.log('updated account, session :', data.token);
+
+        $window.localStorage.setItem('com.crash', data.token);
+
+        $location.path('/profile');
+      })
+      .catch(function(err){
+        console.log('Error updating account...', err.data);
+        self.errorMessage = err.data.error;
+        self.user.username = '';
+      });
+  };
+  
   /***
     sign the user out by destroying the window.localStorage token and info
   ***/

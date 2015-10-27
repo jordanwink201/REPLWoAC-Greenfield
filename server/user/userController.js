@@ -125,6 +125,42 @@ module.exports = {
         res.status(404).send({error : err.message});
       });
 
+  },
+
+  /***
+    Update the user information, should be restricted to only change parts of the user's information
+    updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
+  }
+  ***/
+  updateUser : function(req, res, next){
+     var userUpdate = {
+            phoneNumber : req.body.phoneNumber, 
+            email : req.body.email,
+            driverLicenseNum : req.body.driverLicenseNum,
+            driverLicenseState : req.body.driverLicenseState,
+            insuranceCompany : req.body.insuranceCompany,
+            policyNum : req.body.policyNum,
+            agentName : req.body.agentName,
+            agentEmail : req.body.agentEmail
+          };
+    var findUserUpdate = Q.nbind(User.findOneAndUpdate, User);
+
+    /***********
+    //Might be an error in the future
+    *******/
+
+    findUserUpdate({'username' : req.body.username }, userUpdate )
+        .then(function() {
+        console.log('Updated user successfully stored in database : ', req.body);
+        // Create a session token for the user and send it back
+        var token = jwt.encode(req.body, 'secret');
+        res.json({ token : token });
+
+      })
+      .catch(function(err){
+        console.log('error updating the user...', err);
+        res.status(404).send({error : err.message});
+      });
   }
   
 };
