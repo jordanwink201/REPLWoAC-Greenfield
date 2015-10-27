@@ -33,7 +33,7 @@ module.exports = {
     var imageBuffer = new Buffer(req.body.imageData.replace(/^data:image\/\w+;base64,/, ""),'base64');
 
     var data = {
-      Key: req.body.imgName + '.png', 
+      Key: req.body.imgName + new Date() + '.png', 
       Body: imageBuffer,
       ContentEncoding: 'base64',
       ContentType: 'image/png'

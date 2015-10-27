@@ -13,10 +13,9 @@ angular.module('crash.S3', [])
       method : 'POST',
       url : 'api/s3/upload',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $.param({imgName : description + Date.now, imageData: imageData}),
+      data: $.param({imgName : description, imageData: imageData}),
     })
     .then(function(res){
-      console.log('RESPONSE : ', res.data);
       return res.data;
     });
   };

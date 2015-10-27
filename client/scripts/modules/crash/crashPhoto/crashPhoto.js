@@ -79,7 +79,7 @@ angular.module('crash.crashPhoto', [])
   ***/
   self.save = function(){
     CrashEventObj.crashEvent.eventImages = self.eventImages;
-    console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.images);
+    console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.eventImages);
   };
 
 });
