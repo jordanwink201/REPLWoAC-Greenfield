@@ -12,23 +12,45 @@
 
   <p>Name: {{profileCtrl.userObj.firstName}} {{profileCtrl.userObj.lastName}}</p>
   <p>Username: {{profileCtrl.userObj.username}}</p>
-  <p>Email: {{profileCtrl.userObj.email}}</p>
-  <p>Phone #: {{profileCtrl.userObj.phoneNumber}}</p>
-  <p>DOB: {{profileCtrl.userObj.dob.slice(0,10)}}</p>
   <p>{{profileCtrl.userObj.password}}</p>
+  <p>DOB: {{profileCtrl.userObj.dob.slice(0,10)}}</p>
+
+  <!-- User Information that the user can change -->
+
+  <form class="form-inline">
+    <label for="userEmail">Email: </label>
+    <input type="text" class="form-control" id="userEmail" value="{{profileCtrl.userObj.email}}" ng-model="profileCtrl.userObj.email">
+    <br>
+    <label for="userPhoneNumber">Phone #: </label>
+    <input type="text" class="form-control" id="userPhoneNumber" value="{{profileCtrl.userObj.phoneNumber}}" ng-model="profileCtrl.userObj.phoneNumber">
+  </form>
 
   <h4>Driver Info</h4>
-  <p>Driver License #: {{profileCtrl.userObj.driverLicenseNum}}</p>
-  <p>License State: {{profileCtrl.userObj.driverLicenseState}}</p>
-
+  <form class="form-inline">
+  <label for="userDriverLicenseNum">Driver License #: </label>
+    <input type="text" class="form-control" id="userDriverLicenseNum" value="{{profileCtrl.userObj.driverLicenseNum}}" ng-model="profileCtrl.userObj.driverLicenseNum">
+    <br>
+    <label for="userDriverLicenseState">License State: </label>
+    <input type="text" class="form-control" id="userDriverLicenseState" value="{{profileCtrl.userObj.driverLicenseState}}" ng-model="profileCtrl.userObj.driverLicenseState">
+  </form>
   <h4>Insurance Info</h4>
-  <p>Agent Email: {{profileCtrl.userObj.agentEmail}}</p>
-  <p>Agent Name: {{profileCtrl.userObj.agentName}}</p>
-  <p>Insurance: {{profileCtrl.userObj.insuranceCompany}}</p>
-  <p>Policy #: {{profileCtrl.userObj.policyNum}}</p>
-
+  <form class="form-inline">
+    <label for="userAgentEmail">Agent Email: </label>
+    <input type="text" class="form-control" id="userAgentEmail" value="{{profileCtrl.userObj.agentEmail}}" ng-model="profileCtrl.userObj.agentEmail">
+    <br>
+    <label for="userAgentName">Agent Name: </label>
+    <input type="text" class="form-control" id="userAgentName" value="{{profileCtrl.userObj.agentName}}" ng-model="profileCtrl.userObj.agentName">
+    <br>
+    <label for="userInsuranceCompany">Insurance: </label>
+    <input type="text" class="form-control" id="userInsuranceCompany" value="{{profileCtrl.userObj.insuranceCompany}}" ng-model="profileCtrl.userObj.insuranceCompany">
+    <br>
+    <label for="userPolicyNum">Policy #: </label>
+    <input type="text" class="form-control" id="userPolicyNum" value="{{profileCtrl.userObj.policyNum}}" ng-model="profileCtrl.userObj.policyNum">
+  </form>
   <div>
-    <a href="#/logout" class="btn btn-danger" ng-click="profileCtrl.signOut()">Logout</a
+    <a href="#/logout" class="btn btn-danger" ng-click="profileCtrl.signOut()">Logout</a>
+    <a href="#" class="btn btn-success" ng-click="profileCtrl.updateUser()">Update</a>
+
   </div>
 </div>
 

@@ -45,13 +45,18 @@ module.exports = {
 
   },
 
-  /***
-    Update the user information, should be restricted to only change parts of the user's information
-    updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
-  }
-  ***/
-  updateUser : function(req, res, next){
-
-  }
+  // /***
+  //   Update the user information, should be restricted to only change parts of the user's information
+  //   updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
+  // }
+  // ***/
+  // updateUser : function(req, res, next){
+  //   console.log('AM I DOINT THIS RIGHT : ', req.user);
+  //   var findUser = Q.nbind(User.findOneAndUpdate, User);
+  //   findUser({'username' : req.user.username }, {'agentName' : 'BOBBBY'} )
+  //     .then(function (user) {
+  //       console.log('DID I DO IT????', user);
+  //     });
+  // }
 
 };
