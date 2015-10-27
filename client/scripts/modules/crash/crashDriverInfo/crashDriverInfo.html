@@ -8,11 +8,11 @@
 
     <input type="text" class="form-control" placeholder="Last Name" ng-model="crashDriverInfoCtrl.person.lastname">
 
-    <input type="text" class="form-control" placeholder="DOB" ng-model="crashDriverInfoCtrl.person.dob">
+    <input type="date" class="form-control" placeholder="DOB" ng-model="crashDriverInfoCtrl.person.dob">
 
     <input type="text" class="form-control" placeholder="Phone Number" ng-model="crashDriverInfoCtrl.person.phoneNumber">
 
-    <input type="text" class="form-control" placeholder="Email Address" ng-model="crashDriverInfoCtrl.person.email">
+    <input type="email" class="form-control" placeholder="Email Address" ng-model="crashDriverInfoCtrl.person.email">
 
     <input type="text" class="form-control" placeholder="Driver License Number" ng-model="crashDriverInfoCtrl.person.driverLicenseNum">
 
@@ -23,7 +23,7 @@
 
     <input type="text" class="form-control" placeholder="Agent Name" ng-model="crashDriverInfoCtrl.person.agentName">
 
-    <input type="text" class="form-control" placeholder="Agent Email" ng-model="crashDriverInfoCtrl.person.agentEmail">   
+    <input type="email" class="form-control" placeholder="Agent Email" ng-model="crashDriverInfoCtrl.person.agentEmail">   
 
     <!-- Can check for validation here... -->
     <button class="btn btn-success" ng-click="crashDriverInfoCtrl.save()">Save</button> 
