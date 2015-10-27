@@ -197,14 +197,16 @@ angular.module('crash.S3', [])
 
   /***
     Upload Image to S3
+    description 'scene' 
+    the date/time is stored as the name with the description
   ***/
-  var uploadImage = function(imageData, name, description, takenImgsCounter){
+  var uploadImage = function(imageData, description){
 
     return $http({
       method : 'POST',
       url : 'api/s3/upload',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $.param({imgName : name + takenImgsCounter, imageData: imageData}),
+      data: $.param({imgName : description + Date.now, imageData: imageData}),
     })
     .then(function(res){
       console.log('RESPONSE : ', res.data);
@@ -479,29 +481,23 @@ angular.module('crash.crashPhoto', [])
 
 .controller('CrashPhotoController', function($scope, CrashEventObj, S3Service) {
   var self = this;
-  self.images = [];
-  var takenImgsCounter = 0;
+  self.eventImages = [];
 
   var streaming = false;
-  var width = 320;    // We will scale the photo width to this
-  var height = 0;     // This will be computed based on the input stream
+  var width = 320; // We will scale the photo width to this
+  var height = 0;
 
   video = document.getElementById('video');
   canvas = document.getElementById('canvas');
   photo = document.getElementById('photo');
 
-  // Get the Media Stream
-  navigator.getMedia = ( navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
-                         navigator.msGetUserMedia);
-  // Fetch and start the stream
-  navigator.getMedia(
-    {
-      video: true,
-      audio: false
-    },
-    // Success Callback
+  /***
+    Get the Media Stream
+    Fetch and start the stream
+  ***/
+  navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+  
+  navigator.getMedia( { video: true, audio: false },
     function(stream) {
       if (navigator.mozGetUserMedia) {
         video.mozSrcObject = stream;
@@ -511,7 +507,6 @@ angular.module('crash.crashPhoto', [])
       }
       video.play();
     },
-    // Error Callback
     function(err) {
       console.log("An error occured! " + err);
     }
@@ -520,13 +515,7 @@ angular.module('crash.crashPhoto', [])
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
       height = video.videoHeight / (video.videoWidth/width);
-
-      // Firefox currently has a bug where the height can't be read from
-      // the video, so we will make assumptions if this happens.
-
-      if (isNaN(height)) {
-        height = width / (4/3);
-      }
+      if (isNaN(height)) { height = width / (4/3);}
 
       video.setAttribute('width', width);
       video.setAttribute('height', height);
@@ -547,39 +536,29 @@ angular.module('crash.crashPhoto', [])
       photo.setAttribute('src', imageData);
       /***
         Send the buffer to the server
-        send the current user's username
         send the image description 'scene'
         update the image taken counter
       ***/
-      S3Service.uploadImage(imageData, 'jordanw16', 'scene', takenImgsCounter)
+      S3Service.uploadImage(imageData, 'scene', takenImgsCounter)
         .then(function(imgUrl){
-          console.log('Image URL received : ', imgUrl);
-          
-          takenImgsCounter++;
-          // save the image to an array of images
-          self.images.push(imgUrl);
+          self.eventImages.push(imgUrl);
         })
         .catch(function(err){
           console.log('error saving image...', err);
         });
 
-    } else { 
-      clearphoto();
     }
   }
 
   $scope.takePhoto = function(){
-    console.log('take photo...');
     takepicture();
-    // clearphoto();
   };
 
   /***
     save the images into the CrashEventObj.crashEvent object
   ***/
   self.save = function(){
-    console.log('saving...');
-    CrashEventObj.crashEvent.images = self.images;
+    CrashEventObj.crashEvent.eventImages = self.eventImages;
     console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.images);
   };
 
