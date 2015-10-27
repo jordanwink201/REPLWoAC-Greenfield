@@ -1,7 +1,7 @@
 angular.module('crash', [
   'crash.eventService',
   'crash.userService',
-  'crash.S3Service',
+  'crash.S3',
   'crash.crashEventObj',
   'crash.profile',
   'crash.createAccount',
@@ -191,7 +191,7 @@ angular.module('crash.eventService', [])
 
 });
 
-angular.module('crash.s3', [])
+angular.module('crash.S3', [])
 
 .factory('S3Service', function($http){ 
 
@@ -201,7 +201,7 @@ angular.module('crash.s3', [])
   var uploadImage = function(imageData){
 
     console.log('Upload Image...');
-    
+
     return $http({
       method : 'POST',
       url : 'api/s3/create',
@@ -547,6 +547,11 @@ angular.module('crash.crashPhoto', [])
       var imageData = canvas.toDataURL('image/png');
       photo.setAttribute('src', imageData);
       console.log('image data : ', imageData);
+
+      // convert imageData to blob
+      var byteCharacters = atob(imageData);
+
+      console.log('byteCharacters : ', byteCharacters);
 
       // Send the buffer to the server
       S3Service.uploadImage(imageData)

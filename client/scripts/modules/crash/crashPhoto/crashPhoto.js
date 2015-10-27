@@ -69,14 +69,19 @@ angular.module('crash.crashPhoto', [])
       photo.setAttribute('src', imageData);
       console.log('image data : ', imageData);
 
+      // convert imageData to blob
+      // var byteCharacters = atob(imageData);
+
+      // console.log('byteCharacters : ', byteCharacters);
+
       // Send the buffer to the server
-      S3Service.uploadImage(imageData)
-        .then(function(data){
-          console.log('DATA received : ', data);
-        })
-        .catch(function(err){
-          console.log('error saving image...', err);
-        });
+      // S3Service.uploadImage(imageData)
+      //   .then(function(data){
+      //     console.log('DATA received : ', data);
+      //   })
+      //   .catch(function(err){
+      //     console.log('error saving image...', err);
+      //   });
 
     } else { 
       clearphoto();

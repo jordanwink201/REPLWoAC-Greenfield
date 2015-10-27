@@ -1,4 +1,4 @@
-angular.module('crash.s3', [])
+angular.module('crash.S3', [])
 
 .factory('S3Service', function($http){ 
 
@@ -8,7 +8,7 @@ angular.module('crash.s3', [])
   var uploadImage = function(imageData){
 
     console.log('Upload Image...');
-    
+
     return $http({
       method : 'POST',
       url : 'api/s3/create',
