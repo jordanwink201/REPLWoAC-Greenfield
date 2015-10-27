@@ -3,6 +3,7 @@ angular.module('crash.crashPhoto', [])
 .controller('CrashPhotoController', function($scope, CrashEventObj, S3Service) {
   var self = this;
   self.images = [];
+  var takenImgsCounter = 0;
 
   var streaming = false;
   var width = 320;    // We will scale the photo width to this
@@ -67,21 +68,23 @@ angular.module('crash.crashPhoto', [])
 
       var imageData = canvas.toDataURL('image/png');
       photo.setAttribute('src', imageData);
-      console.log('image data : ', imageData);
-
-      // convert imageData to blob
-      // var byteCharacters = atob(imageData);
-
-      // console.log('byteCharacters : ', byteCharacters);
-
-      // Send the buffer to the server
-      // S3Service.uploadImage(imageData)
-      //   .then(function(data){
-      //     console.log('DATA received : ', data);
-      //   })
-      //   .catch(function(err){
-      //     console.log('error saving image...', err);
-      //   });
+      /***
+        Send the buffer to the server
+        send the current user's username
+        send the image description 'scene'
+        update the image taken counter
+      ***/
+      S3Service.uploadImage(imageData, 'jordanw16', 'scene', takenImgsCounter)
+        .then(function(imgUrl){
+          console.log('Image URL received : ', imgUrl);
+          
+          takenImgsCounter++;
+          // save the image to an array of images
+          self.images.push(imgUrl);
+        })
+        .catch(function(err){
+          console.log('error saving image...', err);
+        });
 
     } else { 
       clearphoto();
@@ -100,6 +103,7 @@ angular.module('crash.crashPhoto', [])
   self.save = function(){
     console.log('saving...');
     CrashEventObj.crashEvent.images = self.images;
+    console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.images);
   };
 
 });

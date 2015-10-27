@@ -196,17 +196,15 @@ angular.module('crash.S3', [])
 .factory('S3Service', function($http){ 
 
   /***
-    
+    Upload Image to S3
   ***/
-  var uploadImage = function(imageData){
-
-    console.log('Upload Image...');
+  var uploadImage = function(imageData, name, description, takenImgsCounter){
 
     return $http({
       method : 'POST',
-      url : 'api/s3/create',
-      contentType : 'application/x-www-form-urlencoded',
-      data : { imageData : imageData }
+      url : 'api/s3/upload',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      data: $.param({imgName : name + takenImgsCounter, imageData: imageData}),
     })
     .then(function(res){
       console.log('RESPONSE : ', res.data);
@@ -482,6 +480,7 @@ angular.module('crash.crashPhoto', [])
 .controller('CrashPhotoController', function($scope, CrashEventObj, S3Service) {
   var self = this;
   self.images = [];
+  var takenImgsCounter = 0;
 
   var streaming = false;
   var width = 320;    // We will scale the photo width to this
@@ -546,17 +545,19 @@ angular.module('crash.crashPhoto', [])
 
       var imageData = canvas.toDataURL('image/png');
       photo.setAttribute('src', imageData);
-      console.log('image data : ', imageData);
-
-      // convert imageData to blob
-      var byteCharacters = atob(imageData);
-
-      console.log('byteCharacters : ', byteCharacters);
-
-      // Send the buffer to the server
-      S3Service.uploadImage(imageData)
-        .then(function(data){
-          console.log('DATA received : ', data);
+      /***
+        Send the buffer to the server
+        send the current user's username
+        send the image description 'scene'
+        update the image taken counter
+      ***/
+      S3Service.uploadImage(imageData, 'jordanw16', 'scene', takenImgsCounter)
+        .then(function(imgUrl){
+          console.log('Image URL received : ', imgUrl);
+          
+          takenImgsCounter++;
+          // save the image to an array of images
+          self.images.push(imgUrl);
         })
         .catch(function(err){
           console.log('error saving image...', err);
@@ -579,6 +580,7 @@ angular.module('crash.crashPhoto', [])
   self.save = function(){
     console.log('saving...');
     CrashEventObj.crashEvent.images = self.images;
+    console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.images);
   };
 
 });
@@ -692,8 +694,6 @@ angular.module('crash.profile', [])
 
   self.userObj = {};
 
-  self.updateObj = {};
-
   /***
     get the username from window.localStorage
   ***/
@@ -712,7 +712,6 @@ angular.module('crash.profile', [])
     update the user's profile
   ***/
   self.updateUser = function() {
-    console.log('BEFORE I SEND THE DATA', self.userObj);
     UserService.updateUserAccount(self.userObj)
       /***
         response will be an {token:token, user:user}
