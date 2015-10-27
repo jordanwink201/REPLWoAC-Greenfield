@@ -45,13 +45,13 @@ var userSchema = new Schema({
 /***
   Compare the password from the database associated to the user with the password that is attached to the request object
 ***/
-userSchema.methods.comparePasswords = function(reqestObjPassword){
+userSchema.methods.comparePasswords = function(requestObjPassword){
   
   var defer = Q.defer();
   var databasePassword = this.password;
 
   // Create a promise
-  bcrypt.compare(reqestObjPassword, databasePassword, function(err, isMatch){
+  bcrypt.compare(requestObjPassword, databasePassword, function(err, isMatch){
     if (err) {
       defer.reject(err);
     } else {

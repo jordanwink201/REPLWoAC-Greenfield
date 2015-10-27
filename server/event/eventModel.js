@@ -34,6 +34,7 @@ var crashSchema = new Schema({
     agentName : String,
     agentEmail : String,
 
+    otherUser : String,
     licensePhotoUrl : String,
     insuranceCardPhotoUrl : String,
   }

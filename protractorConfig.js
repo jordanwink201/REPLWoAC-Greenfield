@@ -7,5 +7,10 @@ exports.config = {
   // The URL where the server we are testing is running
   baseUrl: 'http://localhost:3001/#/',
 
-  specs : ['specs/client/crashSpec.js']
+  specs : ['specs/client/crashSpec.js'],
+//enables testing with multiple browsers
+  multiCapabilities : [
+      {'browserName' : 'chrome'},
+      {'browserName' : 'firefox'}
+    ]
 };
