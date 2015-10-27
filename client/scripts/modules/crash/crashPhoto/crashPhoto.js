@@ -58,9 +58,8 @@ angular.module('crash.crashPhoto', [])
       /***
         Send the buffer to the server
         send the image description 'scene'
-        update the image taken counter
       ***/
-      S3Service.uploadImage(imageData, 'scene', takenImgsCounter)
+      S3Service.uploadImage(imageData, 'scene')
         .then(function(imgUrl){
           self.eventImages.push(imgUrl);
         })
