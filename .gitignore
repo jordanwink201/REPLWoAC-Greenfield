@@ -6,6 +6,6 @@ client/lib
 
 client/styles/main.css
 client/styles/main.css.map
-
+client/production.min.js
 dist/
 npm-debug.log

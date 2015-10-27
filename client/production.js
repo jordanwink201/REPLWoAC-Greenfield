@@ -538,6 +538,7 @@ angular.module('crash.crashWitness', [])
   /***
     store the person object into the witness array
     clear the input text fields after adding the person, so the user can easily add another witness
+    angular.copy(self.master) clears ubinds the person object
   ***/
   self.addWitness = function(){
     console.log('add witness...');
