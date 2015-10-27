@@ -1,6 +1,7 @@
 angular.module('crash', [
   'crash.eventService',
   'crash.userService',
+  'crash.S3Service',
   'crash.crashEventObj',
   'crash.profile',
   'crash.createAccount',

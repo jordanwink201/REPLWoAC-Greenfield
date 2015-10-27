@@ -1,6 +1,7 @@
 angular.module('crash', [
   'crash.eventService',
   'crash.userService',
+  'crash.S3Service',
   'crash.crashEventObj',
   'crash.profile',
   'crash.createAccount',
@@ -186,6 +187,35 @@ angular.module('crash.eventService', [])
   return {  
     createCrashEvent : createCrashEvent,
     readCrashEvent : readCrashEvent
+  };
+
+});
+
+angular.module('crash.s3', [])
+
+.factory('S3Service', function($http){ 
+
+  /***
+    
+  ***/
+  var uploadImage = function(imageData){
+
+    console.log('Upload Image...');
+    
+    return $http({
+      method : 'POST',
+      url : 'api/s3/create',
+      contentType : 'application/x-www-form-urlencoded',
+      data : { imageData : imageData }
+    })
+    .then(function(res){
+      console.log('RESPONSE : ', res.data);
+      return res.data;
+    });
+  };
+
+  return {  
+    uploadImage : uploadImage
   };
 
 });
@@ -449,7 +479,7 @@ angular.module('crash.crashFinalInfo', [])
 
 angular.module('crash.crashPhoto', [])
 
-.controller('CrashPhotoController', function($scope, CrashEventObj) {
+.controller('CrashPhotoController', function($scope, CrashEventObj, S3Service) {
   var self = this;
   self.images = [];
 
@@ -514,9 +544,20 @@ angular.module('crash.crashPhoto', [])
       canvas.height = height;
       context.drawImage(video, 0, 0, width, height);
 
-      var data = canvas.toDataURL('image/png');
-      photo.setAttribute('src', data);
-    } else {
+      var imageData = canvas.toDataURL('image/png');
+      photo.setAttribute('src', imageData);
+      console.log('image data : ', imageData);
+
+      // Send the buffer to the server
+      S3Service.uploadImage(imageData)
+        .then(function(data){
+          console.log('DATA received : ', data);
+        })
+        .catch(function(err){
+          console.log('error saving image...', err);
+        });
+
+    } else { 
       clearphoto();
     }
   }
@@ -525,7 +566,6 @@ angular.module('crash.crashPhoto', [])
     console.log('take photo...');
     takepicture();
     // clearphoto();
-    
   };
 
   /***
