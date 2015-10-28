@@ -25,6 +25,22 @@
 
         <button class="button button-full button-positive" ng-click="eventCl.addWitness()">Add Witness</button>
 
+        <!-- Create a Card Out of Each Added Witness, the card should be editable as well -->
+        <div class="card" ng-repeat="witness in eventCl.witnessArr">
+          <div class="item item-divider">
+            {{witness.fname}} {{witness.lname}}
+          </div>
+          <div class="item item-text-wrap">
+            {{witness.phone}}
+            {{witness.email}}
+            {{witness.comments}}
+          </div>
+          <div class="item item-divider">
+            Edit Info
+          </div>
+        </div>
+
+
       </ion-list>
     </div>
   </ion-content>

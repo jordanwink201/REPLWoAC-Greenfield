@@ -1,0 +1,21 @@
+<ion-view view-title="Crash History" ng-init="historyCl.load()">
+  <ion-nav-bar class="bar-positive"></ion-nav-bar>
+  <ion-content>
+    <ion-list>
+
+      <!-- Create a Card Out of Crash History Object, the card should be editable as well -->
+      <div class="card" ng-repeat="event in historyCl.crashEvents">
+        <div class="item item-divider">
+
+        </div>
+        <div class="item item-text-wrap">
+          {{event}}
+        </div>
+        <div class="item item-divider">
+          Edit Info
+        </div>
+      </div>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

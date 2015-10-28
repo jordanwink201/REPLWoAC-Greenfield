@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
-  'ionic',
+  'ionic','ionic.service.core',
   'crash.eventService',
   'crash.userService',
   'crash.S3',
@@ -17,7 +17,7 @@ angular.module('crash', [
   'crash.eventPersonManual',
   'crash.eventFinal',
   'crash.history',
-  'crash.profile',
+  'crash.profile'
   ])
 
 .run(function($ionicPlatform) {
@@ -36,7 +36,7 @@ angular.module('crash', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -59,7 +59,10 @@ angular.module('crash', [
     views: {
       'tab-event': {
         templateUrl: 'templates/tab-event.html',
-        controller: 'EventController as eventCl'
+        controller: 'EventController as eventCl',
+        data : {
+          authenticate : true
+        }
       }
     }
   })
@@ -68,7 +71,10 @@ angular.module('crash', [
       views: {
         'tab-event': {
           templateUrl: 'templates/event-photo.html',
-          controller: 'EventPhotoController as photoCl'
+          controller: 'EventPhotoController as photoCl',
+          data : {
+            authenticate : true
+          }
         }
       }
     })
@@ -77,7 +83,10 @@ angular.module('crash', [
       views: {
         'tab-event': {
           templateUrl: 'templates/event-person.html',
-          controller: 'EventPersonController as personCl'
+          controller: 'EventPersonController as personCl',
+          data : {
+            authenticate : true
+          }
         }
       }
     })
@@ -86,7 +95,10 @@ angular.module('crash', [
       views: {
         'tab-event': {
           templateUrl: 'templates/event-person-manual.html',
-          controller: 'EventPersonManualController as personMCl'
+          controller: 'EventPersonManualController as personMCl',
+          data : {
+            authenticate : true
+          }
         }
       }
     })
@@ -95,10 +107,15 @@ angular.module('crash', [
       views: {
         'tab-event': {
           templateUrl: 'templates/event-final.html',
-          controller: 'EventFinalController as eventFCl'
+          controller: 'EventFinalController as eventFCl',
+          data : {
+            authenticate : true
+          }
         }
       }
     })
+
+
 
   // Profile Tab
   .state('tab.profile', {
@@ -106,10 +123,37 @@ angular.module('crash', [
     views: {
       'tab-profile': {
         templateUrl: 'templates/tab-profile.html',
-        controller: 'ProfileController as profileCl'
+        controller: 'ProfileController as profileCl',
+        data : {
+          authenticate : true
+        }
       }
     }
   })
+    // .state('tab.signin', {
+    //   url: '/signin',
+    //   views: {
+    //     'tab-profile': {
+    //       templateUrl: 'templates/tab-signin.html',
+    //       controller: 'SigninController as signinCl',
+    //       data : {
+    //         authenticate : false
+    //       }
+    //     }
+    //   }
+    // })
+    // .state('tab.createAccount', {
+    //   url: '/createAccount',
+    //   views: {
+    //     'tab-profile': {
+    //       templateUrl: 'templates/tab-create-account.html',
+    //       controller: 'CreateController as createAccountCl',
+    //       data : {
+    //         authenticate : false
+    //       }
+    //     }
+    //   }
+    // })
 
   // History Tab
   .state('tab.history', {
@@ -118,6 +162,9 @@ angular.module('crash', [
       'tab-history': {
         templateUrl: 'templates/tab-history.html',
         controller: 'HistoryController as historyCl',
+        data : {
+          authenticate : true
+        }
       }
     }
   });
@@ -126,3 +173,5 @@ angular.module('crash', [
   $urlRouterProvider.otherwise('/tab/event');
 
 });
+
+
