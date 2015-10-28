@@ -1,0 +1,47 @@
+<ion-view view-title="Report Crash">
+  <ion-nav-bar class="bar-positive"></ion-nav-bar>
+  <ion-content on-swipe-left="eventCl.next()">
+    <div class="list list-inset">
+      <ion-list>
+
+        <p>Check on the other driver's status. If injured, please call 911 immediately.</p>
+        <p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
+
+        <label class="item item-input">
+          <input type="text" placeholder="First Name" ng-model="eventCl.person.fname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Last Name" ng-model="eventCl.person.lname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Phone Number" ng-model="eventCl.person.phone">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Email Address" ng-model="eventCl.person.email">
+        </label>
+        <label class="item item-input">
+          <textarea placeholder="Comments" ng-model="eventCl.person.comments"></textarea>
+        </label>
+
+        <button class="button button-full button-positive" ng-click="eventCl.addWitness()">Add Witness</button>
+
+        <!-- Create a Card Out of Each Added Witness, the card should be editable as well -->
+        <div class="card" ng-repeat="witness in eventCl.witnessArr">
+          <div class="item item-divider">
+            {{witness.fname}} {{witness.lname}}
+          </div>
+          <div class="item item-text-wrap">
+            {{witness.phone}}
+            {{witness.email}}
+            {{witness.comments}}
+          </div>
+          <div class="item item-divider">
+            Edit Info
+          </div>
+        </div>
+
+
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>

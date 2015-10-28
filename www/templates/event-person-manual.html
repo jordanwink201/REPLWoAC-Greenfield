@@ -1,0 +1,56 @@
+<ion-view view-title="Add Other Driver Manually">
+  <ion-nav-bar class="bar-positive"></ion-nav-bar>
+  <ion-content on-swipe-right="personMCl.prev()" on-swipe-left="personMCl.next()">
+    <div class="list list-inset">
+      <ion-list>
+
+      <label class="item item-input">
+        <input type="text" placeholder="First Name" ng-model="personMCl.person.fname">
+      </label>
+
+      <label class="item item-input">
+        <input type="text" placeholder="Last Name" ng-model="personMCl.person.lname">
+      </label>
+
+      <label class="item item-input">
+        <input type="date" placeholder="DOB" ng-model="personMCl.person.dob">
+      </label>
+
+      <label class="item item-input">
+        <input type="number" placeholder="Phone Number" ng-model="personMCl.person.phone">
+      </label>
+
+      <label class="item item-input">
+        <input type="email" placeholder="Email Address" ng-model="personMCl.person.email">
+      </label>
+
+      <label class="item item-input">
+        <input type="number" placeholder="Driver's License Number" ng-model="personMCl.person.license">
+      </label>
+
+      <label class="item item-input">
+        <input type="text" placeholder="Insurance Company" ng-model="personMCl.person.insurance">
+      </label>
+
+      <label class="item item-input">
+        <input type="number" placeholder="Policy Number" ng-model="personMCl.person.policy">
+      </label>
+
+      <label class="item item-input">
+        <input type="text" placeholder="Agent Name" ng-model="personMCl.person.agent">
+      </label>
+
+      <label class="item item-input">
+        <input type="email" placeholder="Agent Email" ng-model="personMCl.person.agentEmail">
+      </label>
+
+      <label class="item item-input">
+        <textarea placeholder="Comments" ng-model="personMCl.person.comments"></textarea>
+      </label>
+
+      <button class="button button-full button-positive" ng-click="personMCl.save()">Add Driver</button>
+
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
