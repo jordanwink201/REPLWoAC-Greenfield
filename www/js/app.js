@@ -7,6 +7,10 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
   'ionic',
+  'crash.eventService',
+  'crash.userService',
+  'crash.S3',
+  'crash.crashEventObj',
   'crash.event',
   'crash.eventPhoto',
   'crash.eventPerson',

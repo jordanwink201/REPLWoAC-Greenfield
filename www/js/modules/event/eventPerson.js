@@ -1,9 +1,11 @@
 angular.module('crash.eventPerson', [])
 
-.controller('EventPersonController', function($state) {
+.controller('EventPersonController', function($state, UserService, CrashEventObj) {
 
   var self = this;
+
   self.errorMessage = '';
+
   self.crashDriver = {};
 
   /***
@@ -12,20 +14,20 @@ angular.module('crash.eventPerson', [])
     (Future: only be able to retreive non personal data of the other user)
   ***/
   self.getUser = function(){
-    console.log('get user...');
-    // var inputUsername = self.username;
-    // UserService.getAccountByUsername(inputUsername)
-    //   .then(function(user){
-    //     self.crashDriver = user;
-    //     CrashEventObj.crashEvent.crashDriver = self.crashDriver;
-    //     console.log('crash event object : ', CrashEventObj.crashEvent);
-    //   })
-    //   .catch(function(err){
-    //     console.log('user not received...', err.data);
-    //     self.errorMessage = err.data.error;
-    //   });
+    var inputUsername = self.username;
+    UserService.getAccountByUsername(inputUsername)
+      .then(function(user){
+        self.crashDriver = user;
+        CrashEventObj.crashEvent.crashDriver = self.crashDriver;
+        console.log('crash event object : ', CrashEventObj.crashEvent);
+      })
+      .catch(function(err){
+        console.log('user not received...', err.data);
+        self.errorMessage = err.data.error;
+      });
   };
 
+  /*** Navigation ***/
   self.prev = function(){
     console.log('swipped right');
     $state.go('tab.eventPhoto');

@@ -1,6 +1,6 @@
 angular.module('crash.event', [])
 
-.controller('EventController', function($state) {
+.controller('EventController', function($state, CrashEventObj) {
 
   var self = this;
 
@@ -22,17 +22,20 @@ angular.module('crash.event', [])
     angular.copy(self.master) clears ubinds the person object
   ***/
   self.addWitness = function(){
+    console.log('add witness...');
     self.witnessArr.push(self.person);
     self.person = angular.copy(self.master);
   };
 
   /***
+    Navigation
     save the witness array into the CrashEventObj.crashEvent object
   ***/
   self.next = function(){
     console.log('swipped left');
     $state.go('tab.eventPhoto');
-    // CrashEventObj.crashEvent.witnessArr = self.witnessArr;
+    CrashEventObj.crashEvent.witnessArr = self.witnessArr;
+    console.log('CrashEventObj.crashEvent : ', CrashEventObj.crashEvent);
   };
 
 });

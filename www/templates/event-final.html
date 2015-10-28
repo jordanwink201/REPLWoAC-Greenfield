@@ -1,4 +1,6 @@
-<ion-view view-title="Review Information">
+
+
+<ion-view view-title="Review Information" ng-init="eventFCl.load()">
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
   <ion-content on-swipe-right="eventFCl.prev()">
     <ion-list>
@@ -8,7 +10,21 @@
         Witnesses
       </div>
       <div class="item item-text-wrap">
-        This is a basic Card with some text.
+        <ul>
+          <li ng-repeat="person in eventFCl.witnessArr">
+            <form name='witnessForm'>
+
+              <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
+
+              <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
+
+              <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
+
+              <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+
+            </form>
+          </li>
+        </ul>
       </div>
       <div class="item item-divider">
         I'm a Footer in a Card!
@@ -20,7 +36,29 @@
         Other Driver
       </div>
       <div class="item item-text-wrap">
-        This is a basic Card with some text.
+        <form name='crashDriverInfo'>
+          <input type="text" class="form-control" placeholder="First Name" ng-model="eventFCl.crashDriver.fname">
+
+          <input type="text" class="form-control" placeholder="Last Name" ng-model="eventFCl.crashDriver.lname">
+
+          <input type="date" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
+
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="eventFCl.crashDriver.phone">
+
+          <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
+
+          <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.license">
+
+          <input type="text" class="form-control" placeholder
+         ="Insurance Company" ng-model="eventFCl.crashDriver.insurance">
+
+          <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="eventFCl.crashDriver.policy">
+
+          <input type="text" class="form-control" placeholder="Agent Name" ng-model="eventFCl.crashDriver.agent">
+
+          <input type="text" class="form-control" placeholder="Agent Email" ng-model="eventFCl.crashDriver.agentEmail">
+
+        </form>
       </div>
       <div class="item item-divider">
         I'm a Footer in a Card!
