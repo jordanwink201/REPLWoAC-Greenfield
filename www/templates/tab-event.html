@@ -1,0 +1,31 @@
+<ion-view view-title="Report Crash">
+  <ion-nav-bar class="bar-positive"></ion-nav-bar>
+  <ion-content on-swipe-left="eventCl.next()">
+    <div class="list list-inset">
+      <ion-list>
+
+        <p>Check on the other driver's status. If injured, please call 911 immediately.</p>
+        <p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
+
+        <label class="item item-input">
+          <input type="text" placeholder="First Name" ng-model="eventCl.person.fname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Last Name" ng-model="eventCl.person.lname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Phone Number" ng-model="eventCl.person.phone">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Email Address" ng-model="eventCl.person.email">
+        </label>
+        <label class="item item-input">
+          <textarea placeholder="Comments" ng-model="eventCl.person.comments"></textarea>
+        </label>
+
+        <button class="button button-full button-positive" ng-click="eventCl.addWitness()">Add Witness</button>
+
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
