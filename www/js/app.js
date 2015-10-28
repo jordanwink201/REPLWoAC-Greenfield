@@ -9,6 +9,7 @@ angular.module('crash', [
   'ionic','ionic.service.core',
   'crash.eventService',
   'crash.userService',
+  'crash.cameraService',
   'crash.S3',
   'crash.crashEventObj',
   'crash.event',
