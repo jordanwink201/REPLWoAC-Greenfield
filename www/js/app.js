@@ -18,7 +18,9 @@ angular.module('crash', [
   'crash.eventPersonManual',
   'crash.eventFinal',
   'crash.history',
-  'crash.profile'
+  'crash.profile',
+  'crash.signin',
+  'crash.createAccount'
   ])
 
 .run(function($ionicPlatform) {
@@ -131,30 +133,30 @@ angular.module('crash', [
       }
     }
   })
-    // .state('tab.signin', {
-    //   url: '/signin',
-    //   views: {
-    //     'tab-profile': {
-    //       templateUrl: 'templates/tab-signin.html',
-    //       controller: 'SigninController as signinCl',
-    //       data : {
-    //         authenticate : false
-    //       }
-    //     }
-    //   }
-    // })
-    // .state('tab.createAccount', {
-    //   url: '/createAccount',
-    //   views: {
-    //     'tab-profile': {
-    //       templateUrl: 'templates/tab-create-account.html',
-    //       controller: 'CreateController as createAccountCl',
-    //       data : {
-    //         authenticate : false
-    //       }
-    //     }
-    //   }
-    // })
+    .state('tab.signin', {
+      url: '/signin',
+      views: {
+        'tab-profile': {
+          templateUrl: 'templates/user-signin.html',
+          controller: 'SigninController as signinCl',
+          data : {
+            authenticate : false
+          }
+        }
+      }
+    })
+    .state('tab.createAccount', {
+      url: '/createAccount',
+      views: {
+        'tab-profile': {
+          templateUrl: 'templates/user-create-account.html',
+          controller: 'CreateController as createAccountCl',
+          data : {
+            authenticate : false
+          }
+        }
+      }
+    })
 
   // History Tab
   .state('tab.history', {
