@@ -10,6 +10,7 @@ angular.module('crash', [
   'crash.eventService',
   'crash.userService',
   'crash.errorService',
+  'crash.loadingService',
   'crash.cameraService',
   'crash.S3',
   'crash.crashEventObj',

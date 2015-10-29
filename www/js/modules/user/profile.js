@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(UserService, $state, $window){
+.controller('ProfileController', function(LoadingService, UserService, $state, $window){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -14,13 +14,18 @@ angular.module('crash.profile', [])
     get the username from window.localStorage
   ***/
   self.load = function(){
+
+    LoadingService.showLoader();
+
     UserService.readAccount()
       .then(function(user){
         console.log('user : ', user);
         self.userObj = user.data;
+        LoadingService.hideLoader();
       })
       .catch(function(err){
         console.log('user not received...', err);
+        LoadingService.hideLoader();
       });
   };
 
@@ -29,16 +34,21 @@ angular.module('crash.profile', [])
     response will be an {token:token, user:user}
   ***/
   self.updateUser = function() {
+
+    LoadingService.showLoader();
+
     UserService.updateUserAccount(self.userObj)
       .then(function(data){
         console.log('updated account, session :', data.token);
         $window.localStorage.setItem('com.crash', data.token);
-        $state.go('tab.profile');
+        // $state.go('tab.profile');
+        LoadingService.hideLoader();
       })
       .catch(function(err){
         console.log('Error updating account...', err.data);
         self.errorMessage = err.data.error;
         self.user.username = '';
+        LoadingService.hideLoader();
       });
   };
 

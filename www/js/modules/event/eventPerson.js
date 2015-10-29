@@ -1,6 +1,6 @@
 angular.module('crash.eventPerson', [])
 
-.controller('EventPersonController', function($state, UserService, CrashEventObj) {
+.controller('EventPersonController', function(UserService, CrashEventObj, $state) {
 
   var self = this;
 
@@ -36,6 +36,7 @@ angular.module('crash.eventPerson', [])
   ***/
   self.getUser = function(username){
     console.log('get ', username, ' information and store into the crash event object as the crash driver');
+
     UserService.getAccountByUsername(username)
       .then(function(user){
         console.log('crash driver returned from DB : ', user);
