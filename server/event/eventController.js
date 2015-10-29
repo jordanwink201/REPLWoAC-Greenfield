@@ -9,7 +9,7 @@ var Utils = require('../config/utility.js');
 var Q = require('q');
 
 module.exports = {
-  
+
   /*** GET ***/
 
   /***
@@ -40,8 +40,8 @@ module.exports = {
         console.log('error finding the crash events in...', err);
         res.status(404).send({error : err.message});
       });
-    
-      
+
+
   },
 
   /*** POST ***/
@@ -54,7 +54,7 @@ module.exports = {
   createCrashEvent : function (req, res, next) {
 
     console.log('create a crash event... :', req.body);
-    
+
     var create = Q.nbind(CrashEvent.create, CrashEvent);
 
     var newCrashEvent = {
@@ -66,22 +66,22 @@ module.exports = {
       accidentPhotoUrls : [],
 
       otherPartyInfo : {
-        firstName : req.body.crashDriver.firstName,
-        lastName : req.body.crashDriver.lastName,
-        username : req.body.crashDriver.username, 
+        fname : req.body.crashDriver.fname,
+        lname : req.body.crashDriver.lname,
+        username : req.body.crashDriver.username,
 
-        phoneNumber : req.body.crashDriver.phoneNumber,
+        phone : req.body.crashDriver.phone,
         dob : req.body.crashDriver.dob,
         email : req.body.crashDriver.email,
-        driverLicenseNum : req.body.crashDriver.driverLicenseNum,
-        driverLicenseState : req.body.crashDriver.driverLicenseState,
-        insuranceCompany : req.body.crashDriver.insuranceCompany,
-        policyNum : req.body.crashDriver.policyNum,
-        agentName : req.body.crashDriver.agentName,
+        license : req.body.crashDriver.license,
+        licenseState : req.body.crashDriver.licenseState,
+        insurance : req.body.crashDriver.insurance,
+        policy : req.body.crashDriver.policy,
+        agent : req.body.crashDriver.agent,
         agentEmail : req.body.crashDriver.agentEmail,
 
-        licensePhotoUrl : '',
-        insuranceCardPhotoUrl : '',
+        licensePhoto : '',
+        insuranceCardPhoto : '',
       }
 
     };

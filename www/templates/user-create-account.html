@@ -4,51 +4,55 @@
     <ion-list>
 
     <label class="item item-input">
-      <input type="text" placeholder="Username" ng-model="createAccountCl.person.username">
+      <input type="text" placeholder="Username" ng-model="createAccountCl.user.username">
     </label>
 
     <label class="item item-input">
-      <input type="password" placeholder="Password" ng-model="createAccountCl.person.password">
+      <input type="password" placeholder="Password" ng-model="createAccountCl.user.password">
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="First Name" ng-model="createAccountCl.person.fname">
+      <input type="text" placeholder="First Name" ng-model="createAccountCl.user.fname">
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="Last Name" ng-model="createAccountCl.person.lname">
+      <input type="text" placeholder="Last Name" ng-model="createAccountCl.user.lname">
     </label>
 
     <label class="item item-input">
-      <input type="date" placeholder="DOB" ng-model="createAccountCl.person.dob">
+      <input type="date" placeholder="DOB" ng-model="createAccountCl.user.dob">
     </label>
 
     <label class="item item-input">
-      <input type="number" placeholder="Phone Number" ng-model="createAccountCl.person.phone">
+      <input type="number" placeholder="Phone Number" ng-model="createAccountCl.user.phone">
     </label>
 
     <label class="item item-input">
-      <input type="email" placeholder="Email Address" ng-model="createAccountCl.person.email">
+      <input type="email" placeholder="Email Address" ng-model="createAccountCl.user.email">
     </label>
 
     <label class="item item-input">
-      <input type="number" placeholder="Driver's License Number" ng-model="createAccountCl.person.license">
+      <input type="number" placeholder="Driver's License Number" ng-model="createAccountCl.user.license">
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="Insurance Company" ng-model="createAccountCl.person.insurance">
+      <input type="text" placeholder="Driver's License State" ng-model="createAccountCl.user.licenseState">
     </label>
 
     <label class="item item-input">
-      <input type="number" placeholder="Policy Number" ng-model="createAccountCl.person.policy">
+      <input type="text" placeholder="Insurance Company" ng-model="createAccountCl.user.insurance">
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="Agent Name" ng-model="createAccountCl.person.agent">
+      <input type="number" placeholder="Policy Number" ng-model="createAccountCl.user.policy">
     </label>
 
     <label class="item item-input">
-      <input type="email" placeholder="Agent Email" ng-model="createAccountCl.person.agentEmail">
+      <input type="text" placeholder="Agent Name" ng-model="createAccountCl.user.agent">
+    </label>
+
+    <label class="item item-input">
+      <input type="email" placeholder="Agent Email" ng-model="createAccountCl.user.agentEmail">
     </label>
 
     <button class="button button-full button-positive" ng-click="createAccountCl.create()">Create Account</button>

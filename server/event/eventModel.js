@@ -3,7 +3,7 @@
   Crash Event Model
 
 ***/
-  
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
@@ -20,23 +20,23 @@ var crashSchema = new Schema({
   accidentPhotoUrls : Array,
 
   otherPartyInfo: {
-    firstName : String,
-    lastName : String,
-    username : String, 
+    fname : String,
+    lname : String,
+    username : String,
 
-    phoneNumber : String,
+    phone : String,
     dob : Date,
     email : String,
-    driverLicenseNum : String,
-    driverLicenseState : String,
-    insuranceCompany : String,
-    policyNum : String,
-    agentName : String,
+    licenseNum : String,
+    licenseState : String,
+    insurance : String,
+    policy : String,
+    agent : String,
     agentEmail : String,
 
     otherUser : String,
-    licensePhotoUrl : String,
-    insuranceCardPhotoUrl : String,
+    licensePhoto : String,
+    insuranceCardPhoto : String,
   }
 
 });

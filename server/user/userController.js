@@ -80,9 +80,9 @@ module.exports = {
 
   createAccount : function(req, res, next) {
     console.log('create an account... :', req.body);
-    
+
     var usernameToLookUp = req.body.username;
-    
+
     var findOne = Q.nbind(User.findOne, User); // find user in DB
     var create = Q.nbind(User.create, User); // create new user in DB
 
@@ -95,18 +95,18 @@ module.exports = {
           console.log('creat a new user...');
           // create the new user to store in DB
           var newUser = {
-            firstName : req.body.firstname,
-            lastName : req.body.lastname,
+            fname : req.body.fname,
+            lname : req.body.lname,
             username : req.body.username,
             password : req.body.password,
-            phoneNumber : req.body.phoneNumber,
-            dob : req.body.dob, 
+            phone : req.body.phone,
+            dob : req.body.dob,
             email : req.body.email,
-            driverLicenseNum : req.body.driverLicenseNum,
-            driverLicenseState : req.body.driverLicenseState,
-            insuranceCompany : req.body.insuranceCompany,
-            policyNum : req.body.policyNum,
-            agentName : req.body.agentName,
+            license : req.body.license,
+            licenseState : req.body.licenseState,
+            insurance : req.body.insurance,
+            policy : req.body.policy,
+            agent : req.body.agent,
             agentEmail : req.body.agentEmail
           };
           return create(newUser);
@@ -129,17 +129,17 @@ module.exports = {
 
   /***
     Update the user information, should be restricted to only change parts of the user's information
-    updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
+    updating the user i.e Address, Phone Number, Email, Insurance Data..etc
   ***/
   updateUser : function(req, res, next){
      var userUpdate = {
-      phoneNumber : req.body.phoneNumber, 
+      phone : req.body.phone,
       email : req.body.email,
-      driverLicenseNum : req.body.driverLicenseNum,
-      driverLicenseState : req.body.driverLicenseState,
-      insuranceCompany : req.body.insuranceCompany,
-      policyNum : req.body.policyNum,
-      agentName : req.body.agentName,
+      license : req.body.license,
+      licenseState : req.body.licenseState,
+      insurance : req.body.insurance,
+      policy : req.body.policy,
+      agent : req.body.agent,
       agentEmail : req.body.agentEmail
     };
     var findUserUpdate = Q.nbind(User.findOneAndUpdate, User);
@@ -161,5 +161,5 @@ module.exports = {
         res.status(404).send({error : err.message});
       });
   }
-  
+
 };

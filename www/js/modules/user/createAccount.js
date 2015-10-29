@@ -21,7 +21,7 @@ angular.module('crash.createAccount', [])
 
         $window.localStorage.setItem('com.crash', data.token);
 
-        $state.go('/');
+        $state.go('tab.event');
       })
       /***
         Tell the user the error, ex: username already exists, allow them to enter in a different username...

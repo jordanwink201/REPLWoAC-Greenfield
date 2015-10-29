@@ -33,7 +33,7 @@ angular.module('crash.event', [])
   ***/
   self.next = function(){
     console.log('swipped left');
-    $state.go('tab.eventPhoto');
+    $state.transitionTo('tab.eventPhoto');
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
     console.log('CrashEventObj.crashEvent : ', CrashEventObj.crashEvent);
   };

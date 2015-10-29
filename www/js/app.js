@@ -9,6 +9,7 @@ angular.module('crash', [
   'ionic','ionic.service.core',
   'crash.eventService',
   'crash.userService',
+  'crash.errorService',
   'crash.cameraService',
   'crash.S3',
   'crash.crashEventObj',
@@ -41,11 +42,25 @@ angular.module('crash', [
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
+
+  .state('signin', {
+    url: '/signin',
+    templateUrl: 'templates/user-signin.html',
+    controller: 'SigninController as signinCl',
+    data : {
+      authenticate : false
+    }
+  })
+
+  .state('createAccount', {
+    url: '/createAccount',
+    templateUrl: 'templates/user-create-account.html',
+    controller: 'CreateController as createAccountCl',
+    data : {
+      authenticate : false
+    }
+  })
 
   // setup an abstract state for the tabs directive
   .state('tab', {
@@ -63,10 +78,10 @@ angular.module('crash', [
       'tab-event': {
         templateUrl: 'templates/tab-event.html',
         controller: 'EventController as eventCl',
-        data : {
-          authenticate : true
-        }
       }
+    },
+    data : {
+      authenticate : true
     }
   })
     .state('tab.eventPhoto', {
@@ -75,10 +90,10 @@ angular.module('crash', [
         'tab-event': {
           templateUrl: 'templates/event-photo.html',
           controller: 'EventPhotoController as photoCl',
-          data : {
-            authenticate : true
-          }
         }
+      },
+      data : {
+        authenticate : true
       }
     })
     .state('tab.eventPerson', {
@@ -87,10 +102,10 @@ angular.module('crash', [
         'tab-event': {
           templateUrl: 'templates/event-person.html',
           controller: 'EventPersonController as personCl',
-          data : {
-            authenticate : true
-          }
         }
+      },
+      data : {
+        authenticate : true
       }
     })
     .state('tab.eventPersonManual', {
@@ -99,10 +114,10 @@ angular.module('crash', [
         'tab-event': {
           templateUrl: 'templates/event-person-manual.html',
           controller: 'EventPersonManualController as personMCl',
-          data : {
-            authenticate : true
-          }
         }
+      },
+      data : {
+        authenticate : true
       }
     })
     .state('tab.eventFinal', {
@@ -111,14 +126,12 @@ angular.module('crash', [
         'tab-event': {
           templateUrl: 'templates/event-final.html',
           controller: 'EventFinalController as eventFCl',
-          data : {
-            authenticate : true
-          }
         }
+      },
+      data : {
+        authenticate : true
       }
     })
-
-
 
   // Profile Tab
   .state('tab.profile', {
@@ -127,36 +140,12 @@ angular.module('crash', [
       'tab-profile': {
         templateUrl: 'templates/tab-profile.html',
         controller: 'ProfileController as profileCl',
-        data : {
-          authenticate : true
-        }
       }
+    },
+    data : {
+      authenticate : true
     }
   })
-    .state('tab.signin', {
-      url: '/signin',
-      views: {
-        'tab-profile': {
-          templateUrl: 'templates/user-signin.html',
-          controller: 'SigninController as signinCl',
-          data : {
-            authenticate : false
-          }
-        }
-      }
-    })
-    .state('tab.createAccount', {
-      url: '/createAccount',
-      views: {
-        'tab-profile': {
-          templateUrl: 'templates/user-create-account.html',
-          controller: 'CreateController as createAccountCl',
-          data : {
-            authenticate : false
-          }
-        }
-      }
-    })
 
   // History Tab
   .state('tab.history', {
@@ -164,16 +153,59 @@ angular.module('crash', [
     views: {
       'tab-history': {
         templateUrl: 'templates/tab-history.html',
-        controller: 'HistoryController as historyCl',
-        data : {
-          authenticate : true
-        }
+        controller: 'HistoryController as historyCl'
       }
+    },
+    data : {
+      authenticate : true
     }
   });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/event');
+
+  /***
+    On every single call to the server, the httpProvider intercepts the call and attaches the current token to the header
+  ***/
+  $httpProvider.interceptors.push('AttachToken');
+
+})
+
+/***
+  Attach the user's token to the header of the server call
+***/
+.factory('AttachToken', function($window){
+  return {
+    request : function(object){
+      var jwt = $window.localStorage.getItem('com.crash');
+      if (jwt) {
+        object.headers['x-access-token'] = jwt; // store the token into the header
+      }
+      object.headers['Allow-Control-Allow-Origin'] = '*';
+      return object;
+    }
+  };
+})
+
+/***
+  Everytime the route changes, check if the url data.authenticate property is true, check if a session token exists, otherwise redirect the user back to the sign in page
+***/
+.run(function($rootScope, $state, UserService){
+
+  console.log('running.......');
+
+  $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
+
+    console.log('toState.authenticate : ', toState.data.authenticate);
+    console.log('UserService.isAuthorized() : ', UserService.isAuthorized());
+
+    if (toState.data.authenticate && !UserService.isAuthorized()) {
+
+      console.log('IS NOT AUTHORIZED');
+      $state.go('createAccount');
+
+    }
+  });
 
 });
 

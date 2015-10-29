@@ -33,7 +33,7 @@ angular.module('crash.profile', [])
       .then(function(data){
         console.log('updated account, session :', data.token);
         $window.localStorage.setItem('com.crash', data.token);
-        $state.go('/profile');
+        $state.go('tab.profile');
       })
       .catch(function(err){
         console.log('Error updating account...', err.data);

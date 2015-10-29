@@ -30,12 +30,12 @@ angular.module('crash.eventPhoto', [])
 
   self.prev = function(){
     console.log('swipped right');
-    $state.go('tab.event');
+    $state.transitionTo('tab.event');
   };
 
   self.next = function(){
     console.log('swipped left');
-    $state.go('tab.eventPerson');
+    $state.transitionTo('tab.eventPerson');
   };
 
 });
