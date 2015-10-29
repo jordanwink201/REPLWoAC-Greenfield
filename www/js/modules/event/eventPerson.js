@@ -4,9 +4,28 @@ angular.module('crash.eventPerson', [])
 
   var self = this;
 
+  self.enterManual = false;
+
   self.errorMessage = '';
 
   self.crashDriver = {};
+
+  self.allUsers = []; // all of the user's USERNAMES in the database
+
+  // From Add Personal Manually
+  self.person = {};
+  self.personMaster = {
+    fname : '',
+    lname : '',
+    dob : '',
+    phone : '',
+    email : '',
+    license : '',
+    insurance : '',
+    policy : '',
+    agent : '',
+    agentEmail : ''
+  };
 
   /***
     retreive the user's information by their username
@@ -27,15 +46,29 @@ angular.module('crash.eventPerson', [])
       });
   };
 
-  /*** Navigation ***/
-  self.prev = function(){
-    console.log('swipped right');
-    $state.go('tab.eventPhoto');
+  /***
+    save the crash user obj into the CrashEventObj.crashEvent object
+  ***/
+  self.save = function(){
+    console.log('saving...');
+    CrashEventObj.crashEvent.crashDriver = self.person;
+    self.person = self.personMaster;
   };
 
-  self.next = function(){
-    console.log('swipped left');
-    $state.go('tab.eventPersonManual');
+  /***
+    get all of the users USERNAMES that exist so that you can search through and filter the one you are looking for
+  ***/
+  self.getAllUsers = function(){
+    console.log('getting all users');
+    UserService.readAllUsers()
+      .then(function(allUsers){
+        console.log('all users in db : ', allUsers);
+        self.allUsers = allUsers.data;
+      })
+      .catch(function(err){
+        console.log('error getting all users...');
+      });
   };
+
 
 });

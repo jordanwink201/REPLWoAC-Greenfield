@@ -24,7 +24,7 @@ module.exports = {
     get the user from the database and send back to the client
   ***/
   readAccount : function(req, res, next){
-    console.log('REQUEST : ', req.user);
+    console.log('REQUESTsss : ', req.user);
 
     // this binding must take place in order to access the userSchema.methods
     var findUser = Q.nbind(User.findOne, User);
@@ -45,9 +45,31 @@ module.exports = {
 
   },
 
+  /***
+    get ALL the users from the database and send back to the client
+  ***/
+  readAll : function(req, res, next){
+    console.log('getting all of the users in the database...');
+
+    // this binding must take place in order to access the userSchema.methods
+    var findAllUsers = Q.nbind(User.find, User);
+
+    // get only the usernames
+    findAllUsers({}, 'username fname lname')
+      .then(function(allUsers){
+        console.log('all users usernames in the database : ', allUsers);
+        res.json({ data : allUsers });
+      })
+      .catch(function(err){
+        console.log('error reading the user...', err);
+        res.status(404).send({error : err.message});
+      });
+
+  },
+
   // /***
   //   Update the user information, should be restricted to only change parts of the user's information
-  //   updating the user i.e Address, Phone Number, Email, Insurance Data..etc 
+  //   updating the user i.e Address, Phone Number, Email, Insurance Data..etc
   // }
   // ***/
   // updateUser : function(req, res, next){

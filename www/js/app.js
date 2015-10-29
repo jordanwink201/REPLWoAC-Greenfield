@@ -14,9 +14,9 @@ angular.module('crash', [
   'crash.S3',
   'crash.crashEventObj',
   'crash.event',
+  'crash.eventWitness',
   'crash.eventPhoto',
   'crash.eventPerson',
-  'crash.eventPersonManual',
   'crash.eventFinal',
   'crash.history',
   'crash.profile',
@@ -84,54 +84,6 @@ angular.module('crash', [
       authenticate : true
     }
   })
-    .state('tab.eventPhoto', {
-      url: '/event/eventPhoto',
-      views: {
-        'tab-event': {
-          templateUrl: 'templates/event-photo.html',
-          controller: 'EventPhotoController as photoCl',
-        }
-      },
-      data : {
-        authenticate : true
-      }
-    })
-    .state('tab.eventPerson', {
-      url: '/event/eventPerson',
-      views: {
-        'tab-event': {
-          templateUrl: 'templates/event-person.html',
-          controller: 'EventPersonController as personCl',
-        }
-      },
-      data : {
-        authenticate : true
-      }
-    })
-    .state('tab.eventPersonManual', {
-      url: '/event/eventPersonManual',
-      views: {
-        'tab-event': {
-          templateUrl: 'templates/event-person-manual.html',
-          controller: 'EventPersonManualController as personMCl',
-        }
-      },
-      data : {
-        authenticate : true
-      }
-    })
-    .state('tab.eventFinal', {
-      url: '/event/eventFinal',
-      views: {
-        'tab-event': {
-          templateUrl: 'templates/event-final.html',
-          controller: 'EventFinalController as eventFCl',
-        }
-      },
-      data : {
-        authenticate : true
-      }
-    })
 
   // Profile Tab
   .state('tab.profile', {
