@@ -33,4 +33,9 @@ angular.module('crash.createAccount', [])
       });
   };
 
+  // Redirect to signin page
+  self.signin = function(){
+    $state.go('signin');
+  };
+
 });

@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var userSchema = new Schema({
 
-  fnam : String,
+  fname : String,
   lname : String,
   username : {
     type : String,

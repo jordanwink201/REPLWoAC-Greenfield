@@ -3,6 +3,13 @@
   <ion-content>
     <ion-list>
 
+      <!-- If no crash events -->
+      <div class="card" ng-show="historyCl.crashEvents.length === 0">
+        <div class="item item-divider item-text-wrap">
+          Good Job! You haven't been in any accidents.
+        </div>
+      </div>
+
       <!-- Create a Card Out of Crash History Object, the card should be editable as well -->
       <div class="card" ng-repeat="event in historyCl.crashEvents">
         <div class="item item-divider">

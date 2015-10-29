@@ -197,7 +197,7 @@ angular.module('crash', [
   $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
 
     console.log('toState.authenticate : ', toState.data.authenticate);
-    console.log('UserService.isAuthorized() : ', UserService.isAuthorized());
+    console.log('UserService.isAuthorized() : ', !UserService.isAuthorized());
 
     if (toState.data.authenticate && !UserService.isAuthorized()) {
 
