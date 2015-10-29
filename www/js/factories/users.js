@@ -83,6 +83,21 @@ angular.module('crash.userService', [])
   };
 
   /***
+    url = 'api/userAction/readAll' ($http send user name via params)
+    return from server
+      success and response with the user object asked to retreive or failure if that user doesn't exist
+  ***/
+  var readAllUsers = function(){
+    return $http({
+      method : 'GET',
+      url : 'api/userAction/readAll',
+    })
+    .then(function(res){
+      return res.data;
+    });
+  };
+
+  /***
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
@@ -104,7 +119,8 @@ angular.module('crash.userService', [])
     readAccount : readAccount,
     signout : signout,
     isAuthorized : isAuthorized,
-    getAccountByUsername : getAccountByUsername
+    getAccountByUsername : getAccountByUsername,
+    readAllUsers : readAllUsers
   };
 
 });

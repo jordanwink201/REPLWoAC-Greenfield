@@ -4,9 +4,13 @@ angular.module('crash.eventPerson', [])
 
   var self = this;
 
+  self.enterManual = false;
+
   self.errorMessage = '';
 
   self.crashDriver = {};
+
+  self.allUsers = []; // all of the user's USERNAMES in the database
 
   // From Add Personal Manually
   self.person = {};
@@ -49,6 +53,21 @@ angular.module('crash.eventPerson', [])
     console.log('saving...');
     CrashEventObj.crashEvent.crashDriver = self.person;
     self.person = self.personMaster;
+  };
+
+  /***
+    get all of the users USERNAMES that exist so that you can search through and filter the one you are looking for
+  ***/
+  self.getAllUsers = function(){
+    console.log('getting all users');
+    UserService.readAllUsers()
+      .then(function(allUsers){
+        console.log('all users in db : ', allUsers);
+        self.allUsers = allUsers.data;
+      })
+      .catch(function(err){
+        console.log('error getting all users...');
+      });
   };
 
 

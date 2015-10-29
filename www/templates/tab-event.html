@@ -66,7 +66,7 @@
 
     <!-- Add Other User -->
     <ion-slide ng-controller="EventPersonController as personCl">
-      <ion-content>
+      <ion-content ng-init="personCl.getAllUsers()">
 
       <!--
         Lookup the User by username
@@ -76,13 +76,30 @@
        -->
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Username" ng-model="personCl.username">
+        <input type="text" placeholder="Username" ng-model="query">
       </label>
 
-      <p>Enter User Manually?</p>
+      <div class="list">
+        <div class="item item-divider">
+          Do it Manually
+        </div>
+        <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual">
+          Enter Person Information Manually?
+        </ion-toggle>
+        <div class="item item-divider">
+          Users
+        </div>
+
+        <a class="item item-avatar" href="#" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filterBy : query ">
+          <img src="venkman.jpg">
+          <h2>{{user.username}}</h2>
+        </a>
+
+      </div>
 
       <!-- Manually enter the user, this should be hidden until prompted -->
-      <div class="list list-inset">
+      <div class="list list-inset" ng-show="personCl.enterManual">
+
         <label class="item item-input">
           <input type="text" class="form-control" placeholder="First Name" ng-model="eventFCl.crashDriver.fname">
         </label>
@@ -116,6 +133,7 @@
         </label>
 
         <button class="button button-full button-positive" ng-click="personCl.save()">Add Driver</button>
+
       </div>
 
       </ion-content>

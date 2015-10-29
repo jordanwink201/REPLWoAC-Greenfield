@@ -13,8 +13,9 @@ module.exports = function(app){
 
   // GET
   app.get('/read', userActionController.readAccount);
+  app.get('/readAll', userActionController.readAll);
 
-  // POST 
+  // POST
   // app.post('/updateuser', userActionController.updateUser);  // TODO: after MVP
 
 };
