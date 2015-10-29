@@ -10,6 +10,8 @@ angular.module('crash.profile', [])
 
   self.userObj = {};
 
+  self.editMode = false;
+
   /***
     get the username from window.localStorage
   ***/
