@@ -8,6 +8,21 @@ angular.module('crash.eventPerson', [])
 
   self.crashDriver = {};
 
+  // From Add Personal Manually
+  self.person = {};
+  self.personMaster = {
+    fname : '',
+    lname : '',
+    dob : '',
+    phone : '',
+    email : '',
+    license : '',
+    insurance : '',
+    policy : '',
+    agent : '',
+    agentEmail : ''
+  };
+
   /***
     retreive the user's information by their username
     save the crash driver obj into the CrashEventObj.crashEvent object
@@ -27,15 +42,14 @@ angular.module('crash.eventPerson', [])
       });
   };
 
-  /*** Navigation ***/
-  self.prev = function(){
-    console.log('swipped right');
-    $state.go('tab.eventPhoto');
+  /***
+    save the crash user obj into the CrashEventObj.crashEvent object
+  ***/
+  self.save = function(){
+    console.log('saving...');
+    CrashEventObj.crashEvent.crashDriver = self.person;
+    self.person = self.personMaster;
   };
 
-  self.next = function(){
-    console.log('swipped left');
-    $state.go('tab.eventPersonManual');
-  };
 
 });
