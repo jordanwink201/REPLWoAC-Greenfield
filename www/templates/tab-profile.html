@@ -1,7 +1,12 @@
-<ion-view view-title="Your Profile" ng-init="profileCl.load()">
+<ion-view view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
+
+  <ion-nav-buttons side="left">
+    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Cancel</button>
+  </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-clear button-light">Edit</button>
+    <button class="button button-clear button-light" ng-show="!profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Edit</button>
+    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.updateUser()">Save</button>
   </ion-nav-buttons>
 
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
@@ -10,40 +15,70 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
+      <img src="img/crashProfile2.jpg" class="profileImg">
 
-      <div class="card">
-        <div class="item item-divider">
-          Personal Info
+      <!-- NON EDIT MODE -->
+      <div ng-show="!profileCl.editMode">
+        <div class="card">
+          <div class="item item-divider">
+            Personal Info
+          </div>
+          <div class="item item-text-wrap">
+            {{profileCl.userObj.fname}}
+            {{profileCl.userObj.lname}}
+            {{profileCl.userObj.dob}}
+            {{profileCl.userObj.email}}
+            {{profileCl.userObj.phone}}
+          </div>
         </div>
-        <div class="item item-text-wrap">
-          {{profileCl.userObj.fname}}
-          {{profileCl.userObj.lname}}
-          {{profileCl.userObj.dob}}
-          {{profileCl.userObj.email}}
-          {{profileCl.userObj.phone}}
+
+        <div class="card">
+          <div class="item item-divider">
+            Driver Info
+          </div>
+          <div class="item item-text-wrap">
+            {{profileCl.userObj.license}}
+            {{profileCl.userObj.licenseState}}
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="item item-divider">
+            Insurance Info
+          </div>
+          <div class="item item-text-wrap">
+            {{profileCl.userObj.insurance}}
+            {{profileCl.userObj.policy}}
+            {{profileCl.userObj.agent}}
+            {{profileCl.userObj.agentEmail}}
+          </div>
         </div>
       </div>
 
-      <div class="card">
+      <!-- EDIT MODE -->
+      <div ng-show="profileCl.editMode">
         <div class="item item-divider">
-          Driver Info
+           Personal Info
         </div>
-        <div class="item item-text-wrap">
-          {{profileCl.userObj.license}}
-          {{profileCl.userObj.licenseState}}
-        </div>
-      </div>
+        <ion-item>{{profileCl.userObj.fname}}</ion-item>
+        <ion-item>{{profileCl.userObj.lname}}</ion-item>
+        <ion-item>{{profileCl.userObj.dob}}</ion-item>
+        <ion-item>{{profileCl.userObj.email}}</ion-item>
+        <ion-item>{{profileCl.userObj.phone}}</ion-item>
 
-      <div class="card">
         <div class="item item-divider">
-          Insurance Info
+           Driver Info
         </div>
-        <div class="item item-text-wrap">
-          {{profileCl.userObj.insurance}}
-          {{profileCl.userObj.policy}}
-          {{profileCl.userObj.agent}}
-          {{profileCl.userObj.agentEmail}}
+        <ion-item>{{profileCl.userObj.license}}</ion-item>
+        <ion-item>{{profileCl.userObj.licenseState}}</ion-item>
+
+        <div class="item item-divider">
+           Insurance Info
         </div>
+        <ion-item>{{profileCl.userObj.insurance}}</ion-item>
+        <ion-item>{{profileCl.userObj.policy}}</ion-item>
+        <ion-item>{{profileCl.userObj.agent}}</ion-item>
+        <ion-item>{{profileCl.userObj.agentEmail}}</ion-item>
       </div>
 
     <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>

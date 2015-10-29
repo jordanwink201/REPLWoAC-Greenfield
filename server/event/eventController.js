@@ -65,13 +65,15 @@ module.exports = {
 
       accidentPhotoUrls : [],
 
+      createdAt : new Date().toLocaleString(),
+
       otherPartyInfo : {
         fname : req.body.crashDriver.fname,
         lname : req.body.crashDriver.lname,
         username : req.body.crashDriver.username,
 
         phone : req.body.crashDriver.phone,
-        dob : req.body.crashDriver.dob,
+        dob : req.body.crashDriver.dob.toLocaleString(),
         email : req.body.crashDriver.email,
         license : req.body.crashDriver.license,
         licenseState : req.body.crashDriver.licenseState,

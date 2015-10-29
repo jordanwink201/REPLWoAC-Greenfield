@@ -1,17 +1,25 @@
 <ion-view view-title="Crash Ninja" hide-back-button="true">
   <ion-content>
 
-    <label class="item item-input">
-      <input type="text" placeholder="Username" ng-model="signinCl.user.username">
-    </label>
+    <div class="list list-inset">
 
-    <label class="item item-input">
-      <input type="password" placeholder="Password" ng-model="signinCl.user.password">
-    </label>
+      <label class="item item-input">
+        <i class="icon ion-person placeholder-icon"></i>
+        <input type="text" placeholder="Username" ng-model="signinCl.user.username">
+      </label>
 
-    <button class="button button-full button-positive" ng-click="signinCl.signin()">Sign In</button>
+      <label class="item item-input">
+        <i class="icon ion-locked placeholder-icon"></i>
+        <input type="password" placeholder="Password" ng-model="signinCl.user.password">
+      </label>
 
-    <button class="button button-full button-transparent" ng-click="signinCl.signup()">Sign Up</button>
+      <button class="button button-block button-positive" ng-click="signinCl.signin()">Sign In</button>
+
+
+
+      <button class="button button-block button-transparent" ng-click="signinCl.signup()">Sign Up</button>
+
+    </div>
 
   </ion-content>
 </ion-view>

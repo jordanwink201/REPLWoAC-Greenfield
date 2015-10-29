@@ -18,26 +18,14 @@ angular.module('crash.eventWitness', [])
 
   /***
     store the person object into the witness array
+    save the witness array into the CrashEventObj.crashEvent object
     clear the input text fields after adding the person, so the user can easily add another witness
     angular.copy(self.master) clears ubinds the person object
   ***/
   self.addWitness = function(){
-    console.log('add witness...');
     self.witnessArr.push(self.person);
-    self.person = angular.copy(self.master);
-  };
-
-  /***
-    Navigation
-    save the witness array into the CrashEventObj.crashEvent object
-  ***/
-  self.next = function(){
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
-    console.log('CrashEventObj.crashEvent : ', CrashEventObj.crashEvent);
-  };
-
-  self.slideChanged = function(){
-
+    self.person = angular.copy(self.master);
   };
 
 });

@@ -28,14 +28,4 @@ angular.module('crash.eventPhoto', [])
     });
   };
 
-  self.prev = function(){
-    console.log('swipped right');
-    $state.transitionTo('tab.event');
-  };
-
-  self.next = function(){
-    console.log('swipped left');
-    $state.transitionTo('tab.eventPerson');
-  };
-
 });

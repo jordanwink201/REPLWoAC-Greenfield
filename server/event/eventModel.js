@@ -11,7 +11,9 @@ var crashSchema = new Schema({
 
   user : String, // username that created the crash event
 
-  createdAt: { type: Date, default: Date.now }, //need to parse this when fetch
+  timeStamp: { type: Date, default: Date.now }, //need to parse this when fetch
+
+  createdAt: String,
 
   // location : String, // investigate format google api returns
 

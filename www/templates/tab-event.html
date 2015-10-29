@@ -19,25 +19,25 @@
         <p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
 
         <label class="item item-input">
-          <input type="text" placeholder="First Name" ng-model="eventCl.person.fname">
+          <input type="text" placeholder="First Name" ng-model="witnessCl.person.fname">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Last Name" ng-model="eventCl.person.lname">
+          <input type="text" placeholder="Last Name" ng-model="witnessCl.person.lname">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Phone Number" ng-model="eventCl.person.phone">
+          <input type="text" placeholder="Phone Number" ng-model="witnessCl.person.phone">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Email Address" ng-model="eventCl.person.email">
+          <input type="text" placeholder="Email Address" ng-model="witnessCl.person.email">
         </label>
         <label class="item item-input">
-          <textarea placeholder="Comments" ng-model="eventCl.person.comments"></textarea>
+          <textarea placeholder="Comments" ng-model="witnessCl.person.comments"></textarea>
         </label>
 
-        <button class="button button-full button-positive" ng-click="eventCl.addWitness()">Add Witness</button>
+        <button class="button button-full button-positive" ng-click="witnessCl.addWitness()">Add Witness</button>
 
         <!-- Create a Card Out of Each Added Witness, the card should be editable as well -->
-        <div class="card" ng-repeat="witness in eventCl.witnessArr">
+        <div class="card" ng-repeat="witness in witnessCl.witnessArr">
           <div class="item item-divider">
             {{witness.fname}} {{witness.lname}}
           </div>
@@ -72,27 +72,25 @@
         Lookup the User by username
         Need to retreive all users from the database to search for them by name
         Click on the username fire this function
-        personCl.getUser()
-       -->
-      <label class="item item-input">
+      -->
+      <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual">
+        Enter Person Information Manually?
+      </ion-toggle>
+
+      <label class="item item-input" ng-show="!personCl.enterManual">
         <i class="icon ion-search placeholder-icon"></i>
         <input type="text" placeholder="Username" ng-model="query">
       </label>
 
       <div class="list">
-        <div class="item item-divider">
-          Do it Manually
-        </div>
-        <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual">
-          Enter Person Information Manually?
-        </ion-toggle>
-        <div class="item item-divider">
+        <div class="item item-divider" ng-show="!personCl.enterManual">
           Users
         </div>
 
-        <a class="item item-avatar" href="#" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filterBy : query ">
-          <img src="venkman.jpg">
+        <a class="item item-avatar" href="#" ng-show="!personCl.enterManual" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filter : query | limitTo : 6" ng-click="personCl.getUser(user.username)">
+          <img src="img/crashProfile2.jpg">
           <h2>{{user.username}}</h2>
+          <p>{{user.fname}} {{user.lname}}</p>
         </a>
 
       </div>
@@ -141,6 +139,8 @@
 
     <!-- Review All Information before Saving -->
     <ion-slide ng-controller="EventFinalController as eventFCl">
+    <!-- This is a dummy, if the index is 3 it calls the function -->
+    <div ng-if="eventCl.index === 3" ng-init="eventFCl.load()"></div>
       <ion-content>
 
       <!-- If no witnesses have been added -->
@@ -177,6 +177,7 @@
       </div>
 
       <!-- Other Driver's Information -->
+      {{eventFCl.CrashEventObj}}
       <div class="card" ng-show="eventFCl.crashDriver !== undefined">
         <div class="item item-divider">
           Other Driver

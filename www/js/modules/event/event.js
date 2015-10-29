@@ -3,9 +3,11 @@ angular.module('crash.event', [])
 .controller('EventController', function($state, CrashEventObj) {
 
   var self = this;
+  var index = 0;
 
-  self.slideChanged = function(){
-
+  // Global controller eventCl
+  self.slideChanged = function(index){
+    self.index = index;
   };
 
 });
