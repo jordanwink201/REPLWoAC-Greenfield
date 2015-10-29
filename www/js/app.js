@@ -192,15 +192,12 @@ angular.module('crash', [
 ***/
 .run(function($rootScope, $state, UserService){
 
-  $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
-
-    console.log('toState.authenticate : ', toState.data.authenticate);
-    console.log('UserService.isAuthorized() : ', !UserService.isAuthorized());
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 
     if (toState.data.authenticate && !UserService.isAuthorized()) {
 
-      console.log('IS NOT AUTHORIZED');
-      $state.go('createAccount');
+      $state.go('signin');
+      event.preventDefault();
 
     }
   });
