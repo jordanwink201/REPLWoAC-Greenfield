@@ -1,4 +1,4 @@
-<ion-view view-title="Your Profile" ng-init="profileCl.load()">
+<ion-view view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
 
   <ion-nav-buttons side="left">
     <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Cancel</button>
@@ -15,6 +15,7 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
+      <img src="img/crashProfile2.jpg" class="profileImg">
 
       <!-- NON EDIT MODE -->
       <div ng-show="!profileCl.editMode">

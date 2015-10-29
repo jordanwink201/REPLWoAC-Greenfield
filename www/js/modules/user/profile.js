@@ -45,12 +45,14 @@ angular.module('crash.profile', [])
         $window.localStorage.setItem('com.crash', data.token);
         // $state.go('tab.profile');
         LoadingService.hideLoader();
+        self.editMode = false;
       })
       .catch(function(err){
         console.log('Error updating account...', err.data);
         self.errorMessage = err.data.error;
         self.user.username = '';
         LoadingService.hideLoader();
+        self.editMode = false;
       });
   };
 

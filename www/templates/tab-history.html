@@ -3,6 +3,11 @@
   <ion-content>
     <ion-list>
 
+      <label class="item item-input" ng-show="!personCl.enterManual">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="look up by date or time..." ng-model="query">
+      </label>
+
       <!-- If no crash events -->
       <div class="card" ng-show="historyCl.crashEvents.length === 0">
         <div class="item item-divider item-text-wrap">
@@ -11,44 +16,38 @@
       </div>
 
       <!-- Create a Card Out of Crash History Object, the card should be editable as well -->
-      <div class="card" ng-repeat="event in historyCl.crashEvents">
-        <div class="item item-divider">
-          {{event.createdAt}}
-        </div>
-        <div class="item item-text-wrap">
-          <!-- What information should be displayed to the user? -->
-          <div class="item item-divider">
-            The Person you got into a crash with...
-          </div>
-          <div class="item item-text-wrap">
-            {{event.otherPartyInfo.fname}}
-            {{event.otherPartyInfo.lname}}
-            {{event.otherPartyInfo.phone}}
-            {{event.otherPartyInfo.dob}}
-            {{event.otherPartyInfo.email}}
-          </div>
+      <div class="list card" ng-repeat="event in historyCl.crashEvents | orderBy : 'event.createdAt' | filter : query ">
 
-          <!-- Display the Crash Photo if any... -->
-
-          <!-- Display the accidentPhotoUrls if any... -->
-
-          <!-- Display the Witnesses -->
-          <div class="item item-divider">
-            Witnesses
-          </div>
-          <div class="item item-text-wrap" ng-repeat="witness in event.witness">
-            {{witness.fname}}
-            {{witness.lname}}
-            {{witness.phone}}
-            {{witness.email}}
-            {{witness.comments}}
-          </div>
-
+        <!-- Load the person you hit's profile img? -->
+        <div class="item item-avatar">
+          <img src="img/crashProfile2.jpg">
+          <h2>{{event.createdAt}}</h2>
+          <p>{{event.otherPartyInfo.fname}} {{event.otherPartyInfo.lname}}</p>
+          <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob}}</p>
+          <p>{{event.otherPartyInfo.email}}</p>
         </div>
 
-        <div class="item item-divider">
-          Edit Info
+        <!-- Display the Crash Photos if any... -->
+        <!-- Should have a 'ion-slide' out of all the crash photos -->
+        <div class="item item-image">
+          <img src="img/crashProfile2.jpg">
         </div>
+
+        <!-- Display the Witnesses -->
+
+        <!-- No Witnesses -->
+        <a class="item item-icon-left assertive" href="#" ng-show="event.witness.length === 0">
+          <i class="icon ion-ios-people"></i>
+          <p>No Recorded Witnesses...</p>
+        </a>
+
+        <a class="item item-icon-left assertive" href="#" ng-repeat="witness in event.witness">
+          <i class="icon ion-medkit"></i>
+          <p>{{witness.fname}} {{witness.lname}}</p>
+          <p>{{witness.phone}}</p>
+          <p>{{witness.email}}</p>
+          <p>{{witness.comments}}</p>
+        </a>
 
       </div>
 

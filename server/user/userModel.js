@@ -24,7 +24,7 @@ var userSchema = new Schema({
     required : true
   },
   phone : String,
-  dob : Date,
+  dob : String,
   email : String,
   license : String,
   licenseState : String,

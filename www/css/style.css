@@ -28,3 +28,15 @@
   text-overflow: ellipsis;
   font-size: 38px;
 }
+
+/*Profile Image*/
+img.profileImg {
+  display: block;
+  margin: auto;
+  border-radius: 100%;
+  width: 8em;
+  margin-top: 10px;
+  box-shadow: 1px 1px 1px #CFCFCF;
+  border: 2px solid #F4F4F4;
+  margin-bottom: 20px;
+}
