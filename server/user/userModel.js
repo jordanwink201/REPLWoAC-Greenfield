@@ -12,31 +12,31 @@ var mongoose = require('mongoose');
 
 var userSchema = new Schema({
 
-  firstName : String,
-  lastName : String,
-  username : { 
-    type : String, 
-    required : true, 
+  fname : String,
+  lname : String,
+  username : {
+    type : String,
+    required : true,
     unique : true
   },
-  password : { 
+  password : {
     type : String,
     required : true
   },
-  phoneNumber : String,
+  phone : String,
   dob : Date,
   email : String,
-  driverLicenseNum : String,
-  driverLicenseState : String,
-  insuranceCompany : String,
-  policyNum : String,
-  agentName : String,
+  license : String,
+  licenseState : String,
+  insurance : String,
+  policy : String,
+  agent : String,
   agentEmail : String,
 
-  createdAt : { 
-    type: Date, 
-    default: Date.now 
-  }, 
+  createdAt : {
+    type: Date,
+    default: Date.now
+  },
 
   //add a documentPhoto feature after MVP is acheived
 
@@ -46,7 +46,7 @@ var userSchema = new Schema({
   Compare the password from the database associated to the user with the password that is attached to the request object
 ***/
 userSchema.methods.comparePasswords = function(requestObjPassword){
-  
+
   var defer = Q.defer();
   var databasePassword = this.password;
 
@@ -86,11 +86,11 @@ userSchema.pre('save', function(next){
     });
 
   });
-  
+
 });
 
 /***
-  Export the User model based on the user schema 
+  Export the User model based on the user schema
 ***/
 module.exports = mongoose.model("User", userSchema);
 

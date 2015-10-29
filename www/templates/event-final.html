@@ -3,33 +3,39 @@
   <ion-content on-swipe-right="eventFCl.prev()">
     <ion-list>
 
-    <div class="card">
-      <div class="item item-divider">
-        Witnesses
-      </div>
-      <div class="item item-text-wrap">
-        <ul>
-          <li ng-repeat="person in eventFCl.witnessArr">
-            <form name='witnessForm'>
-
-              <input type="text" class="form-control" placeholder="First Name" ng-model="person.firstname">
-
-              <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lastname">
-
-              <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phoneNumber">
-
-              <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
-
-            </form>
-          </li>
-        </ul>
-      </div>
-      <div class="item item-divider">
-        I'm a Footer in a Card!
+    <!-- If no witnesses have been added -->
+    <div class="card" ng-show="eventFCl.witnessArr.length === 0">
+      <div class="item item-divider item-text-wrap">
+        No Witnesses
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" ng-repeat="person in eventFCl.witnessArr">
+      <div class="item item-divider">
+        Witness #{{ $index + 1 }}
+      </div>
+      <div class="item item-text-wrap">
+        <form name='witnessForm'>
+          <input type="text" class="form-control" placeholder="First Name" ng-model="person.fname">
+          <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lname">
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phone">
+          <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+          <input type="text" class="form-control" placeholder="Comments" ng-model="person.comments">
+        </form>
+      </div>
+      <div class="item item-divider">
+        Edit
+      </div>
+    </div>
+
+    <!-- If no witnesses have been added -->
+    <div class="card" ng-show="eventFCl.crashDriver === undefined">
+      <div class="item item-divider item-text-wrap">
+        No Other Driver Added
+      </div>
+    </div>
+
+    <div class="card" ng-show="eventFCl.crashDriver !== undefined">
       <div class="item item-divider">
         Other Driver
       </div>
@@ -39,13 +45,15 @@
 
           <input type="text" class="form-control" placeholder="Last Name" ng-model="eventFCl.crashDriver.lname">
 
-          <input type="date" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
+          <input type="text" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
 
           <input type="text" class="form-control" placeholder="Phone Number" ng-model="eventFCl.crashDriver.phone">
 
           <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
 
           <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.license">
+
+          <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.licenseState">
 
           <input type="text" class="form-control" placeholder
          ="Insurance Company" ng-model="eventFCl.crashDriver.insurance">
@@ -59,10 +67,11 @@
         </form>
       </div>
       <div class="item item-divider">
-        I'm a Footer in a Card!
+        Edit
       </div>
     </div>
 
+    <!-- This should be disabled if no driver has been added -->
     <button class="button button-full button-positive" ng-click="eventFCl.save()">Save</button>
 
     </ion-list>

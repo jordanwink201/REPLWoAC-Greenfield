@@ -1,6 +1,6 @@
 angular.module('crash.eventService', [])
 
-.factory('EventService', function($http){ 
+.factory('EventService', function($http){
 
   /***
     url = 'api/event/create' ($http send crash obj and user obj)
@@ -33,7 +33,7 @@ angular.module('crash.eventService', [])
     });
   };
 
-  return {  
+  return {
     createCrashEvent : createCrashEvent,
     readCrashEvent : readCrashEvent
   };

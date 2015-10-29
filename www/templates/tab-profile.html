@@ -1,52 +1,45 @@
 <ion-view view-title="Your Profile" ng-init="profileCl.load()">
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
+
   <ion-content>
     <ion-list>
 
-      <ion-item>
-        Name
-      </ion-item>
+      <!-- Add a Profile Image Here -->
 
-      <ion-item>
-        username
-      </ion-item>
-
-      <ion-item>
-        DOB
-      </ion-item>
-
-      <ion-item>
-        Email
-      </ion-item>
-
-      <ion-item>
-        Phone Number
-      </ion-item>
-
-      <div class="item item-divider">
-         Driver Info
+      <div class="card">
+        <div class="item item-divider">
+          Personal Info
+        </div>
+        <div class="item item-text-wrap">
+          {{profileCl.userObj.fname}}
+          {{profileCl.userObj.lname}}
+          {{profileCl.userObj.dob}}
+          {{profileCl.userObj.email}}
+          {{profileCl.userObj.phone}}
+        </div>
       </div>
 
-      <ion-item>
-        asdf;lkjasdf
-      </ion-item>
-
-      <ion-item>
-        asdf;lkjasdf
-      </ion-item>
-
-      <div class="item item-divider">
-         Insurance Info
+      <div class="card">
+        <div class="item item-divider">
+          Driver Info
+        </div>
+        <div class="item item-text-wrap">
+          {{profileCl.userObj.license}}
+          {{profileCl.userObj.licenseState}}
+        </div>
       </div>
 
-      <ion-item>
-        asdf;lkjasdf
-      </ion-item>
-
-      <ion-item>
-        asdf;lkjasdf
-      </ion-item>
-
+      <div class="card">
+        <div class="item item-divider">
+          Insurance Info
+        </div>
+        <div class="item item-text-wrap">
+          {{profileCl.userObj.insurance}}
+          {{profileCl.userObj.policy}}
+          {{profileCl.userObj.agent}}
+          {{profileCl.userObj.agentEmail}}
+        </div>
+      </div>
 
     <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
 

@@ -1,9 +1,9 @@
 angular.module('crash.userService', [])
 
-.factory('UserService', function($http, $window, $location){ 
+.factory('UserService', function($http, $window, $state){
 
   /***
-    url = 'api/user/signin' ($http send user obj) 
+    url = 'api/user/signin' ($http send user obj)
     return from server
       success or failure
   ***/
@@ -20,8 +20,8 @@ angular.module('crash.userService', [])
 
   /***
     url = 'api/user/create' ($http send user obj)
-    return from server : 
-      success or failure 
+    return from server :
+      success or failure
       (future : get the user object and store the user info into window.localStorage)
   ***/
   var createAccount = function(userObj){
@@ -30,7 +30,7 @@ angular.module('crash.userService', [])
       url : 'api/user/create',
       data : userObj
     })
-    .then(function(res){ 
+    .then(function(res){
       return res.data;
     });
   };
@@ -52,8 +52,8 @@ angular.module('crash.userService', [])
 
   /***
     url = 'api/user/updateuser' ($http send user token)
-    return from server : 
-      success or failure 
+    return from server :
+      success or failure
   ***/
   var updateUserAccount = function(userObj){
     return $http({
@@ -94,7 +94,7 @@ angular.module('crash.userService', [])
   ***/
   var signout = function(){
     $window.localStorage.clear();
-    $location.path('/signin');
+    $state.go('signin');
   };
 
   return {

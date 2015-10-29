@@ -1,0 +1,17 @@
+<ion-view view-title="Crash Ninja" hide-back-button="true">
+  <ion-content>
+
+    <label class="item item-input">
+      <input type="text" placeholder="Username" ng-model="signinCl.user.username">
+    </label>
+
+    <label class="item item-input">
+      <input type="password" placeholder="Password" ng-model="signinCl.user.password">
+    </label>
+
+    <button class="button button-full button-positive" ng-click="signinCl.signin()">Sign In</button>
+
+    <button class="button button-full button-transparent" ng-click="signinCl.signup()">Sign Up</button>
+
+  </ion-content>
+</ion-view>
