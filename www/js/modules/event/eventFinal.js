@@ -13,7 +13,7 @@ angular.module('crash.eventFinal', [])
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
   ***/
   self.load = function(){
-    console.log('CrashEventObj : ', CrashEventObj);
+    console.log('LOAD CRASH EVENT OBJECT : ', CrashEventObj);
 
     var crashObj = CrashEventObj.crashEvent;
 

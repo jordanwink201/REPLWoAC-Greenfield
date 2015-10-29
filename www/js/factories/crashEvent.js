@@ -1,6 +1,6 @@
 angular.module('crash.crashEventObj', [])
 
-.service('CrashEventObj', function(){ 
+.service('CrashEventObj', function(){
 
   this.crashEvent = {};
 

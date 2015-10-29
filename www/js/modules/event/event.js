@@ -4,8 +4,11 @@ angular.module('crash.event', [])
 
   var self = this;
 
-  self.slideChanged = function(){
+  var index = 0;
 
+  self.slideChanged = function(index){
+    console.log('SLIDE INDEX : ', index);
+    self.index = index;
   };
 
 });
