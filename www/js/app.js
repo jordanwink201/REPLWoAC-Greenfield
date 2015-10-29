@@ -192,8 +192,6 @@ angular.module('crash', [
 ***/
 .run(function($rootScope, $state, UserService){
 
-  console.log('running.......');
-
   $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
 
     console.log('toState.authenticate : ', toState.data.authenticate);
