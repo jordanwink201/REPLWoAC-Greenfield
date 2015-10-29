@@ -13,7 +13,6 @@ angular.module('crash.eventFinal', [])
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
   ***/
   self.load = function(){
-    console.log('LOAD CRASH EVENT OBJECT : ', CrashEventObj);
 
     var crashObj = CrashEventObj.crashEvent;
 
@@ -36,7 +35,6 @@ angular.module('crash.eventFinal', [])
   ***/
   self.save = function(){
     console.log('save final information...');
-
     console.log('final crash object : ', self.finalCrashObj);
 
     EventService.createCrashEvent(self.finalCrashObj)
@@ -48,11 +46,6 @@ angular.module('crash.eventFinal', [])
         console.log('error saving crash object...', err);
       });
 
-  };
-
-  self.prev = function(){
-    console.log('swipped right');
-    $state.go('tab.eventPersonManual');
   };
 
 });
