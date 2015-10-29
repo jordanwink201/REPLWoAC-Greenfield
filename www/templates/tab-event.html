@@ -4,6 +4,7 @@
 
     <!-- Add Witness -->
     <ion-slide ng-controller="EventWitnessController as witnessCl">
+      <ion-content>
 
       <div class="item item-button-right">
         Call Police
@@ -51,6 +52,7 @@
         </div>
       </div>
 
+      </ion-content>
     </ion-slide>
 
     <!-- Take Photos -->
@@ -60,35 +62,68 @@
 
       <img ng-src="{{photoCl.lastPhoto}}" style="max-width: 100%">
 
-      <h1>Take Photos</h1>
-      <h1>Take Photos</h1>
-      <h1>Take Photos</h1>
-
     </ion-slide>
 
     <!-- Add Other User -->
     <ion-slide ng-controller="EventPersonController as personCl">
-      <h1>Add Other User</h1>
+      <ion-content>
 
-      <!-- Lookup the User by username -->
+      <!--
+        Lookup the User by username
+        Need to retreive all users from the database to search for them by name
+        Click on the username fire this function
+        personCl.getUser()
+       -->
       <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
         <input type="text" placeholder="Username" ng-model="personCl.username">
       </label>
 
-      <button class="button button-full button-positive" ng-click="personCl.getUser()">Add Driver</button>
+      <p>Enter User Manually?</p>
 
-      <!-- Manually enter the user -->
+      <!-- Manually enter the user, this should be hidden until prompted -->
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="First Name" ng-model="eventFCl.crashDriver.fname">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="eventFCl.crashDriver.phone">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.license">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Driver License State" ng-model="eventFCl.crashDriver.licenseState">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder
+         ="Insurance Company" ng-model="eventFCl.crashDriver.insurance">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="eventFCl.crashDriver.policy">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Agent Name" ng-model="eventFCl.crashDriver.agent">
+        </label>
+        <label class="item item-input">
+          <input type="text" class="form-control" placeholder="Agent Email" ng-model="eventFCl.crashDriver.agentEmail">
+        </label>
 
+        <button class="button button-full button-positive" ng-click="personCl.save()">Add Driver</button>
+      </div>
 
+      </ion-content>
     </ion-slide>
 
     <!-- Review All Information before Saving -->
     <ion-slide ng-controller="EventFinalController as eventFCl">
-
-      <h1>asdfasdf</h1>
-      <h1>asdfasdf</h1>
-      <h1>asdfasdf</h1>
-      <h1>asdfasdf</h1>
+      <ion-content>
 
       <!-- If no witnesses have been added -->
       <div class="card" ng-show="eventFCl.witnessArr.length === 0">
@@ -98,7 +133,7 @@
       </div>
 
       <!-- Witnesses -->
-<!--       <div class="card" ng-repeat="person in eventFCl.witnessArr">
+      <div class="card" ng-repeat="person in eventFCl.witnessArr">
         <div class="item item-divider">
           Witness #{{ $index + 1 }}
         </div>
@@ -114,13 +149,12 @@
         <div class="item item-divider">
           Edit
         </div>
-      </div> -->
+      </div>
 
       <!-- If no other drivers have been added -->
       <div class="card" ng-show="eventFCl.crashDriver === undefined">
         <div class="item item-divider item-text-wrap">
           No Other Driver Added
-
         </div>
       </div>
 
@@ -142,38 +176,35 @@
           <label class="item item-input">
             <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
           </label>
-<!--           <label class="item item-input">
-            <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
+          <label class="item item-input">
+            <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.license">
           </label>
           <label class="item item-input">
-            <input type="text" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
-          </label> -->
-
-<!--
-
-            <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.license">
-
-            <input type="text" class="form-control" placeholder="Driver License Number" ng-model="eventFCl.crashDriver.licenseState">
-
+            <input type="text" class="form-control" placeholder="Driver License State" ng-model="eventFCl.crashDriver.licenseState">
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder
            ="Insurance Company" ng-model="eventFCl.crashDriver.insurance">
-
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="eventFCl.crashDriver.policy">
-
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Agent Name" ng-model="eventFCl.crashDriver.agent">
-
-            <input type="text" class="form-control" placeholder="Agent Email" ng-model="eventFCl.crashDriver.agentEmail"> -->
-
+          </label>
+          <label class="item item-input">
+            <input type="text" class="form-control" placeholder="Agent Email" ng-model="eventFCl.crashDriver.agentEmail">
+          </label>
         </div>
         <div class="item item-divider">
           Edit
         </div>
       </div>
 
-
       <!-- This should be disabled if no driver has been added -->
       <button class="button button-full button-positive" ng-click="eventFCl.save()">Save</button>
 
+      </ion-content>
     </ion-slide>
 
   </ion-slide-box>
