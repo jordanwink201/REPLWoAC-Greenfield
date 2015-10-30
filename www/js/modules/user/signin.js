@@ -4,6 +4,10 @@ angular.module('crash.signin', [])
 
   var self = this;
   self.user = {};
+  self.userMaster = {
+    username : '',
+    password : ''
+  };
 
   /***
     Pass the user object to the signin function which holds the username and password
@@ -16,6 +20,7 @@ angular.module('crash.signin', [])
         console.log('token : ', data);
         $window.localStorage.setItem('com.crash', data.token);
         $state.go('tab.event');
+        self.user = angular.copy(self.userMaster);
       })
       /***
         Tell the user the error, ex: the username or password provided didn't match the DB

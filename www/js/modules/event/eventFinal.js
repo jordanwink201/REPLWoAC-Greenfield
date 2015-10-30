@@ -8,6 +8,7 @@ angular.module('crash.eventFinal', [])
 
   self.witnessArr = [];
   self.crashDriver = {};
+  self.eventImages = [];
 
   /***
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
@@ -20,6 +21,9 @@ angular.module('crash.eventFinal', [])
     if (crashObj.witnessArr) {
       self.witnessArr = crashObj.witnessArr;
     }
+
+    // Load images
+    self.eventImages = crashObj.eventImages;
 
     // Load crash driver's information
     if (crashObj) {

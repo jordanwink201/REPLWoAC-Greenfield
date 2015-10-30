@@ -1,4 +1,9 @@
 <ion-view view-title="Report Crash">
+
+  <ion-nav-buttons side="right">
+    <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="eventCl.getPhoto()"><i class="icon ion-ios-camera"></i></button>
+  </ion-nav-buttons>
+
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
   <ion-slide-box on-slide-changed="eventCl.slideChanged(index)">
 
@@ -58,9 +63,21 @@
     <!-- Take Photos -->
     <ion-slide ng-controller="EventPhotoController as photoCl">
 
-      <button ng-click="photoCl.getPhoto()" class="button button-block button-primary">Take Photo</button>
+      <!-- MOBILE VERSION -->
+<!--       <img ng-src="{{photoCl.lastPhoto}}" style="max-width: 100%"> -->
 
-      <img ng-src="{{photoCl.lastPhoto}}" style="max-width: 100%">
+      <!-- BROWSER VERSION -->
+      <div class="camera">
+        <video id="video">Video stream not available</video>
+        <button ng-click="takePhoto()">Take photo</button>
+      </div>
+
+      <canvas ng-show="crashPhotoCtrl.streaming" id="canvas"></canvas>
+
+      <div class="output">
+        <img id="photo" alt="The screen capture will appear in this box">
+      </div>
+
 
     </ion-slide>
 
@@ -166,6 +183,20 @@
         </div>
         <div class="item item-divider">
           Edit
+        </div>
+      </div>
+
+      <!-- If no crash images have been added -->
+      <div class="card" ng-show="eventFCl.eventImages.length === 0">
+        <div class="item item-divider item-text-wrap">
+          No Images Added
+        </div>
+      </div>
+
+      <!-- Crash Images -->
+      <div class="list card">
+        <div class="item item-body">
+          <img class="full-image" ng-repeat="image in eventFCl.eventImages" src="{{image}}">
         </div>
       </div>
 

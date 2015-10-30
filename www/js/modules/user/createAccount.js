@@ -4,6 +4,23 @@ angular.module('crash.createAccount', [])
 
   var self = this;
   self.user = {};
+
+  self.userMaster = {
+    username : '',
+    password : '',
+    fname : '',
+    lname : '',
+    dob : '',
+    phone : '',
+    email : '',
+    license : '',
+    licenseState : '',
+    insurance : '',
+    policy : '',
+    agent : '',
+    agentEmail : ''
+  };
+
   self.errorMessage = '';
 
   /***
@@ -18,10 +35,9 @@ angular.module('crash.createAccount', [])
       ***/
       .then(function(data){
         console.log('created account, session :', data.token);
-
         $window.localStorage.setItem('com.crash', data.token);
-
         $state.go('tab.event');
+        self.user = angular.copy(self.userMaster);
       })
       /***
         Tell the user the error, ex: username already exists, allow them to enter in a different username...

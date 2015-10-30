@@ -12,6 +12,8 @@ angular.module('crash.history', [])
   ***/
   self.load = function(){
 
+    console.log('LOAD HISTORY...');
+
     LoadingService.showLoader();
 
     EventService.readCrashEvent()

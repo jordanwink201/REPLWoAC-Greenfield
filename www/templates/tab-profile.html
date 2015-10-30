@@ -1,4 +1,4 @@
-<ion-view view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
+<ion-view cache-view="false" view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
 
   <ion-nav-buttons side="left">
     <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Cancel</button>
@@ -15,22 +15,28 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
-      <img src="img/crashProfile2.jpg" class="profileImg">
+      <img src="img/crashProfile2.jpg" class="profileImg" ng-click="profileCl.changProfileImg()">
+
+      <div class="center">
+        <h4>{{profileCl.userObj.fname}} {{profileCl.userObj.lname}}</h4>
+        <h5>{{profileCl.userObj.email}}</h5>
+        <h5>{{profileCl.userObj.phone}}</h5>
+      </div>
+
 
       <!-- NON EDIT MODE -->
       <div ng-show="!profileCl.editMode">
-        <div class="card">
+<!--         <div class="card">
           <div class="item item-divider">
             Personal Info
           </div>
           <div class="item item-text-wrap">
             {{profileCl.userObj.fname}}
             {{profileCl.userObj.lname}}
-            {{profileCl.userObj.dob}}
             {{profileCl.userObj.email}}
             {{profileCl.userObj.phone}}
           </div>
-        </div>
+        </div> -->
 
         <div class="card">
           <div class="item item-divider">
