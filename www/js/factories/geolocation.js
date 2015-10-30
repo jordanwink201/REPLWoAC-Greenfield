@@ -4,9 +4,9 @@
 
 ***/
 
-angular.module('crash.geolocation', [])
+angular.module('crash.location', [])
 
-.service('GeoLcation', ['$q', '$http', '$cordovaGeolocation', '$ionicPopup', function ($q, $http, $cordovaGeolocation, $ionicPopup) {
+.service('Location', ['$q', '$http', '$cordovaGeolocation', '$ionicPopup', function ($q, $http, $cordovaGeolocation, $ionicPopup) {
   
   var self = this;
   
@@ -29,10 +29,10 @@ angular.module('crash.geolocation', [])
                 self.lat = position.coords.latitude;
                 self.lon = position.coords.longitude;
 
-                var params = {
-                  lat: this.self.lat,
-                  lon: this.self.lon
-                };
+                // var params = {
+                //   lat: this.self.lat,
+                //   lon: this.self.lon
+                // };
 
             }, function (err) {
               console.error("Error getting position");
@@ -49,5 +49,7 @@ angular.module('crash.geolocation', [])
 
     self.load();
 
-    return self;
+    return {
+      self: self 
+    };
 }]);

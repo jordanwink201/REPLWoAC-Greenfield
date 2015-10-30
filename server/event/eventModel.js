@@ -14,6 +14,7 @@ var crashSchema = new Schema({
   timeStamp: { type: Date, default: Date.now },
   createdAt: String,
   // location : String, // investigate format google api returns
+
   witness : Array,
   accidentPhotoUrls : Array,
   otherPartyInfo: {

@@ -3,6 +3,7 @@ angular.module('crash.eventFinal', [])
 .controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, SendGridService, EventService, $state){
 
 
+
   var self = this;
   // ngModel
   self.witnessArr = [];
@@ -19,14 +20,17 @@ angular.module('crash.eventFinal', [])
     console.log('loading Service Object CrashEventObj : ', CrashEventObj);
     // Set Local from Service Object
     var crashObj = CrashEventObj.crashEvent;
+
     // Set ngModel
     self.witnessArr = crashObj.witnessArr;
+
     self.eventImages = crashObj.eventImages;
     self.crashDriver = crashObj.crashDriver;
 
     console.log('self.witnessArr : ', self.witnessArr);
     console.log('self.eventImages : ', self.eventImages);
     console.log('self.crashDriver : ', self.crashDriver);
+
 
     // Set local
     finalCrashObj = crashObj;
