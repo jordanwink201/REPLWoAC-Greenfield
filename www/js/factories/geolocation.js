@@ -4,6 +4,7 @@
 
 ***/
 
+
 angular.module('crash.location', [])
 
 .service('Location', ['$q', '$http', '$cordovaGeolocation', '$ionicPopup', function ($q, $http, $cordovaGeolocation, $ionicPopup) {
@@ -28,11 +29,6 @@ angular.module('crash.location', [])
               .then(function (position) {
                 self.lat = position.coords.latitude;
                 self.lon = position.coords.longitude;
-
-                // var params = {
-                //   lat: this.self.lat,
-                //   lon: this.self.lon
-                // };
 
             }, function (err) {
               console.error("Error getting position");
