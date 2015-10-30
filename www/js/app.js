@@ -93,7 +93,7 @@ angular.module('crash', [
     url: '/profile',
     views: {
       'tab-profile': {
-        templateUrl: 'templates/tab-profile.html',
+        templateUrl: 'templates/profile.html',
         controller: 'ProfileController as profileCl',
       }
     },
@@ -145,10 +145,15 @@ angular.module('crash', [
 /***
   Everytime the route changes, check if the url data.authenticate property is true, check if a session token exists, otherwise redirect the user back to the sign in page
 ***/
-.run(function($rootScope, $state, UserService){
+.run(function($rootScope, $state, UserService, $window){
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 
+    var token = $window.sessionStorage.getItem('fbAccessToken');
+
+    if(token) {
+      $window.localStorage.setItem('com.crash', token);
+    }
     if (toState.data.authenticate && !UserService.isAuthorized()) {
 
       $state.go('signin');

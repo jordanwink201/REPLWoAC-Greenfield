@@ -1,4 +1,4 @@
-<ion-view view-title="Create Account" hide-back-button="true">
+<ion-view view-title="Create Account" hide-back-button="true" ng-init="createAccountCl.getUser()">
   <ion-content>
   <div class="list list-inset">
     <ion-list>
@@ -14,7 +14,7 @@
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="First Name" ng-model="createAccountCl.user.fname">
+      <input type="text" placeholder="First Name" ng-model="createAccountCl.user.name">
     </label>
 
     <label class="item item-input">

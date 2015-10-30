@@ -1,6 +1,6 @@
 angular.module('crash.createAccount', [])
 
-.controller('CreateController', function(UserService, $state, $window){
+.controller('CreateController', function(UserService, $state, $window, ngFB){
 
   var self = this;
   self.user = {};
@@ -54,4 +54,18 @@ angular.module('crash.createAccount', [])
     $state.go('signin');
   };
 
+  self.getUser = function(){
+    var self = this;
+      ngFB.api({
+          path: '/me',
+          params: {fields: 'id,name'}
+      }).then(
+          function (user) {
+              self.user = user;
+              console.log('user', user);
+          },
+          function (error) {
+              alert('Facebook error: ' + error.error_description);
+          });    
+  };
 });
