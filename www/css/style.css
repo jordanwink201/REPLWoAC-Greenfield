@@ -221,7 +221,7 @@ img.profileImg {
 .camera{
   margin-top: 50px;
 }
-video#video{
+video#video, img#photo{
   display: block;
   margin: 0 auto;
 }
