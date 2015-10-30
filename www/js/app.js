@@ -54,14 +54,6 @@ angular.module('crash', [
     }
   })
 
-  .state('testing', {
-    url: '/testing',
-    templateUrl: 'templates/tab-crash.html',
-    data : {
-      authenticate : false
-    }
-  })
-
   .state('createAccount', {
     url: '/createAccount',
     templateUrl: 'templates/user-create-account.html',

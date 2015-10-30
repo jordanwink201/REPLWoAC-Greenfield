@@ -1,16 +1,27 @@
 <div class='step-container container-progress'>
-  <div class='step active' data-step='1'>
+  <div class='step' ng-class="{ 'active' : testingCl.currentStep >= 1 }" data-step='1'>
     1
   </div>
-  <div class='step-separator' data-step='1'></div>
-  <div class='step' data-step='2'>
+
+
+  <div class='step-separator' ng-class="{ 'active' : testingCl.currentStep >= 2 }" data-step='1'></div>
+
+
+  <div class='step' ng-class="{ 'active' : testingCl.currentStep >= 2 }" data-step='2'>
     2
   </div>
-  <div class='step-separator' data-step='2'></div>
-  <div class='step' data-step='3'>
+
+
+  <div class='step-separator' ng-class="{ 'active' : testingCl.currentStep >= 3 }" data-step='2'></div>
+
+
+
+  <div class='step' ng-class="{ 'active' : testingCl.currentStep >= 3 }" data-step='3'>
     3
   </div>
-  <div class='next-step'>
+
+</div>
+
+  <div class='next-step' ng-click="testingCl.nextStep()">
     Next step
   </div>
-</div>

@@ -195,7 +195,7 @@ img.profileImg {
   width: 100px;
   margin: 0px -10px -0px -10px;
   display: inline-block;
-  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 0.5) 50%);
+  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 1) 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   transition: background 1000ms ease;
