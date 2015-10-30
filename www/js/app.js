@@ -22,10 +22,12 @@ angular.module('crash', [
   'crash.history',
   'crash.profile',
   'crash.signin',
-  'crash.createAccount'
+  'crash.createAccount',
+  'ngOpenFB'
   ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, ngFB) {
+  ngFB.init({appId: '1516257468694166'})
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

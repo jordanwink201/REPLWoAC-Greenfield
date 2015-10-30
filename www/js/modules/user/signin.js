@@ -1,6 +1,6 @@
-angular.module('crash.signin', [])
+angular.module('crash.signin', ['ngOpenFB'])
 
-.controller('SigninController', function(UserService, PopupService, $window, $state){
+.controller('SigninController', function(UserService, PopupService, $window, $state, ngFB){
 
   var self = this;
   self.user = {};
@@ -37,6 +37,18 @@ angular.module('crash.signin', [])
   // Redirect to create account page
   self.signup = function(){
     $state.go('createAccount');
+  };
+
+  self.fbLogin = function () {
+      ngFB.login({scope: 'email,publish_actions'}).then(
+          function (response) {
+              if (response.status === 'connected') {
+                $state.go('createAccount');
+                console.log('Facebook login succeeded');
+              } else {
+                  alert('Facebook login failed');
+              }
+          });
   };
 
 });
