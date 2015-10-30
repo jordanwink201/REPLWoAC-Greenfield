@@ -9,7 +9,7 @@ angular.module('crash', [
   'ionic','ionic.service.core',
   'crash.eventService',
   'crash.userService',
-  'crash.errorService',
+  'crash.popupService',
   'crash.loadingService',
   'crash.cameraService',
   'crash.S3',
@@ -49,6 +49,14 @@ angular.module('crash', [
     url: '/signin',
     templateUrl: 'templates/user-signin.html',
     controller: 'SigninController as signinCl',
+    data : {
+      authenticate : false
+    }
+  })
+
+  .state('testing', {
+    url: '/testing',
+    templateUrl: 'templates/tab-crash.html',
     data : {
       authenticate : false
     }

@@ -1,4 +1,4 @@
-<ion-view view-title="Crash History" ng-init="historyCl.load()">
+<ion-view cache-view="false" view-title="Crash History" ng-init="historyCl.load()">
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
   <ion-content>
     <ion-list>
@@ -42,7 +42,7 @@
         </a>
 
         <a class="item item-icon-left assertive" href="#" ng-repeat="witness in event.witness">
-          <i class="icon ion-medkit"></i>
+          <i class="icon ion-ios-people"></i>
           <p>{{witness.fname}} {{witness.lname}}</p>
           <p>{{witness.phone}}</p>
           <p>{{witness.email}}</p>

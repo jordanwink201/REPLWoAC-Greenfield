@@ -10,7 +10,7 @@
   Top should be the height of the nav bar plus the height of the slider dots (slider-pager)
 */
 .slider-slide{
-
+  margin-top: 30px;
 }
 
 .slider-pager{
@@ -20,13 +20,18 @@
 
 /*Loader*/
 .loading-container .loading {
-  padding: 20px;
+  padding: 0px;
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.11);
   color: #fff;
   text-align: center;
   text-overflow: ellipsis;
   font-size: 38px;
+}
+
+.spinner svg{
+  width: 70px;
+  height: 70px;
 }
 
 /*Profile Image*/
@@ -39,4 +44,163 @@ img.profileImg {
   box-shadow: 1px 1px 1px #CFCFCF;
   border: 2px solid #F4F4F4;
   margin-bottom: 20px;
+}
+
+/*Utilities*/
+.center{
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+/*Popup Styles*/
+.popup-container .popup{
+  border-radius: 8px;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .2s ease-in-out .2s forwards, scale .1s ease-in-out .7s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.1s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
+
+/*Login*/
+
+#login {
+  width: 225px;
+  height: 400px;
+  background-image: url(http://estelle.github.com/10/files/sprite.png);
+  -webkit-animation: gangham 4s steps(23,start) infinite,
+    movearound 12s steps(69,end) infinite 44ms;
+  animation: gangham 4s steps(23,start) infinite,
+    movearound 12s steps(69,end) infinite alternate 44ms;
+  -webkit-animation-direction: normal, alternate;
+  animation-direction: normal, alternate;
+}
+@-webkit-keyframes gangham {
+  0% {background-position: 0 0}
+  100% {background-position: -5175px 0}
+}
+@keyframes gangham {
+  0% {background-position: 0 0}
+  100% {background-position: -5175px 0}
+}
+@-webkit-keyframes movearound {
+  0% {-webkit-transform: translatex(0)}
+  100% {-webkit-transform: translatex(300px);}
+}
+@keyframes movearound {
+  0% {transform: translatex(0)}
+  100% {transform: translatex(300px);}
+}
+
+/*Progress Bar*/
+.container-progress{
+  top: 200px;
+  background: #eee;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.next-step {
+  background: #ccc;
+  color: #555;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 300;
+  display: block;
+  margin: 80px auto 0;
+  border-radius: 4px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.step-container {
+  margin: 3% auto;
+  text-align: center;
+}
+.step-container .step {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  text-align: center;
+  background: #000;
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  border-radius: 50%;
+  line-height: 40px;
+  transition: background 1000ms ease, color 1000ms ease;
+  transition-delay: 800ms;
+  background: linear-gradient(to right, #79A529 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.step-container .step.active {
+  background-position: left bottom;
+  color: #fff;
+}
+.step-container .step-separator {
+  position: relative;
+  z-index: 1;
+  background: #444;
+  height: 10px;
+  width: 100px;
+  margin: 0px -10px -0px -10px;
+  display: inline-block;
+  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 0.5) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background 1000ms ease;
+  /* margin-top: 10px; */
+}
+.step-container .step-separator.active {
+  background-position: left bottom;
 }

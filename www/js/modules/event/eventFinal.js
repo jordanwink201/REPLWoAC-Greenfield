@@ -8,6 +8,7 @@ angular.module('crash.eventFinal', [])
 
   self.witnessArr = [];
   self.crashDriver = {};
+  self.eventImages = [];
 
   /***
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
@@ -20,6 +21,9 @@ angular.module('crash.eventFinal', [])
     if (crashObj.witnessArr) {
       self.witnessArr = crashObj.witnessArr;
     }
+
+    // Load images
+    self.eventImages = crashObj.eventImages;
 
     // Load crash driver's information
     if (crashObj) {
@@ -34,12 +38,15 @@ angular.module('crash.eventFinal', [])
     save the final crash object into the database, which will be added to the driver's crash history
   ***/
   self.save = function(){
-    console.log('save final information...');
+    console.log('\nsave final information...');
     console.log('final crash object : ', self.finalCrashObj);
 
     EventService.createCrashEvent(self.finalCrashObj)
       .then(function(data){
         console.log('success data : ', data);
+        // show success popup
+        PopupService.showSuccess();
+
         $state.go('tab.history');
       })
       .catch(function(err){

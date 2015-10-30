@@ -22,9 +22,11 @@ module.exports = {
     }
 
     try{ // decode
-      
+
       var user = jwt.decode(token, 'secret');
       // attach user object to request object
+      console.log('DECODING....\n');
+      console.log('user decoded from token : ', user);
       req.user = user;
       next();
     } catch(err){

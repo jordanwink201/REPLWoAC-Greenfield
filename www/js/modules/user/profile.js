@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(LoadingService, UserService, $state, $window){
+.controller('ProfileController', function(LoadingService, UserService, $state, $window, $ionicActionSheet){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -21,7 +21,7 @@ angular.module('crash.profile', [])
 
     UserService.readAccount()
       .then(function(user){
-        console.log('user : ', user);
+        console.log('User Loaded from server.... : ', user);
         self.userObj = user.data;
         LoadingService.hideLoader();
       })
@@ -61,6 +61,30 @@ angular.module('crash.profile', [])
   ***/
   self.signOut = function(){
     UserService.signout();
+  };
+
+  /***
+    choose image from action sheet or take a photo to set as the profile picture
+  ***/
+  self.changProfileImg = function(){
+    var hideSheet = $ionicActionSheet.show({
+      buttons : [
+        { text : 'Take Photo' },
+        { text : 'Photo From Library' }
+      ],
+      cancelText: 'Cancel',
+      titleText : 'Choose Profile Image',
+      buttonClicked : function(index){
+        // index : 0 is take photo
+        if (index === 0) {
+          // take photo
+        }
+        // index : 1 is choose photo from library
+        if (index === 1) {
+          // choose photo from library
+        }
+      }
+    });
   };
 
 });

@@ -1,6 +1,6 @@
 angular.module('crash.eventPerson', [])
 
-.controller('EventPersonController', function(UserService, CrashEventObj, $state) {
+.controller('EventPersonController', function(LoadingService, PopupService, UserService, CrashEventObj, $state) {
 
   var self = this;
 
@@ -37,16 +37,25 @@ angular.module('crash.eventPerson', [])
   self.getUser = function(username){
     console.log('get ', username, ' information and store into the crash event object as the crash driver');
 
+    LoadingService.showLoader();
+
     UserService.getAccountByUsername(username)
       .then(function(user){
         console.log('crash driver returned from DB : ', user);
         self.crashDriver = user;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
         console.log('crash event object : ', CrashEventObj.crashEvent);
+
+        // show success popup
+        PopupService.showSuccess();
+
+        LoadingService.hideLoader();
+
       })
       .catch(function(err){
         console.log('user not received...', err.data);
         self.errorMessage = err.data.error;
+        LoadingService.hideLoader();
       });
   };
 
@@ -58,6 +67,7 @@ angular.module('crash.eventPerson', [])
     CrashEventObj.crashEvent.crashDriver = self.person;
     console.log('CRASH EVENT OBJEC .crashEvent.crashDriver : ', CrashEventObj.crashEvent.crashDriver);
     self.person = self.personMaster;
+
   };
 
   /***

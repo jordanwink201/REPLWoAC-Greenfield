@@ -1,9 +1,13 @@
 angular.module('crash.signin', [])
 
-.controller('SigninController', function(UserService, ErrorService, $window, $state){
+.controller('SigninController', function(UserService, PopupService, $window, $state){
 
   var self = this;
   self.user = {};
+  self.userMaster = {
+    username : '',
+    password : ''
+  };
 
   /***
     Pass the user object to the signin function which holds the username and password
@@ -16,6 +20,7 @@ angular.module('crash.signin', [])
         console.log('token : ', data);
         $window.localStorage.setItem('com.crash', data.token);
         $state.go('tab.event');
+        self.user = angular.copy(self.userMaster);
       })
       /***
         Tell the user the error, ex: the username or password provided didn't match the DB
@@ -23,7 +28,7 @@ angular.module('crash.signin', [])
       ***/
       .catch(function(err){
         console.log('Error signing in the user ...', err.data);
-        ErrorService.showAlert(err.data.error);
+        PopupService.showAlert(err.data.error);
         self.user.username = '';
         self.user.password = '';
       });
