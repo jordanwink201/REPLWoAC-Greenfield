@@ -91,6 +91,7 @@ module.exports = {
     create(newCrashEvent)
       .then(function(crashEvent){
         console.log('new user successfully stored in database : ', crashEvent);
+        res.status(200);
       })
       .catch(function(err){
         console.log('error created the crash event...', err);

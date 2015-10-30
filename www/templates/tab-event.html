@@ -51,9 +51,6 @@
             {{witness.email}}
             {{witness.comments}}
           </div>
-          <div class="item item-divider">
-            Edit Info
-          </div>
         </div>
       </div>
 
@@ -160,6 +157,12 @@
     <div ng-if="eventCl.index === 3" ng-init="eventFCl.load()"></div>
       <ion-content>
 
+      <!-- Witnesses -->
+      <div class="item item-divider" ng-show="eventFCl.witnessArr.length !== 0">
+        <i class="icon ion-ios-people"></i>
+        Witnesses
+      </div>
+
       <!-- If no witnesses have been added -->
       <div class="card" ng-show="eventFCl.witnessArr.length === 0">
         <div class="item item-divider item-text-wrap">
@@ -173,17 +176,31 @@
           Witness #{{ $index + 1 }}
         </div>
         <div class="item item-text-wrap">
-          <form name='witnessForm'>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="First Name" ng-model="person.fname">
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Last Name" ng-model="person.lname">
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Phone Number" ng-model="person.phone">
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Email Address" ng-model="person.email">
+          </label>
+          <label class="item item-input">
             <input type="text" class="form-control" placeholder="Comments" ng-model="person.comments">
-          </form>
+          </label>
         </div>
         <div class="item item-divider">
           Edit
         </div>
+      </div>
+
+      <!-- Crash Images Secion -->
+      <div class="item item-divider">
+        <i class="icon ion-camera"></i>
+        Crash Images
       </div>
 
       <!-- If no crash images have been added -->
@@ -200,6 +217,12 @@
         </div>
       </div>
 
+      <!-- Crash Images Secion -->
+      <div class="item item-divider">
+        <i class="icon ion-model-s"></i>
+        Persons Involved in Accident
+      </div>
+
       <!-- If no other drivers have been added -->
       <div class="card" ng-show="eventFCl.crashDriver === undefined">
         <div class="item item-divider item-text-wrap">
@@ -210,10 +233,10 @@
       <!-- Other Driver's Information -->
       {{eventFCl.CrashEventObj}}
       <div class="card" ng-show="eventFCl.crashDriver !== undefined">
-        <div class="item item-divider">
+<!--         <div class="item item-divider">
           Other Driver
         </div>
-        <div class="item item-text-wrap">
+        <div class="item item-text-wrap"> -->
           <label class="item item-input">
             <input type="text" class="form-control" placeholder="First Name" ng-model="eventFCl.crashDriver.fname">
           </label>
@@ -245,10 +268,7 @@
           <label class="item item-input">
             <input type="text" class="form-control" placeholder="Agent Email" ng-model="eventFCl.crashDriver.agentEmail">
           </label>
-        </div>
-        <div class="item item-divider">
-          Edit
-        </div>
+        <!-- </div> -->
       </div>
 
       <!-- This should be disabled if no driver has been added -->
