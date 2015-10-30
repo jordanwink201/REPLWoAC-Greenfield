@@ -1,5 +1,7 @@
 /* Empty. Add your own CSS if you like */
-
+html, body{
+  font-family: 'Open Sans', sans-serif;
+}
 
 
 .slider {
@@ -10,12 +12,13 @@
   Top should be the height of the nav bar plus the height of the slider dots (slider-pager)
 */
 .slider-slide{
-  margin-top: 30px;
+  margin-top: 42px;
 }
 
 .slider-pager{
   bottom: auto;
   top: 50px;
+  visibility: hidden;
 }
 
 /*Loader*/
@@ -56,6 +59,9 @@ img.profileImg {
 /*Popup Styles*/
 .popup-container .popup{
   border-radius: 8px;
+}
+.popup-body{
+  text-align: center;
 }
 
 .checkmark__circle {
@@ -140,7 +146,8 @@ img.profileImg {
 /*Progress Bar*/
 .container-progress{
   top: 200px;
-  background: #eee;
+  /*background: #eee;*/
+  position: absolute;
 }
 
 * {
@@ -163,7 +170,9 @@ img.profileImg {
 }
 
 .step-container {
-  margin: 3% auto;
+  position: absolute;
+  top: 50px;
+  width: 100%;
   text-align: center;
 }
 .step-container .step {
@@ -172,16 +181,18 @@ img.profileImg {
   display: inline-block;
   text-align: center;
   background: #000;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   font-weight: bold;
   border-radius: 50%;
-  line-height: 40px;
+  line-height: 28px;
   transition: background 1000ms ease, color 1000ms ease;
   transition-delay: 800ms;
   background: linear-gradient(to right, #79A529 50%, #fff 50%);
   background-size: 200% 100%;
   background-position: right bottom;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.11);
+  border: 1px solid #eee;
 }
 .step-container .step.active {
   background-position: left bottom;
@@ -191,16 +202,26 @@ img.profileImg {
   position: relative;
   z-index: 1;
   background: #444;
-  height: 10px;
-  width: 100px;
-  margin: 0px -10px -0px -10px;
+  height: 8px;
+  width: 20%;
+  margin: 0px -10px 1px -10px;
   display: inline-block;
-  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 0.5) 50%);
+  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 1) 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   transition: background 1000ms ease;
+  border: 1px solid #eee;
   /* margin-top: 10px; */
 }
 .step-container .step-separator.active {
   background-position: left bottom;
+}
+
+/*Browser Camera*/
+.camera{
+  margin-top: 50px;
+}
+video#video, img#photo{
+  display: block;
+  margin: 0 auto;
 }
