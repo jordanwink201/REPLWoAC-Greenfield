@@ -12,7 +12,7 @@ angular.module('crash.eventPhoto', [])
   self.eventImages = [];
 
   var streaming = false;
-  var width = 320; // We will scale the photo width to this
+  var width = 360; // We will scale the photo width to this
   var height = 0;
 
   video = document.getElementById('video');

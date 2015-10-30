@@ -15,6 +15,7 @@ angular.module('crash.popupService', [])
     });
   };
 
+  //
   this.showSuccess = function(){
     // An elaborate, custom popup
     var successPopup = $ionicPopup.alert({
@@ -27,5 +28,26 @@ angular.module('crash.popupService', [])
       successPopup.close(); //close the popup after 3 seconds
     }, 1000);
    };
+
+  // Confirmation Popup
+  this.confirmation = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Emergency',
+      template: 'Are you sure?',
+      buttons : [
+        {text : 'Cancel', type: 'button-light'},
+        {text : 'Call Now', type: 'button-assertive'}
+      ]
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('You are sure');
+        // call the police
+      } else {
+        console.log('You are not sure');
+        // close popup
+      }
+    });
+  };
 
 });

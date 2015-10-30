@@ -2,17 +2,26 @@
 
 
   <div class='step-container container-progress'>
-    <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 1 }" data-step='1'>1</div>
+
+    <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 1 }" data-step='1'>
+      1
+    </div>
     <div class='step-separator' ng-class="{ 'active' : eventCl.currentStep >= 2 }" data-step='1'></div>
+
     <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 2 }" data-step='2'>2</div>
     <div class='step-separator' ng-class="{ 'active' : eventCl.currentStep >= 3 }" data-step='2'></div>
-    <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 3 }" data-step='3'>3</div>
 
+    <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 3 }" data-step='3'>3</div>
     <div class='step-separator' ng-class="{ 'active' : eventCl.currentStep >= 4 }" data-step='3'></div>
+
     <div class='step' ng-class="{ 'active' : eventCl.currentStep >= 4 }" data-step='4'>4</div>
 
   </div>
 
+
+  <ion-nav-buttons side="left">
+    <button class="button button-clear button-light" ng-click="eventCl.callEmergency()"><i class="ion-alert-circled"></i> Call Police</button>
+  </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
     <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="eventCl.getPhoto()"><i class="icon ion-ios-camera"></i></button>
@@ -27,12 +36,6 @@
     <ion-slide ng-controller="EventWitnessController as witnessCl">
       <ion-content>
 
-      <div class="item item-button-right">
-        Call Police
-        <button class="button button-assertive">
-          <i class="icon ion-ios-telephone"></i>
-        </button>
-      </div>
 
       <div class="list list-inset">
 
@@ -88,7 +91,7 @@
       <canvas ng-show="crashPhotoCtrl.streaming" id="canvas"></canvas>
 
       <div class="output">
-        <img id="photo" alt="The screen capture will appear in this box">
+        <img id="photo">
       </div>
 
 
@@ -104,7 +107,7 @@
         Click on the username fire this function
       -->
       <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual">
-        Enter Person Information Manually?
+        Can't find user?
       </ion-toggle>
 
       <label class="item item-input" ng-show="!personCl.enterManual">
