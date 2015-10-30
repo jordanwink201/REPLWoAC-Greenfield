@@ -31,6 +31,7 @@ angular.module('crash', [
   // Facebook App ID
   ngFB.init({appId: '1516257468694166'});
 
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

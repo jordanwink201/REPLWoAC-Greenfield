@@ -2,6 +2,7 @@ angular.module('crash.eventFinal', [])
 
 .controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, SendGridService, EventService, $state){
 
+
   var self = this;
   // ngModel
   self.witnessArr = [];
