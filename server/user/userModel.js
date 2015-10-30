@@ -19,11 +19,7 @@ var userSchema = new Schema({
   phone : String,
   dob : String,
   email : String,
-<<<<<<< 37e4f5bbeaf52eb05f192a47c180fb114e4ece62
   profileImgUrl: { type : String, default : 'img/crashProfile2.jpg' },
-=======
-  profileImgUrl: String,  
->>>>>>> added profile image
   license : String,
   licenseState : String,
   insurance : String,

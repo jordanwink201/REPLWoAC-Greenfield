@@ -21,9 +21,9 @@
         <!-- Load the person you hit's profile img? -->
         <div class="item item-avatar">
           <img ng-src="img/crashProfile2.jpg">
-          <h2>{{event.createdAt | date : 'fullDate'}}</h2>
+          <h2>{{event.createdAt | date : 'MMM d, y h:mm a '}}</h2>
           <p>{{event.otherPartyInfo.fname}} {{event.otherPartyInfo.lname}}</p>
-          <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob.toLocaleString()}}</p>
+          <p>{{event.otherPartyInfo.phone}}</p>
           <p>{{event.otherPartyInfo.email}}</p>
         </div>
 
