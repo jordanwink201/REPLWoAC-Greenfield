@@ -1,6 +1,6 @@
 angular.module('crash.signin', [])
 
-.controller('SigninController', function(UserService, ErrorService, $window, $state){
+.controller('SigninController', function(UserService, PopupService, $window, $state){
 
   var self = this;
   self.user = {};
@@ -28,7 +28,7 @@ angular.module('crash.signin', [])
       ***/
       .catch(function(err){
         console.log('Error signing in the user ...', err.data);
-        ErrorService.showAlert(err.data.error);
+        PopupService.showAlert(err.data.error);
         self.user.username = '';
         self.user.password = '';
       });

@@ -1,6 +1,6 @@
 angular.module('crash.eventPerson', [])
 
-.controller('EventPersonController', function(UserService, CrashEventObj, $state) {
+.controller('EventPersonController', function(PopupService, UserService, CrashEventObj, $state) {
 
   var self = this;
 
@@ -43,6 +43,10 @@ angular.module('crash.eventPerson', [])
         self.crashDriver = user;
         CrashEventObj.crashEvent.crashDriver = self.crashDriver;
         console.log('crash event object : ', CrashEventObj.crashEvent);
+
+        // show success popup
+        PopupService.showSuccess();
+
       })
       .catch(function(err){
         console.log('user not received...', err.data);
@@ -58,6 +62,7 @@ angular.module('crash.eventPerson', [])
     CrashEventObj.crashEvent.crashDriver = self.person;
     console.log('CRASH EVENT OBJEC .crashEvent.crashDriver : ', CrashEventObj.crashEvent.crashDriver);
     self.person = self.personMaster;
+
   };
 
   /***

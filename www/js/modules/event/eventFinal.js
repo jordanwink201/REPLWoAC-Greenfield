@@ -38,12 +38,15 @@ angular.module('crash.eventFinal', [])
     save the final crash object into the database, which will be added to the driver's crash history
   ***/
   self.save = function(){
-    console.log('save final information...');
+    console.log('\nsave final information...');
     console.log('final crash object : ', self.finalCrashObj);
 
     EventService.createCrashEvent(self.finalCrashObj)
       .then(function(data){
         console.log('success data : ', data);
+        // show success popup
+        PopupService.showSuccess();
+
         $state.go('tab.history');
       })
       .catch(function(err){
