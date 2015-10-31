@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
-  'ionic','ionic.service.core',
+  'ionic','ionic.service.core', 'ngCordova',
   'crash.eventService',
   'crash.userService',
   'crash.popupService',

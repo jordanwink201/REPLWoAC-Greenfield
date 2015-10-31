@@ -31,6 +31,8 @@ angular.module('crash.eventPerson', [])
     should clear the form everytime this is switched
   ***/
   self.switchInput = function(){
+    // Console Log
+    console.log('switch input...');
     // Reverse Flag
     self.enterManual = !self.enterManual;
     // Reset Input Fields
@@ -46,7 +48,7 @@ angular.module('crash.eventPerson', [])
   ***/
   self.getUser = function(username){
     // Console Log
-    console.log('get ', username, ' information and store into the crash event object as the crash driver');
+    console.log('get user : ', username);
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
@@ -64,6 +66,8 @@ angular.module('crash.eventPerson', [])
         LoadingService.hideLoader();
         // Navigation
         $ionicSlideBoxDelegate.next();
+        // Console Log Service Object
+        console.log('CrashEventObj : ', CrashEventObj);
       })
       .catch(function(err){
         // Alert Error
@@ -77,7 +81,7 @@ angular.module('crash.eventPerson', [])
     After manually entering the crash driver's information
     save the crash user obj into the CrashEventObj.crashEvent object
   ***/
-  self.save = function(){
+  self.saveDriver = function(){
     // Console Log
     console.log('save : ');
     // Show Loader

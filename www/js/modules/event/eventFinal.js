@@ -15,13 +15,18 @@ angular.module('crash.eventFinal', [])
   ***/
   self.load = function(){
     // Console Log
-    console.log('');
+    console.log('loading Service Object CrashEventObj : ', CrashEventObj);
     // Set Local from Service Object
     var crashObj = CrashEventObj.crashEvent;
     // Set ngModel
     self.witnessArr = crashObj.witnessArr;
     self.eventImages = crashObj.eventImages;
     self.crashDriver = crashObj.crashDriver;
+
+    console.log('self.witnessArr : ', self.witnessArr);
+    console.log('self.eventImages : ', self.eventImages);
+    console.log('self.crashDriver : ', self.crashDriver);
+
     // Set local
     finalCrashObj = crashObj;
   };
@@ -31,14 +36,12 @@ angular.module('crash.eventFinal', [])
   ***/
   self.save = function(){
     // Console Log
-    console.log('final crash object : ', finalCrashObj);
+    console.log('saving crash object... : ', finalCrashObj);
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
-    EventService.createCrashEvent(self.finalCrashObj)
+    EventService.createCrashEvent(finalCrashObj)
       .then(function(data){
-        // Console Log
-        console.log('success data : ', data);
         // Show Success
         PopupService.showSuccess();
         // Hide Loader

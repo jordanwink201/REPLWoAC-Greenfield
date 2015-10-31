@@ -24,7 +24,7 @@ angular.module('crash.signin', ['ngOpenFB'])
     UserService.signin(self.user)
       .then(function(data){
         // Console Log
-        console.log('token : ', data);
+        console.log('token : ', data.token);
         // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
         // Hide Loader
@@ -63,16 +63,15 @@ angular.module('crash.signin', ['ngOpenFB'])
             Try to sign in first. If successfully sign in, redirect to tab.event page.
             else, redirect to createAccount page.
           ***/
-          ngFB.api({
-            path: '/me',
-            params: {fields: 'id'}
-          })
-          .then(
-            function (user) {
+          ngFB.api({ path: '/me', params: {fields: 'id'} })
+            .then(function(user){
               UserService.signin({username: user.id, password: user.id})
                 .then(function(data){
+                  // Console Log
                   console.log('token : ', data);
+                  // Set Local Storage
                   $window.localStorage.setItem('com.crash', data.token);
+                  // Navigation
                   $state.go('tab.event');
                 })
                 /***
@@ -80,15 +79,18 @@ angular.module('crash.signin', ['ngOpenFB'])
                   Reset the input so the user can enter the information again
                 ***/
                 .catch(function(err){
+                  // Navigation
                   $state.go('createAccount');
                 });
-            },
-            function (error) {
-                alert('Facebook error: ' + error.error_description);
+            })
+            .catch(function(error){
+              // Alert Error
+              PopupService.showAlert('Facebook error: ' + error.error_description);
             });
-
+          // Console Log
           console.log('Facebook login succeeded');
         } else {
+          // Console Log
           console.log('Facebook login failed');
         }
     });

@@ -10,7 +10,7 @@ angular.module('crash.userService', [])
   var signin = function(userObj){
     return $http({
       method : 'POST',
-      url : 'https://crashninjaionic.herokuapp.com/api/user/signin',
+      url : 'api/user/signin',
       data : userObj
     })
     .then(function(res){
@@ -27,7 +27,7 @@ angular.module('crash.userService', [])
   var createAccount = function(userObj){
     return $http({
       method : 'POST',
-      url : 'https://crashninjaionic.herokuapp.com/api/user/create',
+      url : 'api/user/create',
       data : userObj
     })
     .then(function(res){
@@ -43,7 +43,7 @@ angular.module('crash.userService', [])
   var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'https://crashninjaionic.herokuapp.com/api/userAction/read'
+      url : 'api/userAction/read'
     })
     .then(function(res){
       return res.data;
@@ -74,7 +74,7 @@ angular.module('crash.userService', [])
   var getAccountByUsername = function(username){
     return $http({
       method : 'GET',
-      url : 'https://crashninjaionic.herokuapp.com/api/user/read',
+      url : 'api/user/read',
       params : {username : username}
     })
     .then(function(res){
@@ -90,7 +90,7 @@ angular.module('crash.userService', [])
   var readAllUsers = function(){
     return $http({
       method : 'GET',
-      url : 'https://crashninjaionic.herokuapp.com/api/userAction/readAll',
+      url : 'api/userAction/readAll',
     })
     .then(function(res){
       return res.data;
@@ -101,6 +101,7 @@ angular.module('crash.userService', [])
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
+    // Return Boolean of Getting Local Storage
     return !!$window.localStorage.getItem('com.crash');
   };
 
@@ -108,7 +109,9 @@ angular.module('crash.userService', [])
     clear all information in local storage and send the user to the signin page
   ***/
   var signout = function(){
+    // Clear Local Storage
     $window.localStorage.clear();
+    // Navigation
     $state.go('signin');
   };
 

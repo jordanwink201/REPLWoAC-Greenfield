@@ -4,41 +4,41 @@
 
 ***/
 
+// External Resources
 var jwt = require('jwt-simple');
 
-/***
-  Add this to the middleware that requires a token to retreive the data from the DB
-  Decode the token that was attached to the call's headers as 'x-access-token',
-  then attach the decoded user object to the request object
-***/
-
 module.exports = {
-
+  /***
+    Add this to the middleware that requires a token to retreive the data from the DB
+    Decode the token that was attached to the call's headers as 'x-access-token',
+    then attach the decoded user object to the request object
+  ***/
   decode : function(req, res, next){
-
+    // Console Log
+    console.log('Decoding token...');
+    // Check for OPTIONS
     if (req.method === 'OPTIONS') {
+      // Propogate Success to Client
       res.status(202).send();
     }
-
+    // Get Token
     var token = req.headers['x-access-token'];
-
     if (!token) {
-      return res.status(403).send(); // send forbidden response since there is no token provided
+      // Propogate Error to Client
+      return res.status(403).send();
     }
-
-    try{ // decode
-
+    try{
+      // Decode Token
       var user = jwt.decode(token, 'secret');
-      // attach user object to request object
-      console.log('DECODING....\n');
-      console.log('user decoded from token : ', user);
+      // Attach Decoded Token to Request Object
       req.user = user;
+      // Continue
       next();
     } catch(err){
-      console.log('ERROR DECODING : ', err);
+      // Console Log
+      console.log('Error Decoding Token : ', err);
+      // Propogate Error to Client
       return next(err);
     }
-
   }
-
 };

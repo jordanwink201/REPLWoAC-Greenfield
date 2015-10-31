@@ -4,28 +4,22 @@
 
 ***/
 
+// External Resources
 var mongoose = require("mongoose");
+// Define Mongoose Schema
 var Schema = mongoose.Schema;
-
+// Create Mongoose Schema
 var crashSchema = new Schema({
-
-  user : String, // username that created the crash event
-
-  timeStamp: { type: Date, default: Date.now }, //need to parse this when fetch
-
+  user : String,
+  timeStamp: { type: Date, default: Date.now },
   createdAt: String,
-
   // location : String, // investigate format google api returns
-
   witness : Array,
-
   accidentPhotoUrls : Array,
-
   otherPartyInfo: {
     fname : String,
     lname : String,
     username : String,
-
     phone : String,
     dob : Date,
     email : String,
@@ -35,16 +29,12 @@ var crashSchema = new Schema({
     policy : String,
     agent : String,
     agentEmail : String,
-
     otherUser : String,
     licensePhoto : String,
     insuranceCardPhoto : String,
   }
-
 });
-
-var Crash = mongoose.model("Crash", crashSchema);
-
-module.exports = Crash;
+// Export Mongoose Model
+module.exports = mongoose.model("Crash", crashSchema);
 
 

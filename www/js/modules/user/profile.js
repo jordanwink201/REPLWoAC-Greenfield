@@ -4,11 +4,18 @@ angular.module('crash.profile', [])
 
 // Be able to update the user's information (everything just be able to be updated except for their username, if they want to change their password then they'll be signed out and have to sign back in with their new password)
 
-.controller('ProfileController', function(PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet){
+// Depending on how you request the data back from the Camera and use it in your Angular markup, you may have to whitelist image URLs so Angular allows file:// URLs (for example, if you are using ng-src for an <img> tag):
+// module.config(function($compileProvider){
+//   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+// })
+
+.controller('ProfileController', function(CrashEventObj, PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet, Camera, $cordovaCamera){
 
   var self = this;
   // ngModel
   self.userObj = {};
+  self.profileImg = '../img/crashProfile2.jpg';
+  self.profileImgFile = '';
   // ngModel Flag
   self.editMode = false;
 
@@ -17,14 +24,14 @@ angular.module('crash.profile', [])
   ***/
   self.load = function(){
     // Console Log
-    console.log('create account for user : ', self.user);
+    console.log('loading current user...');
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
     UserService.readAccount()
       .then(function(user){
         // Console Log
-        console.log('User : ', user);
+        console.log('current user : ', user.data);
         // Set ngModel
         self.userObj = user.data;
         // Hide Loader
@@ -44,7 +51,7 @@ angular.module('crash.profile', [])
   ***/
   self.updateUser = function() {
     // Console Log
-    console.log('update user : ');
+    console.log('update user info...');
     // Get Local Storage
     var currentToken = $window.localStorage.getItem('com.crash');
     // Show Loader
@@ -53,7 +60,7 @@ angular.module('crash.profile', [])
     UserService.updateUserAccount(self.userObj)
       .then(function(data){
         // Console Log
-        console.log('NEW TOKEN :', data.token);
+        console.log('new users token : ', data.token);
         // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
         // Set ngModel Flag
@@ -81,6 +88,8 @@ angular.module('crash.profile', [])
     sign the user out by destroying the window.localStorage token and info
   ***/
   self.signOut = function(){
+    // Clear Service Object
+    CrashEventObj.crashEvent = {};
     // Factory Function
     UserService.signout();
   };
@@ -88,7 +97,7 @@ angular.module('crash.profile', [])
   /***
     choose image from action sheet or take a photo to set as the profile picture
   ***/
-  self.changProfileImg = function(){
+  self.changeProfileImg = function(){
     var hideSheet = $ionicActionSheet.show({
       buttons : [
         { text : 'Take Photo' },
@@ -99,11 +108,26 @@ angular.module('crash.profile', [])
       buttonClicked : function(index){
         // index : 0 is take photo
         if (index === 0) {
-          // take photo
+
         }
         // index : 1 is choose photo from library
         if (index === 1) {
-          // choose photo from library
+          var options = {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            targetWidth: 200,
+            targetHeight: 200
+          };
+
+          $cordovaCamera.getPicture(options).then(function(imageUri) {
+            console.log('img', imageUri);
+            self.profileImgFile = imageUri;
+            // $scope.images.push(imageUri);
+
+          }, function(err) {
+          // error
+          });
         }
       }
     });

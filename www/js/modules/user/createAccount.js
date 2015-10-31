@@ -35,14 +35,16 @@ angular.module('crash.createAccount', [])
 
     self.facebookLogin = false;
 
-    console.log('create account for user : ', self.user);
+    // Console Log
+    console.log('create account for new user : ', self.user);
+
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
     UserService.createAccount(self.user)
       .then(function(data){
         // Console Log
-        console.log('created account, session :', data.token);
+        console.log('createded account and token :', data.token);
         // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
         // Show Success

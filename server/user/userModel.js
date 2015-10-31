@@ -4,25 +4,18 @@
 
 ***/
 
+// External Resources
 var mongoose = require('mongoose');
     bcrypt = require('bcrypt-nodejs');
     Q = require('q');
     Schema = mongoose.Schema;
     SALT_WORK_FACTOR = 10;
-
+// Create Mongoose Schema
 var userSchema = new Schema({
-
   fname : String,
   lname : String,
-  username : {
-    type : String,
-    required : true,
-    unique : true
-  },
-  password : {
-    type : String,
-    required : true
-  },
+  username : { type : String, required : true, unique : true },
+  password : { type : String, required : true },
   phone : String,
   dob : String,
   email : String,
@@ -32,25 +25,20 @@ var userSchema = new Schema({
   policy : String,
   agent : String,
   agentEmail : String,
-
-  createdAt : {
-    type: Date,
-    default: Date.now
-  },
-
-  //add a documentPhoto feature after MVP is acheived
-
+  createdAt : { type: Date, default: Date.now }
 });
 
 /***
   Compare the password from the database associated to the user with the password that is attached to the request object
 ***/
 userSchema.methods.comparePasswords = function(requestObjPassword){
-
+  // Console Log
+  console.log('Compare passwords, this.password : ', this.password, ' : requestObjPassword : ', requestObjPassword);
+  // Define Promise
   var defer = Q.defer();
+  // Set Local
   var databasePassword = this.password;
-
-  // Create a promise
+  // Create Promise
   bcrypt.compare(requestObjPassword, databasePassword, function(err, isMatch){
     if (err) {
       defer.reject(err);
@@ -58,7 +46,7 @@ userSchema.methods.comparePasswords = function(requestObjPassword){
       defer.resolve(isMatch);
     }
   });
-
+  // Return Promise
   return defer.promise;
 };
 
@@ -66,32 +54,30 @@ userSchema.methods.comparePasswords = function(requestObjPassword){
   Before the user gets saved into the database, the password that was provided to create the account needs to be encrypted...
 ***/
 userSchema.pre('save', function(next){
+  // Console Log
+  console.log('hash password before saving a new user...');
+  // Define Context
   var user = this;
-
-  // generate a salt
+  // Generate Salt
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
     if (err) {
       console.log('could not generate salt...', err);
     }
-
-    // generate hash for the password using the generated salt and user password
+    // Generate Hash
     bcrypt.hash(user.password, salt, null, function(err, hash){
       if (err) {
         console.log('could not generate hash...', err);
       }
-
-      user.password = hash; // store the new password
-      user.salt = salt; // add the salt property to the user object
+      // Set User Object Properties
+      user.password = hash;
+      user.salt = salt;
+      // Continue
       next();
     });
-
   });
-
 });
 
-/***
-  Export the User model based on the user schema
-***/
+// Export Mongoose Model
 module.exports = mongoose.model("User", userSchema);
 
 

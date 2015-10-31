@@ -23,12 +23,16 @@ angular.module('crash.eventWitness', [])
     angular.copy(self.master) clears ubinds the person object
   ***/
   self.addWitness = function(){
+    // Console Log
+    console.log('add witness...');
     // Set ngModel
     self.witnessArr.push(self.witness);
     // Set Service Object
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
     // Reset Input Fields
     self.witness = angular.copy(self.witnessMaster);
+    // Console Log Service Object
+    console.log('CrashEventObj : ', CrashEventObj);
   };
 
 });

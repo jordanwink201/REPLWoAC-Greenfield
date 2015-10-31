@@ -5,17 +5,17 @@ angular.module('crash.event', [])
   var self = this;
   // ngModel
   self.currentStep = 1;
-  // Local
-  var index = 0;
+  self.index = 0;
 
   /***
     Global controller eventCl
   ***/
   self.slideChanged = function(index){
+    // Console Log
+    console.log('changing index to : ', index);
     // Set ngModel
     self.currentStep = index + 1;
-    // Set Local
-    index = index;
+    self.index = index;
   };
 
   /***

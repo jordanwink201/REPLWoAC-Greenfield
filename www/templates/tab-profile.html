@@ -1,4 +1,4 @@
-<ion-view cache-view="false" view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
+<ion-view cache-view="false" view-title="Profile" ng-init="profileCl.load()">
 
   <ion-nav-buttons side="left" ng-cloak>
     <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode" ng-cloak>Cancel</button>
@@ -15,29 +15,17 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
-      <img src="img/crashProfile2.jpg" class="profileImg" ng-click="profileCl.changProfileImg()">
+      <img ng-src="{{profileCl.profileImg}}" class="profileImg" ng-click="profileCl.changeProfileImg()">
 
       <div class="center">
         <h4>{{profileCl.userObj.fname}} {{profileCl.userObj.lname}}</h4>
         <h5>{{profileCl.userObj.email}}</h5>
         <h5>{{profileCl.userObj.phone}}</h5>
+        <h5>{{profileCl.profileImgFile}}</h5>
       </div>
-
 
       <!-- NON EDIT MODE -->
       <div ng-show="!profileCl.editMode">
-<!--         <div class="card">
-          <div class="item item-divider">
-            Personal Info
-          </div>
-          <div class="item item-text-wrap">
-            {{profileCl.userObj.fname}}
-            {{profileCl.userObj.lname}}
-            {{profileCl.userObj.email}}
-            {{profileCl.userObj.phone}}
-          </div>
-        </div> -->
-
         <div class="card">
           <div class="item item-divider">
             Driver Info
@@ -101,7 +89,7 @@
         </ion-item>
       </div>
 
-    <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
+      <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
 
     </ion-list>
   </ion-content>
