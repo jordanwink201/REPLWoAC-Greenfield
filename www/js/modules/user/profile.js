@@ -1,6 +1,6 @@
 angular.module('crash.profile', [])
 
-.controller('ProfileController', function(LoadingService, UserService, $state, $window, $ionicActionSheet){
+.controller('ProfileController', function(PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet){
 
   // Get the current user's information either from window.localStorage or using GET request
 
@@ -27,6 +27,7 @@ angular.module('crash.profile', [])
       })
       .catch(function(err){
         console.log('user not received...', err);
+        PopupService.showAlert(err.data.error);
         LoadingService.hideLoader();
       });
   };
@@ -44,6 +45,7 @@ angular.module('crash.profile', [])
         console.log('updated account, session :', data.token);
         $window.localStorage.setItem('com.crash', data.token);
         // $state.go('tab.profile');
+        PopupService.showSuccess();
         LoadingService.hideLoader();
         self.editMode = false;
       })
@@ -51,6 +53,7 @@ angular.module('crash.profile', [])
         console.log('Error updating account...', err.data);
         self.errorMessage = err.data.error;
         self.user.username = '';
+        PopupService.showAlert(err.data.error);
         LoadingService.hideLoader();
         self.editMode = false;
       });
@@ -82,6 +85,7 @@ angular.module('crash.profile', [])
         // index : 1 is choose photo from library
         if (index === 1) {
           // choose photo from library
+
         }
       }
     });

@@ -1,6 +1,6 @@
 angular.module('crash.createAccount', [])
 
-.controller('CreateController', function(UserService, $state, $window, ngFB){
+.controller('CreateController', function(LoadingService, PopupService, UserService, $state, $window, ngFB){
 
   var self = this;
   self.user = {};
@@ -21,15 +21,18 @@ angular.module('crash.createAccount', [])
     agentEmail : ''
   };
 
-  self.errorMessage = '';
   self.facebookLogin;
+
   /***
     send the new user to the server to be stored in the database
     get a session token back to be stored into window localStorage
   ***/
   self.create = function(){
-    self.facebookLogin = false;  
+    self.facebookLogin = false;
     console.log('create account for user : ', self.user);
+
+    LoadingService.showLoader();
+
     UserService.createAccount(self.user)
       /***
         response will be an {token:token, user:user}
@@ -37,6 +40,12 @@ angular.module('crash.createAccount', [])
       .then(function(data){
         console.log('created account, session :', data.token);
         $window.localStorage.setItem('com.crash', data.token);
+
+        // show success popup
+        PopupService.showSuccess();
+
+        LoadingService.hideLoader();
+
         $state.go('tab.event');
         self.user = angular.copy(self.userMaster);
       })
@@ -47,12 +56,14 @@ angular.module('crash.createAccount', [])
         console.log('Error creating account...', err.data);
         self.errorMessage = err.data.error;
         self.user.username = '';
+        LoadingService.hideLoader();
+        PopupService.showAlert(err.data.error);
       });
   };
 
   // Redirect to signin page
   self.signin = function(){
-    self.facebookLogin = false;  
+    self.facebookLogin = false;
     $state.go('signin');
   };
 
@@ -63,7 +74,7 @@ angular.module('crash.createAccount', [])
           params: {fields: 'id,name,first_name,last_name,email'}
       }).then(
           function (user) {
-            self.facebookLogin = true;           
+            self.facebookLogin = true;
             self.user.username = user.id;
             self.user.password = user.id;
             self.user.fname = user.first_name;
@@ -75,6 +86,6 @@ angular.module('crash.createAccount', [])
           function (error) {
             self.facebookLogin = false;
             console.log('Facebook error: ' + error.error_description);
-          });    
+          });
   };
 });

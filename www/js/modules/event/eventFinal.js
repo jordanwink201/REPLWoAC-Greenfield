@@ -1,6 +1,6 @@
 angular.module('crash.eventFinal', [])
 
-.controller('EventFinalController', function(CrashEventObj, EventService, $state){
+.controller('EventFinalController', function(PopupService, CrashEventObj, EventService, $state){
 
   var self = this;
 
@@ -48,9 +48,12 @@ angular.module('crash.eventFinal', [])
         PopupService.showSuccess();
 
         $state.go('tab.history');
+
+        console.log('should have went to the history.....');
       })
       .catch(function(err){
         console.log('error saving crash object...', err);
+
       });
 
   };

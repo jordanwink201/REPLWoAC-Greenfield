@@ -1,20 +1,18 @@
 angular.module('crash.eventPerson', [])
 
-.controller('EventPersonController', function(LoadingService, PopupService, UserService, CrashEventObj, $state) {
+.controller('EventPersonController', function($ionicSlideBoxDelegate, LoadingService, PopupService, UserService, CrashEventObj, $state) {
 
   var self = this;
-
   self.enterManual = false;
-
-  self.errorMessage = '';
 
   self.crashDriver = {};
 
   self.allUsers = []; // all of the user's USERNAMES , fnames & lnames in the database
 
+  // In the future, this should create a new account for the user you enter and then send them an email telling them to confirm their account
+
   // From Add Personal Manually
-  self.person = {};
-  self.personMaster = {
+  self.crashDriverMaster = {
     fname : '',
     lname : '',
     dob : '',
@@ -54,20 +52,32 @@ angular.module('crash.eventPerson', [])
       })
       .catch(function(err){
         console.log('user not received...', err.data);
-        self.errorMessage = err.data.error;
+        PopupService.showAlert(err.data.error);
         LoadingService.hideLoader();
       });
   };
 
   /***
+    After manually entering the crash driver's information
     save the crash user obj into the CrashEventObj.crashEvent object
   ***/
   self.save = function(){
-    console.log('saving...');
-    CrashEventObj.crashEvent.crashDriver = self.person;
-    console.log('CRASH EVENT OBJEC .crashEvent.crashDriver : ', CrashEventObj.crashEvent.crashDriver);
-    self.person = self.personMaster;
 
+    LoadingService.showLoader();
+
+    CrashEventObj.crashEvent.crashDriver = self.crashDriver;
+
+    console.log('CRASH EVENT : ', CrashEventObj.crashEvent);
+
+    // Reset inputs
+    self.crashDriver = self.crashDriverMaster;
+
+    // show success popup
+    PopupService.showSuccess();
+    LoadingService.hideLoader();
+
+    // trigger go to the next screen
+    $ionicSlideBoxDelegate.next();
   };
 
   /***
