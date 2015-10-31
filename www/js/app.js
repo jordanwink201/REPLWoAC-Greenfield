@@ -23,11 +23,14 @@ angular.module('crash', [
   'crash.profile',
   'crash.signin',
   'crash.createAccount',
-  'ngOpenFB'
-  ])
+  'ngOpenFB',
+  'crash.Testing'
+])
 
 .run(function($ionicPlatform, ngFB) {
-  ngFB.init({appId: '1516257468694166'})
+  // Facebook App ID
+  ngFB.init({appId: '1516257468694166'});
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -46,6 +49,15 @@ angular.module('crash', [
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
+
+  .state('Testing', {
+    url: '/testing',
+    templateUrl: 'templates/testing.html',
+    controller: 'TestingController as testingCl',
+    data : {
+      authenticate : false
+    }
+  })
 
   .state('signin', {
     url: '/signin',

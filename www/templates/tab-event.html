@@ -81,20 +81,7 @@
     <ion-slide ng-controller="EventPhotoController as photoCl">
 
       <!-- MOBILE VERSION -->
-<!--       <img ng-src="{{photoCl.lastPhoto}}" style="max-width: 100%"> -->
-
-      <!-- BROWSER VERSION -->
-      <div class="camera">
-        <video id="video">Video stream not available</video>
-        <button ng-click="takePhoto()">Take photo</button>
-      </div>
-
-      <canvas ng-show="crashPhotoCtrl.streaming" id="canvas"></canvas>
-
-      <div class="output">
-        <img id="photo">
-      </div>
-
+      <img ng-src="{{photoCl.lastPhoto}}" style="max-width: 100%">
 
     </ion-slide>
 
