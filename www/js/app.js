@@ -50,6 +50,7 @@ angular.module('crash', [
 
   $stateProvider
 
+  // Testing
   .state('Testing', {
     url: '/testing',
     templateUrl: 'templates/testing.html',
@@ -140,13 +141,14 @@ angular.module('crash', [
 
 /***
   Attach the user's token to the header of the server call
+  Store the token into the header
 ***/
 .factory('AttachToken', function($window){
   return {
     request : function(object){
       var jwt = $window.localStorage.getItem('com.crash');
       if (jwt) {
-        object.headers['x-access-token'] = jwt; // store the token into the header
+        object.headers['x-access-token'] = jwt;
       }
       object.headers['Allow-Control-Allow-Origin'] = '*';
       return object;
@@ -167,13 +169,9 @@ angular.module('crash', [
     //   $window.localStorage.setItem('com.crash', token);
     // }
     if (toState.data.authenticate && !UserService.isAuthorized()) {
-
       $state.go('signin');
       event.preventDefault();
-
     }
   });
 
 });
-
-

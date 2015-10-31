@@ -8,19 +8,22 @@ angular.module('crash.eventPhoto', [])
 .controller('EventPhotoController', function(S3Service, Camera, $state) {
 
   var self = this;
-
+  // ngModel
   self.eventImages = [];
 
-  // MOBILE GET PHOTO
+  /***
+    MOBILE GET PHOTO
+  ***/
   self.getPhoto = function() {
     Camera.getPicture().then(function(imageURI) {
+      // Console Log
       console.log(imageURI);
-      // Add to event images array
+      // Set ngModel
       self.eventImages.push(imageURI);
-
+      // Set ngModel
       self.lastPhoto = imageURI;
     }, function(err) {
-      console.err(err);
+      PopupService.showAlert(err);
     }, {
       quality: 75,
       targetWidth: 50,
