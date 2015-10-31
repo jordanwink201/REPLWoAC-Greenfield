@@ -3,11 +3,11 @@ angular.module('crash.eventWitness', [])
 .controller('EventWitnessController', function($state, CrashEventObj) {
 
   var self = this;
-
+  // ngModel
   self.witnessArr = [];
-
+  // ngModel
   self.person = {};
-
+  // Reset Input Fields
   self.personMaster = {
     fname : '',
     lname : '',
@@ -23,8 +23,11 @@ angular.module('crash.eventWitness', [])
     angular.copy(self.master) clears ubinds the person object
   ***/
   self.addWitness = function(){
+    // Set ngModel
     self.witnessArr.push(self.person);
+    // Set Service Object
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
+    // Reset Input Fields
     self.person = angular.copy(self.master);
   };
 

@@ -1,6 +1,8 @@
 angular.module('crash.createAccount', [])
 
+
 .controller('CreateController', function(LoadingService, PopupService, UserService, $state, $window, ngFB){
+
 
   var self = this;
   // ngModel

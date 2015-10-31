@@ -3,7 +3,9 @@ angular.module('crash.signin', ['ngOpenFB'])
 .controller('SigninController', function(LoadingService, UserService, PopupService, $window, $state, ngFB){
 
   var self = this;
+  // ngModel
   self.user = {};
+  // Reset Input Fields
   self.userMaster = {
     username : '',
     password : ''
@@ -14,35 +16,40 @@ angular.module('crash.signin', ['ngOpenFB'])
     Sign the User In and get a session back from the server
   ***/
   self.signin = function(){
+    // Console Log
     console.log('sign user in...');
-
+    // Show Loader
     LoadingService.showLoader();
-
+    // Factory Function
     UserService.signin(self.user)
       .then(function(data){
+        // Console Log
         console.log('token : ', data);
+        // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
-
+        // Hide Loader
         LoadingService.hideLoader();
-
-        $state.go('tab.event');
+        // Reset Input Fields
         self.user = angular.copy(self.userMaster);
+        // Navigation
+        $state.go('tab.event');
       })
-      /***
-        Tell the user the error, ex: the username or password provided didn't match the DB
-        Reset the input so the user can enter the information again
-      ***/
       .catch(function(err){
-        console.log('Error signing in the user ...', err.data);
-        PopupService.showAlert(err.data.error);
-        LoadingService.hideLoader();
+        // Reset Input Fields
         self.user.username = '';
         self.user.password = '';
+        // Alert Error
+        PopupService.showAlert(err.data.error);
+        // Hide Loader
+        LoadingService.hideLoader();
       });
   };
 
-  // Redirect to create account page
+  /***
+    Redirect to create account page
+  ***/
   self.signup = function(){
+    // Navigation
     $state.go('createAccount');
   };
 
