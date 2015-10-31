@@ -93,7 +93,7 @@ angular.module('crash', [
     url: '/profile',
     views: {
       'tab-profile': {
-        templateUrl: 'templates/profile.html',
+        templateUrl: 'templates/tab-profile.html',
         controller: 'ProfileController as profileCl',
       }
     },
@@ -149,11 +149,11 @@ angular.module('crash', [
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 
-    var token = $window.sessionStorage.getItem('fbAccessToken');
+    // var token = $window.sessionStorage.getItem('fbAccessToken');
 
-    if(token) {
-      $window.localStorage.setItem('com.crash', token);
-    }
+    // if(token) {
+    //   $window.localStorage.setItem('com.crash', token);
+    // }
     if (toState.data.authenticate && !UserService.isAuthorized()) {
 
       $state.go('signin');

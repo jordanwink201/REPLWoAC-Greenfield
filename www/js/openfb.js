@@ -124,6 +124,7 @@ var openFB = (function () {
         // Inappbrowser load start handler: Used when running in Cordova only
         function loginWindow_loadStartHandler(event) {
             var url = event.url;
+            console.log('I am loading!');
             if (url.indexOf("access_token=") > 0 || url.indexOf("error=") > 0) {
                 // When we get the access token fast, the login window (inappbrowser) is still opening with animation
                 // in the Cordova app, and trying to close it while it's animating generates an exception. Wait a little...
@@ -149,7 +150,7 @@ var openFB = (function () {
         if (options && options.scope) {
             scope = options.scope;
         }
-
+        
         loginCallback = callback;
         loginProcessed = false;
 
@@ -158,6 +159,7 @@ var openFB = (function () {
             '&response_type=token&scope=' + scope, '_blank', 'location=no,clearcache=yes');
 
         // If the app is running in Cordova, listen to URL changes in the InAppBrowser until we get a URL with an access_token or an error
+        console.log('runningInCordova?', runningInCordova);
         if (runningInCordova) {
             loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
             loginWindow.addEventListener('exit', loginWindow_exitHandler);
@@ -239,7 +241,7 @@ var openFB = (function () {
         params['access_token'] = tokenStore.fbAccessToken;
 
         url = 'https://graph.facebook.com' + obj.path + '?' + toQueryString(params);
-
+console.log('facebook query url:', url);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
