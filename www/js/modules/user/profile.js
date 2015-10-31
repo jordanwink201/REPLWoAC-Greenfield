@@ -38,11 +38,15 @@ angular.module('crash.profile', [])
   ***/
   self.updateUser = function() {
 
+    var currentToken = $window.localStorage.getItem('com.crash');
+
     LoadingService.showLoader();
 
     UserService.updateUserAccount(self.userObj)
       .then(function(data){
-        console.log('updated account, session :', data.token);
+        console.log('NEW TOKEN :', data.token);
+        console.log('OLD TOKEN :', currentToken);
+
         $window.localStorage.setItem('com.crash', data.token);
         // $state.go('tab.profile');
         PopupService.showSuccess();

@@ -66,25 +66,39 @@
         <div class="item item-divider">
            Personal Info
         </div>
-        <ion-item>{{profileCl.userObj.fname}}</ion-item>
-        <ion-item>{{profileCl.userObj.lname}}</ion-item>
-        <ion-item>{{profileCl.userObj.dob}}</ion-item>
-        <ion-item>{{profileCl.userObj.email}}</ion-item>
-        <ion-item>{{profileCl.userObj.phone}}</ion-item>
+
+        <ion-item>
+          <input type="text" class="form-control" placeholder="First Name" ng-model="profileCl.userObj.email">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.phone">
+        </ion-item>
 
         <div class="item item-divider">
            Driver Info
         </div>
-        <ion-item>{{profileCl.userObj.license}}</ion-item>
-        <ion-item>{{profileCl.userObj.licenseState}}</ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.license">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.licenseState">
+        </ion-item>
 
         <div class="item item-divider">
            Insurance Info
         </div>
-        <ion-item>{{profileCl.userObj.insurance}}</ion-item>
-        <ion-item>{{profileCl.userObj.policy}}</ion-item>
-        <ion-item>{{profileCl.userObj.agent}}</ion-item>
-        <ion-item>{{profileCl.userObj.agentEmail}}</ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.insurance">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.policy">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agent">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agentEmail">
+        </ion-item>
       </div>
 
     <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
