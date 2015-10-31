@@ -3,8 +3,9 @@ angular.module('crash.createAccount', [])
 .controller('CreateController', function(LoadingService, PopupService, UserService, $state, $window, ngFB){
 
   var self = this;
+  // ngModel
   self.user = {};
-
+  // Reset Input Fields
   self.userMaster = {
     username : '',
     password : '',
@@ -26,44 +27,51 @@ angular.module('crash.createAccount', [])
   /***
     send the new user to the server to be stored in the database
     get a session token back to be stored into window localStorage
+    response will be an {token:token, user:user}
   ***/
   self.create = function(){
+
     self.facebookLogin = false;
+
     console.log('create account for user : ', self.user);
-
+    // Show Loader
     LoadingService.showLoader();
-
+    // Factory Function
     UserService.createAccount(self.user)
-      /***
-        response will be an {token:token, user:user}
-      ***/
       .then(function(data){
+        // Console Log
         console.log('created account, session :', data.token);
+        // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
-
-        // show success popup
+        // Show Success
         PopupService.showSuccess();
-
+        // Hide Loader
         LoadingService.hideLoader();
-
-        $state.go('tab.event');
+        // Reset Input Fields
         self.user = angular.copy(self.userMaster);
+        // Navigation
+        $state.go('tab.event');
       })
-      /***
-        Tell the user the error, ex: username already exists, allow them to enter in a different username...
-      ***/
       .catch(function(err){
-        console.log('Error creating account...', err.data);
-        self.errorMessage = err.data.error;
+        // Reset Input Fields
         self.user.username = '';
-        LoadingService.hideLoader();
+        self.user.password = '';
+        // Alert Error
         PopupService.showAlert(err.data.error);
+        // Hide Loader
+        LoadingService.hideLoader();
       });
   };
 
-  // Redirect to signin page
+  /***
+    Redirect to signin page
+  ***/
   self.signin = function(){
+<<<<<<< 432f99f31542eeedc2fa8a9830e749fe82b26914
     self.facebookLogin = false;
+=======
+    // Navigation
+>>>>>>> added scss file structure and refactoring client/server code
     $state.go('signin');
   };
 

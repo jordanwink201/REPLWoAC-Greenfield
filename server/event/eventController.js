@@ -30,18 +30,13 @@ module.exports = {
         if(!crashEvents) {
           throw(new Error('No crash events could be found'));
         } else {
-
           console.log('CRASH EVENTS : ', crashEvents);
           res.send(crashEvents);
-
         }
       })
       .catch(function(err){
-        console.log('error finding the crash events in...', err);
         res.status(404).send({error : err.message});
       });
-
-
   },
 
   /*** POST ***/
@@ -53,18 +48,13 @@ module.exports = {
   ***/
   createCrashEvent : function (req, res, next) {
 
-    console.log('create a crash event... :', req.body);
-
     var create = Q.nbind(CrashEvent.create, CrashEvent);
 
     var newCrashEvent = {
 
       user : req.user.username,
-
       witness : req.body.witnessArr,
-
       accidentPhotoUrls : [],
-
       createdAt : new Date().toLocaleString(),
 
       otherPartyInfo : {
@@ -95,11 +85,8 @@ module.exports = {
         res.end();
       })
       .catch(function(err){
-        console.log('error created the crash event...', err);
         res.status(404).send({error : err.message});
       });
-
-
   }
 
 };

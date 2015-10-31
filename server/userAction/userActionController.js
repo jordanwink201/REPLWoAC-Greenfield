@@ -39,7 +39,6 @@ module.exports = {
         }
       })
       .catch(function(err){
-        console.log('error reading the user...', err);
         res.status(404).send({error : err.message});
       });
 
@@ -61,7 +60,6 @@ module.exports = {
         res.json({ data : allUsers });
       })
       .catch(function(err){
-        console.log('error reading the user...', err);
         res.status(404).send({error : err.message});
       });
 

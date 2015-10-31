@@ -7,27 +7,33 @@ angular.module('crash.profile', [])
   // Be able to update the user's information (everything just be able to be updated except for their username, if they want to change their password then they'll be signed out and have to sign back in with their new password)
 
   var self = this;
-
+  // ngModel
   self.userObj = {};
-
+  // ngModel Flag
   self.editMode = false;
 
   /***
     get the username from window.localStorage
   ***/
   self.load = function(){
-
+    // Console Log
+    console.log('create account for user : ', self.user);
+    // Show Loader
     LoadingService.showLoader();
-
+    // Factory Function
     UserService.readAccount()
       .then(function(user){
-        console.log('User Loaded from server.... : ', user);
+        // Console Log
+        console.log('User : ', user);
+        // Set ngModel
         self.userObj = user.data;
+        // Hide Loader
         LoadingService.hideLoader();
       })
       .catch(function(err){
-        console.log('user not received...', err);
+        // Alert Error
         PopupService.showAlert(err.data.error);
+        // Hide Loader
         LoadingService.hideLoader();
       });
   };
@@ -37,29 +43,37 @@ angular.module('crash.profile', [])
     response will be an {token:token, user:user}
   ***/
   self.updateUser = function() {
-
+    // Console Log
+    console.log('update user : ');
+    // Get Local Storage
     var currentToken = $window.localStorage.getItem('com.crash');
-
+    // Show Loader
     LoadingService.showLoader();
-
+    // Factory Function
     UserService.updateUserAccount(self.userObj)
       .then(function(data){
+        // Console Log
         console.log('NEW TOKEN :', data.token);
-        console.log('OLD TOKEN :', currentToken);
-
+        // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
-        // $state.go('tab.profile');
-        PopupService.showSuccess();
-        LoadingService.hideLoader();
+        // Set ngModel Flag
         self.editMode = false;
+        // Show Success
+        PopupService.showSuccess();
+        // Hide Loader
+        LoadingService.hideLoader();
+        // Navigation
+        // $state.go('tab.profile');
       })
       .catch(function(err){
-        console.log('Error updating account...', err.data);
-        self.errorMessage = err.data.error;
+        // Reset Input Fields
         self.user.username = '';
-        PopupService.showAlert(err.data.error);
-        LoadingService.hideLoader();
+        // Set ngModel Flag
         self.editMode = false;
+        // Alert Error
+        PopupService.showAlert(err.data.error);
+        // Hide Loader
+        LoadingService.hideLoader();
       });
   };
 
@@ -67,6 +81,7 @@ angular.module('crash.profile', [])
     sign the user out by destroying the window.localStorage token and info
   ***/
   self.signOut = function(){
+    // Factory Function
     UserService.signout();
   };
 

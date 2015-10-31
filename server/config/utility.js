@@ -15,6 +15,11 @@ var jwt = require('jwt-simple');
 module.exports = {
 
   decode : function(req, res, next){
+
+    if (req.method === 'OPTIONS') {
+      res.status(202).send();
+    }
+
     var token = req.headers['x-access-token'];
 
     if (!token) {

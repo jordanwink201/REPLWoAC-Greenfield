@@ -25,7 +25,6 @@ module.exports = {
     console.log('UPLOAD THE IMAGE IN THE SERVER...');
 
     AWS.config.update({accessKeyId: 'AKIAJ2WOCLBOOX4UQWBA', secretAccessKey: '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'});
-
     AWS.config.update({region: 'us-west-1'});
 
     var s3Bucket = new AWS.S3({params:{Bucket: BUCKET}});
@@ -39,18 +38,15 @@ module.exports = {
       ContentType: 'image/png'
     };
 
+    // send back the url of the image that is stored in S3
     s3Bucket.upload(data, function(err, data){
       if (err) {
-        console.log('Error uploading image: ', err);
+        res.status(404).send({error : err.message});
       } else {
-        console.log('succesfully uploaded the image!', data.Location);
         var imageS3URL = data.Location;
-        // send back the url of the image that is stored in S3
         res.json({imageURL : imageS3URL});
       }
     });
-
-
   }
 
 };

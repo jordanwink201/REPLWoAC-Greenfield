@@ -15,37 +15,30 @@ module.exports = {
 
   // GET
   getAccountByUserName : function(req, res, next){
-    console.log('read the account by username : ', req.query);
+
     var usernameToLookUp = req.query.username;
 
-    // this binding must take place in order to access the userSchema.methods
-    var findUser = Q.nbind(User.findOne, User);
+    var findUser = Q.nbind(User.findOne, User); // this binding must take place in order to access the userSchema.methods
 
     findUser({ 'username' : usernameToLookUp })
       .then(function (user) {
         if(!user) {
           throw(new Error('User could not be found'));
         } else {
-
           res.send(user);
-
         }
       })
       .catch(function(err){
-        console.log('error finding the user in...', err);
         res.status(404).send({error : err.message});
       });
-
   },
 
   // POST
   signin : function(req, res, next){
 
-    console.log('sign the user in by checking the database...', req.body);
     var usernameToLookUp = req.body.username;
     var password = req.body.password;
 
-    // this binding must take place in order to access the userSchema.methods
     var findUser = Q.nbind(User.findOne, User);
 
     /***
@@ -58,7 +51,6 @@ module.exports = {
         if(!user) {
           throw(new Error('User could not be found'));
         } else {
-
           return user.comparePasswords(password)
             .then(function(doesMatch){
               if(!doesMatch){
@@ -69,17 +61,14 @@ module.exports = {
                 res.json({ token : token });
               }
             });
-
         }
       })
       .catch(function(err){
-        console.log('error signing the user in...', err);
         res.status(404).send({error : err.message});
       });
   },
 
   createAccount : function(req, res, next) {
-    console.log('create an account... :', req.body);
 
     var usernameToLookUp = req.body.username;
 
@@ -92,7 +81,6 @@ module.exports = {
         if(user) {
           throw new Error('Username already exists');
         } else {
-          console.log('creat a new user...');
           // create the new user to store in DB
           var newUser = {
             fname : req.body.fname,
@@ -110,7 +98,6 @@ module.exports = {
             agentEmail : req.body.agentEmail
           };
           return create(newUser);
-
         }
       })
       .then(function(newUserCreated){
@@ -121,7 +108,6 @@ module.exports = {
 
       })
       .catch(function(err){
-        console.log('error created the user...', err);
         res.status(404).send({error : err.message});
       });
 
@@ -157,7 +143,6 @@ module.exports = {
 
       })
       .catch(function(err){
-        console.log('error updating the user...', err);
         res.status(404).send({error : err.message});
       });
   }
