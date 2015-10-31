@@ -22,10 +22,12 @@ angular.module('crash', [
   'crash.history',
   'crash.profile',
   'crash.signin',
-  'crash.createAccount'
+  'crash.createAccount',
+  'ngOpenFB'
   ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, ngFB) {
+  ngFB.init({appId: '1516257468694166'})
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -143,10 +145,15 @@ angular.module('crash', [
 /***
   Everytime the route changes, check if the url data.authenticate property is true, check if a session token exists, otherwise redirect the user back to the sign in page
 ***/
-.run(function($rootScope, $state, UserService){
+.run(function($rootScope, $state, UserService, $window){
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 
+    // var token = $window.sessionStorage.getItem('fbAccessToken');
+
+    // if(token) {
+    //   $window.localStorage.setItem('com.crash', token);
+    // }
     if (toState.data.authenticate && !UserService.isAuthorized()) {
 
       $state.go('signin');

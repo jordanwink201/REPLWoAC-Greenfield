@@ -1,14 +1,14 @@
-<ion-view view-title="Create Account" hide-back-button="true">
+<ion-view view-title="Create Account" hide-back-button="true" ng-init="createAccountCl.getUser()">
   <ion-content>
   <div class="list list-inset">
     <ion-list>
-
-    <label class="item item-input">
+    
+    <label class="item item-input" ng-show="!createAccountCl.facebookLogin">
     <i class="icon ion-person placeholder-icon"></i>
       <input type="text" placeholder="Username" ng-model="createAccountCl.user.username">
     </label>
 
-    <label class="item item-input">
+    <label class="item item-input" ng-show="!createAccountCl.facebookLogin">
     <i class="icon ion-locked placeholder-icon"></i>
       <input type="password" placeholder="Password" ng-model="createAccountCl.user.password">
     </label>
