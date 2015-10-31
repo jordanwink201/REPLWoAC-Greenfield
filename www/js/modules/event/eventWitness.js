@@ -6,9 +6,9 @@ angular.module('crash.eventWitness', [])
   // ngModel
   self.witnessArr = [];
   // ngModel
-  self.person = {};
+  self.witness = {};
   // Reset Input Fields
-  self.personMaster = {
+  self.witnessMaster = {
     fname : '',
     lname : '',
     phone : '',
@@ -24,11 +24,11 @@ angular.module('crash.eventWitness', [])
   ***/
   self.addWitness = function(){
     // Set ngModel
-    self.witnessArr.push(self.person);
+    self.witnessArr.push(self.witness);
     // Set Service Object
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
     // Reset Input Fields
-    self.person = angular.copy(self.master);
+    self.witness = angular.copy(self.witnessMaster);
   };
 
 });

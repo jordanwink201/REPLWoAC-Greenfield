@@ -20,10 +20,21 @@ angular.module('crash.eventPerson', [])
     phone : '',
     email : '',
     license : '',
+    licenseState : '',
     insurance : '',
     policy : '',
     agent : '',
     agentEmail : ''
+  };
+
+  /***
+    should clear the form everytime this is switched
+  ***/
+  self.switchInput = function(){
+    // Reverse Flag
+    self.enterManual = !self.enterManual;
+    // Reset Input Fields
+    self.crashDriver = angular.copy(self.crashDriverMaster);
   };
 
   /***
@@ -51,6 +62,8 @@ angular.module('crash.eventPerson', [])
         PopupService.showSuccess();
         // Hide Loader
         LoadingService.hideLoader();
+        // Navigation
+        $ionicSlideBoxDelegate.next();
       })
       .catch(function(err){
         // Alert Error
