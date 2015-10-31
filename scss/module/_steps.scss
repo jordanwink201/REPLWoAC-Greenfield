@@ -1,0 +1,78 @@
+/***
+
+  Event Steps/Processes
+
+***/
+
+.container-progress{
+  top: 200px;
+  /*background: #eee;*/
+  position: absolute;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.next-step {
+  background: #ccc;
+  color: #555;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 300;
+  display: block;
+  margin: 80px auto 0;
+  border-radius: 4px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.step-container {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  text-align: center;
+}
+.step-container .step {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  text-align: center;
+  background: #000;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  border-radius: 50%;
+  line-height: 28px;
+  transition: background 1000ms ease, color 1000ms ease;
+  transition-delay: 800ms;
+  background: linear-gradient(to right, #79A529 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.11);
+  border: 1px solid #eee;
+}
+.step-container .step.active {
+  background-position: left bottom;
+  color: #fff;
+}
+.step-container .step-separator {
+  position: relative;
+  z-index: 1;
+  background: #444;
+  height: 8px;
+  width: 20%;
+  margin: 0px -10px 1px -10px;
+  display: inline-block;
+  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 1) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background 1000ms ease;
+  border: 1px solid #eee;
+  /* margin-top: 10px; */
+}
+.step-container .step-separator.active {
+  background-position: left bottom;
+}

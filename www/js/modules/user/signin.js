@@ -49,6 +49,8 @@ angular.module('crash.signin', ['ngOpenFB'])
     Redirect to create account page
   ***/
   self.signup = function(){
+    // Reset Input Fields
+    self.user = angular.copy(self.userMaster);
     // Navigation
     $state.go('createAccount');
   };

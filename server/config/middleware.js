@@ -6,6 +6,7 @@
 
 var Utils = require('./utility.js');
     bodyParser = require('body-parser'); // for parsing the req body
+    cors = require('cors');
 
 module.exports = function(app, express){
 
@@ -14,6 +15,8 @@ module.exports = function(app, express){
   var userActionRouter = express.Router();
   var eventRouter = express.Router();
   var s3Router = express.Router();
+
+  app.use(cors());
 
   // Define Middleware
   app.use(bodyParser.json({ limit : '50mb' }));

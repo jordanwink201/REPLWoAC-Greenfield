@@ -1,6 +1,6 @@
 <ion-view cache-view="false" view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
 
-  <ion-nav-buttons side="left">
+  <ion-nav-buttons side="left" ng-cloak>
     <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode" ng-cloak>Cancel</button>
   </ion-nav-buttons>
 

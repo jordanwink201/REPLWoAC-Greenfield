@@ -1,0 +1,21 @@
+/***
+
+  Slider Dots and Pages
+
+***/
+
+.slider {
+  height: 100%;
+}
+
+/*
+  Top should be the height of the nav bar plus the height of the slider dots (slider-pager)
+*/
+.slider-slide{
+  /*margin-top: 60px;*/
+}
+
+.slider-pager{
+  bottom: auto;
+  visibility: hidden;
+}

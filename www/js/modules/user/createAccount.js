@@ -69,11 +69,12 @@ angular.module('crash.createAccount', [])
     Redirect to signin page
   ***/
   self.signin = function(){
-<<<<<<< 432f99f31542eeedc2fa8a9830e749fe82b26914
+
     self.facebookLogin = false;
-=======
+
+    // Reset Input Fields
+    self.user = angular.copy(self.userMaster);
     // Navigation
->>>>>>> added scss file structure and refactoring client/server code
     $state.go('signin');
   };
 

@@ -22,11 +22,11 @@
   <!-- Navigation Buttons -->
 
   <ion-nav-buttons side="left">
-    <button class="button button-clear button-light" ng-click="eventCl.callEmergency()"><i class="ion-alert-circled" ng-cloak></i> Emergency</button>
+    <button class="button button-clear button-light" ng-click="eventCl.callEmergency()" ng-cloak><i class="ion-alert-circled" ng-cloak></i> Emergency</button>
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="eventCl.getPhoto()" ng-cloak><i class="icon ion-ios-camera"></i></button>
+    <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="eventCl.getPhoto()" ng-cloak><i class="icon ion-ios-camera" ng-cloak></i></button>
   </ion-nav-buttons>
 
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
@@ -94,7 +94,7 @@
         Need to retreive all users from the database to search for them by name
         Click on the username fire this function
       -->
-      <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual" ng-click="personCl.switchInput()">
+      <ion-toggle ng-model="personCl.enterManual" ng-checked="personCl.enterManual" ng-toggle="personCl.switchInput()">
         Can't find user?
       </ion-toggle>
 
