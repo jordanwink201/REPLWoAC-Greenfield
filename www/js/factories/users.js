@@ -111,6 +111,7 @@ angular.module('crash.userService', [])
   var signout = function(){
     // Clear Local Storage
     $window.localStorage.clear();
+    $window.sessionStorage.clear();
     // Navigation
     $state.go('signin');
   };

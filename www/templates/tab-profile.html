@@ -17,6 +17,8 @@
       <!-- Add a Profile Image Here -->
       <img ng-src="{{profileCl.profileImg}}" class="profileImg" ng-click="profileCl.changeProfileImg()">
 
+<!--       <img src="http://graph.facebook.com/{{profileCl.userObj.username}}/picture?width=270&height=270" class="profileImg" ng-click="profileCl.changProfileImg()"> -->
+
       <div class="center">
         <h4>{{profileCl.userObj.fname}} {{profileCl.userObj.lname}}</h4>
         <h5>{{profileCl.userObj.email}}</h5>
@@ -55,39 +57,69 @@
            Personal Info
         </div>
 
-        <ion-item>
-          <input type="text" class="form-control" placeholder="First Name" ng-model="profileCl.userObj.email">
-        </ion-item>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.phone">
-        </ion-item>
+        <label class="item item-input">
+          <span class="input-label">First Name</span>
+          <input type="text" ng-model="profileCl.userObj.fname">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Last Name</span>
+          <input type="text" ng-model="profileCl.userObj.lname">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Date of Birth</span>
+          <input type="date" placeholder="DOB" ng-model="profileCl.userObj.dob">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-ios-telephone placeholder-icon input-label"></i>     
+          <input type="text" placeholder="Phone Number" ng-model="profileCl.userObj.phone">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-at placeholder-icon input-label"></i>
+          <input type="email" placeholder="Email Address" ng-model="profileCl.userObj.email">
+        </label>
 
         <div class="item item-divider">
            Driver Info
         </div>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.license">
-        </ion-item>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.licenseState">
-        </ion-item>
+
+        <label class="item item-input">
+          <span class="input-label">Driver's Licence Number</span>
+          <input type="text" ng-model="profileCl.userObj.license">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Driver's Licence State</span>
+          <input type="text" ng-model="profileCl.userObj.licenseState">
+        </label>
 
         <div class="item item-divider">
            Insurance Info
         </div>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.insurance">
-        </ion-item>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.policy">
-        </ion-item>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agent">
-        </ion-item>
-        <ion-item>
-          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agentEmail">
-        </ion-item>
-      </div>
+
+        <label class="item item-input">
+          <span class="input-label">Insurance Company</span>
+          <input type="text" ng-model="profileCl.userObj.insurance">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Policy Number</span>
+          <input type="text" ng-model="profileCl.userObj.policy">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Agent Name</span>
+          <input type="text" ng-model="profileCl.userObj.agent">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Agent Email</span>
+          <input type="email" ng-model="profileCl.userObj.agentEmail">
+        </label>  
+      </div>              
 
       <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
 

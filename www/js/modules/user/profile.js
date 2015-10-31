@@ -35,6 +35,7 @@ angular.module('crash.profile', [])
         // Set ngModel
         self.userObj = user.data;
         // Hide Loader
+        self.userObj.dob = new Date(user.data.dob);
         LoadingService.hideLoader();
       })
       .catch(function(err){

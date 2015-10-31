@@ -31,9 +31,8 @@ angular.module('crash.createAccount', [])
     get a session token back to be stored into window localStorage
     response will be an {token:token, user:user}
   ***/
-  self.create = function(){
 
-    self.facebookLogin = false;
+  self.create = function(){
 
     // Console Log
     console.log('create account for new user : ', self.user);
