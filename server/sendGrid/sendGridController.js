@@ -19,7 +19,7 @@ image base 64 does not work in gmail inline, we should use S3 and link the url t
 ***/
 var sendgrid = require('sendgrid')('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');
 //this should be in a separate template file:
-var html_body = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%. <br> Please contact me immediatly at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><h4>Witness information:</h4><hr/><p>Full Name: %-witness-firstname% %-witness-lastname%</p><p>Phone Number: %-witness-phoneNumber%</p><p>Email: %-witness-email%</p></div> </td> </tr> </table>";
+var html_body = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%. <br> Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-firstname% %-witness-lastname%</p><p>Phone Number: %-witness-phoneNumber%</p><p>Email: %-witness-email%</p></div> </td> </tr> </table>";
 
 //default email values:
 var params = {
@@ -103,6 +103,15 @@ module.exports = {
       'email'        
   };
 
+  var imageSubs = {
+    "%-image0-%" : 
+    'image',
+    "%-image1-%" :
+    'image',
+    "%-image3-%" :
+    'image'
+  }
+
   //adds main crash data to email:
   for (var tag in mainSubs) {
     email.addSubstitution(tag, mainSubs[tag]);
@@ -121,6 +130,15 @@ module.exports = {
     email.addSubstitution(tag, witnessSubs[tag]);
   }
 
+  var imageArr = req.body.eventImages;
+
+  for(var i=0; i < imageArr.length; i++){
+    imageSubs['%-image' + i + '-%'] = imageArr[i];
+  }
+
+  for(var tag in imageSubs){
+    email.addSubstitution(tag, imageSubs[tag]);
+  }
   // var emailArr = req.body.userEmailAddresses;
 
   //iterates over req.body.userEmailAddresses array
@@ -132,7 +150,7 @@ module.exports = {
   
   email.to = req.user.agentEmail;
   email.from = req.user.email;
- console.log('email------------->', email);
+
   // sends the email:
     sendgrid.send(email, function(err, json) {
       if (err) { return console.error(err); }
