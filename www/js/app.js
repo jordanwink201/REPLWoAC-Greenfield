@@ -13,6 +13,7 @@ angular.module('crash', [
   'crash.loadingService',
   'crash.cameraService',
   'crash.S3',
+  'crash.sendGrid',
   'crash.crashEventObj',
   'crash.event',
   'crash.eventWitness',

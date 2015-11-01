@@ -15,6 +15,7 @@ module.exports = function(app, express){
   var userActionRouter = express.Router();
   var eventRouter = express.Router();
   var s3Router = express.Router();
+  var sendGridRouter = express.Router();
 
   app.use(cors());
 
@@ -31,12 +32,15 @@ module.exports = function(app, express){
   app.use('/api/userAction', Utils.decode);
   app.use('/api/userAction', userActionRouter);
 
-  // Decode Token
-  app.use('/api/event', Utils.decode);
-  app.use('/api/event', eventRouter);
+  app.use('/api/sendGrid', Utils.decode); //decode user token
+  app.use('/api/sendGrid', sendGridRouter);
+
+  app.use('/api/event', Utils.decode); // decode user token before proceeding any further
+  app.use('/api/event', eventRouter); // use the eventRouter for all crash event requests, note the '/api/event'
 
   // Map Routers
   require('../s3/s3Route.js')(s3Router);
+  require('../sendGrid/sendGridRoute.js')(sendGridRouter);
   require('../user/userRoute.js')(userRouter);
   require('../userAction/userActionRoute.js')(userActionRouter);
   require('../event/eventRoute.js')(eventRouter);
