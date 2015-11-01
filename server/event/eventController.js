@@ -4,13 +4,15 @@
 
 ***/
 
-var CrashEvent = require('./eventModel.js');
-var Utils = require('../config/utility.js');
-var Q = require('q');
+// External Resources
+var CrashEvent = require('./eventModel.js'),
+    Utils = require('../config/utility.js'),
+    Q = require('q');
 
 module.exports = {
-
-  /*** GET ***/
+/***
+  GET
+***/
 
   /***
     controller : (username to lookup by future: get this info from window.localStorage)
@@ -18,33 +20,32 @@ module.exports = {
     return from server : all crash events related to the current user
   ***/
   readCrashEvent :  function (req, res, next) {
-
-    console.log('read all crash events... for user ', req.user.username);
-    var usernameToLookUp = req.user.username;
-
-    // this binding must take place in order to access the eventSchema.methods
+    // Console Log
+    console.log('Get All Crash Events in Relation to user : ', req.user.username);
+    // Create Promise
     var findCrashEvents = Q.nbind(CrashEvent.find, CrashEvent);
-
-    findCrashEvents({ 'user' : usernameToLookUp })
+    // Mongoose Query
+    findCrashEvents({ 'user' : req.user.username })
       .then(function (crashEvents) {
         if(!crashEvents) {
+          // Propogate Error to Client
           throw(new Error('No crash events could be found'));
         } else {
-
-          console.log('CRASH EVENTS : ', crashEvents);
+          // Console Log
+          console.log('All Crash Events from DB : ', crashEvents);
+          // Propogate Data to Client
           res.send(crashEvents);
-
         }
       })
       .catch(function(err){
-        console.log('error finding the crash events in...', err);
+        // Propogate Error to Client
         res.status(404).send({error : err.message});
       });
-
-
   },
 
-  /*** POST ***/
+/***
+  POST
+***/
 
   /***
     controller : (crash obj)
@@ -52,26 +53,20 @@ module.exports = {
     return from server : success or failure
   ***/
   createCrashEvent : function (req, res, next) {
-
-    console.log('create a crash event... :', req.body);
-
+    // Console Log
+    console.log('Store Crash Event : ', req.body);
+    // Create Promise
     var create = Q.nbind(CrashEvent.create, CrashEvent);
-
+    // Create Object
     var newCrashEvent = {
-
       user : req.user.username,
-
       witness : req.body.witnessArr,
-
       accidentPhotoUrls : [],
-
       createdAt : new Date().toLocaleString(),
-
       otherPartyInfo : {
         fname : req.body.crashDriver.fname,
         lname : req.body.crashDriver.lname,
         username : req.body.crashDriver.username,
-
         phone : req.body.crashDriver.phone,
         dob : req.body.crashDriver.dob.toLocaleString(),
         email : req.body.crashDriver.email,
@@ -81,24 +76,22 @@ module.exports = {
         policy : req.body.crashDriver.policy,
         agent : req.body.crashDriver.agent,
         agentEmail : req.body.crashDriver.agentEmail,
-
         licensePhoto : '',
         insuranceCardPhoto : '',
       }
-
     };
-
+    // Mongoose Query
     create(newCrashEvent)
       .then(function(crashEvent){
-        console.log('new user successfully stored in database : ', crashEvent);
-        res.status(200);
+        // Console Log
+        console.log('New User stored in DB : ', crashEvent);
+        // Propogate Success to Client
+        res.status(200).send();
       })
       .catch(function(err){
-        console.log('error created the crash event...', err);
+        // Propogate Error to Client
         res.status(404).send({error : err.message});
       });
-
-
   }
 
 };

@@ -2,28 +2,30 @@ angular.module('crash.history', [])
 
 .controller('HistoryController', function(LoadingService, EventService){
 
-  // user the event service to retreive crash events by the curret user name
   var self = this;
-
+  // ngModel
   self.crashEvents = [];
 
   /***
     Retreive all crash events that are in the database associated to the current user
   ***/
   self.load = function(){
-
+    // Console Log
     console.log('LOAD HISTORY...');
-
+    // Show Loader
     LoadingService.showLoader();
-
+    // Factory Function
     EventService.readCrashEvent()
       .then(function(data){
+        // Console Log
         console.log('events : ', data);
+        // Set ngModel
         self.crashEvents = data;
+        // Hide Loader
         LoadingService.hideLoader();
       })
       .catch(function(err){
-        console.log('ERror getting events...', err);
+        // Hide Loader
         LoadingService.hideLoader();
       });
   };

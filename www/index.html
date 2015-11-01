@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-
     <title></title>
 
     <!-- Google Fonts -->
@@ -12,14 +11,15 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
 
+    <!-- Before cordova.js -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
     <script src="cordova.js"></script>
@@ -32,6 +32,7 @@
     <script src="js/modules/event/eventPhoto.js"></script>
     <script src="js/modules/event/eventPerson.js"></script>
     <script src="js/modules/event/eventFinal.js"></script>
+
     <script src="js/modules/history/history.js"></script>
 
     <script src="js/modules/user/profile.js"></script>
@@ -46,8 +47,13 @@
     <script src="js/factories/events.js"></script>
     <script src="js/factories/s3.js"></script>
     <script src="js/factories/users.js"></script>
+
+    <!-- Facebook -->
     <script src="js/openfb.js"></script>
     <script src="js/ngopenfb.js"></script>
+
+    <!-- Testing -->
+    <script src="js/testing/testingController.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body ng-app="crash">

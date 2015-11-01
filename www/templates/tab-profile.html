@@ -1,12 +1,12 @@
-<ion-view cache-view="false" view-title="{{profileCl.userObj.username}}" ng-init="profileCl.load()">
+<ion-view cache-view="false" view-title="Profile" ng-init="profileCl.load()">
 
-  <ion-nav-buttons side="left">
-    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Cancel</button>
+  <ion-nav-buttons side="left" ng-cloak>
+    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode" ng-cloak>Cancel</button>
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-clear button-light" ng-show="!profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode">Edit</button>
-    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.updateUser()">Save</button>
+    <button class="button button-clear button-light" ng-show="!profileCl.editMode" ng-click="profileCl.editMode = !profileCl.editMode" ng-cloak>Edit</button>
+    <button class="button button-clear button-light" ng-show="profileCl.editMode" ng-click="profileCl.updateUser()" ng-cloak>Save</button>
   </ion-nav-buttons>
 
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
@@ -15,29 +15,17 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
-      <img src="img/crashProfile2.jpg" class="profileImg" ng-click="profileCl.changProfileImg()">
+      <img ng-src="{{profileCl.profileImg}}" class="profileImg" ng-click="profileCl.changeProfileImg()">
 
       <div class="center">
         <h4>{{profileCl.userObj.fname}} {{profileCl.userObj.lname}}</h4>
         <h5>{{profileCl.userObj.email}}</h5>
         <h5>{{profileCl.userObj.phone}}</h5>
+        <h5>{{profileCl.profileImgFile}}</h5>
       </div>
-
 
       <!-- NON EDIT MODE -->
       <div ng-show="!profileCl.editMode">
-<!--         <div class="card">
-          <div class="item item-divider">
-            Personal Info
-          </div>
-          <div class="item item-text-wrap">
-            {{profileCl.userObj.fname}}
-            {{profileCl.userObj.lname}}
-            {{profileCl.userObj.email}}
-            {{profileCl.userObj.phone}}
-          </div>
-        </div> -->
-
         <div class="card">
           <div class="item item-divider">
             Driver Info
@@ -66,28 +54,42 @@
         <div class="item item-divider">
            Personal Info
         </div>
-        <ion-item>{{profileCl.userObj.fname}}</ion-item>
-        <ion-item>{{profileCl.userObj.lname}}</ion-item>
-        <ion-item>{{profileCl.userObj.dob}}</ion-item>
-        <ion-item>{{profileCl.userObj.email}}</ion-item>
-        <ion-item>{{profileCl.userObj.phone}}</ion-item>
+
+        <ion-item>
+          <input type="text" class="form-control" placeholder="First Name" ng-model="profileCl.userObj.email">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.phone">
+        </ion-item>
 
         <div class="item item-divider">
            Driver Info
         </div>
-        <ion-item>{{profileCl.userObj.license}}</ion-item>
-        <ion-item>{{profileCl.userObj.licenseState}}</ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.license">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.licenseState">
+        </ion-item>
 
         <div class="item item-divider">
            Insurance Info
         </div>
-        <ion-item>{{profileCl.userObj.insurance}}</ion-item>
-        <ion-item>{{profileCl.userObj.policy}}</ion-item>
-        <ion-item>{{profileCl.userObj.agent}}</ion-item>
-        <ion-item>{{profileCl.userObj.agentEmail}}</ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.insurance">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.policy">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agent">
+        </ion-item>
+        <ion-item>
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="profileCl.userObj.agentEmail">
+        </ion-item>
       </div>
 
-    <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
+      <button class="button button-full button-assertive" ng-click="profileCl.signOut()">Sign Out</button>
 
     </ion-list>
   </ion-content>

@@ -1,0 +1,26 @@
+/***
+
+  Base Sass Variables and Mixins that almost .scss every file will need to import
+
+  Base: defaults, single element selectors
+
+  Naming Convention:
+  .moduleName{}
+  .moduleName-subModule{}
+  .moduleName.stateName{}
+  .layout-layoutName{}
+  .layout-layoutName--subLayoutName{}
+
+***/
+
+html, body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+/*Utilities*/
+.center{
+  text-align: center;
+  display: block;
+  margin: auto;
+}

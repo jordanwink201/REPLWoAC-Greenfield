@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
-  'ionic','ionic.service.core',
+  'ionic','ionic.service.core', 'ngCordova',
   'crash.eventService',
   'crash.userService',
   'crash.popupService',
@@ -23,11 +23,14 @@ angular.module('crash', [
   'crash.profile',
   'crash.signin',
   'crash.createAccount',
-  'ngOpenFB'
-  ])
+  'ngOpenFB',
+  'crash.Testing'
+])
 
 .run(function($ionicPlatform, ngFB) {
-  ngFB.init({appId: '1516257468694166'})
+  // Facebook App ID
+  ngFB.init({appId: '1516257468694166'});
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -46,6 +49,16 @@ angular.module('crash', [
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
+
+  // Testing
+  .state('Testing', {
+    url: '/testing',
+    templateUrl: 'templates/testing.html',
+    controller: 'TestingController as testingCl',
+    data : {
+      authenticate : false
+    }
+  })
 
   .state('signin', {
     url: '/signin',
@@ -128,13 +141,14 @@ angular.module('crash', [
 
 /***
   Attach the user's token to the header of the server call
+  Store the token into the header
 ***/
 .factory('AttachToken', function($window){
   return {
     request : function(object){
       var jwt = $window.localStorage.getItem('com.crash');
       if (jwt) {
-        object.headers['x-access-token'] = jwt; // store the token into the header
+        object.headers['x-access-token'] = jwt;
       }
       object.headers['Allow-Control-Allow-Origin'] = '*';
       return object;
@@ -155,13 +169,9 @@ angular.module('crash', [
     //   $window.localStorage.setItem('com.crash', token);
     // }
     if (toState.data.authenticate && !UserService.isAuthorized()) {
-
       $state.go('signin');
       event.preventDefault();
-
     }
   });
 
 });
-
-

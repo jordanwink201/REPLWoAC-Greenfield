@@ -1,0 +1,18 @@
+/***
+
+  Concat all styles from folder
+
+  Layout: divide the page into sections, layouts hold one or more modules together
+
+  Naming Convention:
+  .moduleName{}
+  .moduleName-subModule{}
+  .moduleName.stateName{}
+  .layout-layoutName{}
+  .layout-layoutName--subLayoutName{}
+
+***/
+
+@import 'header';
+@import 'login';
+@import 'profile';

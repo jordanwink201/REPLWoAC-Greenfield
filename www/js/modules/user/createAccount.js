@@ -1,10 +1,13 @@
 angular.module('crash.createAccount', [])
 
-.controller('CreateController', function(UserService, $state, $window, ngFB){
+
+.controller('CreateController', function(LoadingService, PopupService, UserService, $state, $window, ngFB){
+
 
   var self = this;
+  // ngModel
   self.user = {};
-
+  // Reset Input Fields
   self.userMaster = {
     username : '',
     password : '',
@@ -21,38 +24,59 @@ angular.module('crash.createAccount', [])
     agentEmail : ''
   };
 
-  self.errorMessage = '';
   self.facebookLogin;
+
   /***
     send the new user to the server to be stored in the database
     get a session token back to be stored into window localStorage
+    response will be an {token:token, user:user}
   ***/
   self.create = function(){
-    self.facebookLogin = false;  
-    console.log('create account for user : ', self.user);
+
+    self.facebookLogin = false;
+
+    // Console Log
+    console.log('create account for new user : ', self.user);
+
+    // Show Loader
+    LoadingService.showLoader();
+    // Factory Function
     UserService.createAccount(self.user)
-      /***
-        response will be an {token:token, user:user}
-      ***/
       .then(function(data){
-        console.log('created account, session :', data.token);
+        // Console Log
+        console.log('createded account and token :', data.token);
+        // Set Local Storage
         $window.localStorage.setItem('com.crash', data.token);
-        $state.go('tab.event');
+        // Show Success
+        PopupService.showSuccess();
+        // Hide Loader
+        LoadingService.hideLoader();
+        // Reset Input Fields
         self.user = angular.copy(self.userMaster);
+        // Navigation
+        $state.go('tab.event');
       })
-      /***
-        Tell the user the error, ex: username already exists, allow them to enter in a different username...
-      ***/
       .catch(function(err){
-        console.log('Error creating account...', err.data);
-        self.errorMessage = err.data.error;
+        // Reset Input Fields
         self.user.username = '';
+        self.user.password = '';
+        // Alert Error
+        PopupService.showAlert(err.data.error);
+        // Hide Loader
+        LoadingService.hideLoader();
       });
   };
 
-  // Redirect to signin page
+  /***
+    Redirect to signin page
+  ***/
   self.signin = function(){
-    self.facebookLogin = false;  
+
+    self.facebookLogin = false;
+
+    // Reset Input Fields
+    self.user = angular.copy(self.userMaster);
+    // Navigation
     $state.go('signin');
   };
 
@@ -63,7 +87,7 @@ angular.module('crash.createAccount', [])
           params: {fields: 'id,name,first_name,last_name,email'}
       }).then(
           function (user) {
-            self.facebookLogin = true;           
+            self.facebookLogin = true;
             self.user.username = user.id;
             self.user.password = user.id;
             self.user.fname = user.first_name;
@@ -75,6 +99,6 @@ angular.module('crash.createAccount', [])
           function (error) {
             self.facebookLogin = false;
             console.log('Facebook error: ' + error.error_description);
-          });    
+          });
   };
 });

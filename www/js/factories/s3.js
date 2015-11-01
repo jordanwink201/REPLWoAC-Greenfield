@@ -1,26 +1,28 @@
 angular.module('crash.S3', [])
 
-.factory('S3Service', function($http){ 
+.factory('S3Service', function($http){
 
   /***
     Upload Image to S3
-    description 'scene' 
+    description 'scene'
     the date/time is stored as the name with the description
   ***/
   var uploadImage = function(imageData, description){
 
+    console.log('S3service upload image...');
+
     return $http({
       method : 'POST',
-      url : 'api/s3/upload',
+      url : 'https://crashninjaionic.herokuapp.com/api/s3/upload',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $.param({imgName : description, imageData: imageData}),
+      params: {imgName : description, imageData: imageData},
     })
     .then(function(res){
       return res.data;
     });
   };
 
-  return {  
+  return {
     uploadImage : uploadImage
   };
 

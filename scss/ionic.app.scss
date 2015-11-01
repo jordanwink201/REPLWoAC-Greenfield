@@ -21,3 +21,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+// Include all custom sass
+
+@import "base/concat";
+
+@import "layout/concat";
+
+@import "module/concat";
+
+@import "state/concat";
+

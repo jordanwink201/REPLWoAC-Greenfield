@@ -1,58 +1,60 @@
 angular.module('crash.eventFinal', [])
 
-.controller('EventFinalController', function(CrashEventObj, EventService, $state){
+.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService, $state){
 
   var self = this;
-
-  self.finalCrashObj = {};
-
+  // ngModel
   self.witnessArr = [];
   self.crashDriver = {};
   self.eventImages = [];
+  // Local to be saved in DB
+  var finalCrashObj = {};
 
   /***
     load the crash obj that's been being built over the past screens, allow the user to change any details before sending the entire object to the database
   ***/
   self.load = function(){
-
+    // Console Log
+    console.log('loading Service Object CrashEventObj : ', CrashEventObj);
+    // Set Local from Service Object
     var crashObj = CrashEventObj.crashEvent;
-
-    // Load witnesses information
-    if (crashObj.witnessArr) {
-      self.witnessArr = crashObj.witnessArr;
-    }
-
-    // Load images
+    // Set ngModel
+    self.witnessArr = crashObj.witnessArr;
     self.eventImages = crashObj.eventImages;
+    self.crashDriver = crashObj.crashDriver;
 
-    // Load crash driver's information
-    if (crashObj) {
-      self.crashDriver = crashObj.crashDriver;
-    }
+    console.log('self.witnessArr : ', self.witnessArr);
+    console.log('self.eventImages : ', self.eventImages);
+    console.log('self.crashDriver : ', self.crashDriver);
 
-    self.finalCrashObj = crashObj;
-
+    // Set local
+    finalCrashObj = crashObj;
   };
 
   /***
     save the final crash object into the database, which will be added to the driver's crash history
   ***/
   self.save = function(){
-    console.log('\nsave final information...');
-    console.log('final crash object : ', self.finalCrashObj);
-
-    EventService.createCrashEvent(self.finalCrashObj)
+    // Console Log
+    console.log('saving crash object... : ', finalCrashObj);
+    // Show Loader
+    LoadingService.showLoader();
+    // Factory Function
+    EventService.createCrashEvent(finalCrashObj)
       .then(function(data){
-        console.log('success data : ', data);
-        // show success popup
+        // Show Success
         PopupService.showSuccess();
-
+        // Hide Loader
+        LoadingService.hideLoader();
+        // Navigation
         $state.go('tab.history');
       })
       .catch(function(err){
-        console.log('error saving crash object...', err);
+        // Alert Error
+        PopupService.showAlert(err.data.error);
+        // Hide Loader
+        LoadingService.hideLoader();
       });
-
   };
 
 });

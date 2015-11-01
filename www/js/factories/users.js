@@ -101,6 +101,7 @@ angular.module('crash.userService', [])
     return a boolean value if there is a token in the window local storage
   ***/
   var isAuthorized = function(){
+    // Return Boolean of Getting Local Storage
     return !!$window.localStorage.getItem('com.crash');
   };
 
@@ -108,7 +109,9 @@ angular.module('crash.userService', [])
     clear all information in local storage and send the user to the signin page
   ***/
   var signout = function(){
+    // Clear Local Storage
     $window.localStorage.clear();
+    // Navigation
     $state.go('signin');
   };
 
