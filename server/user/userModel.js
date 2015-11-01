@@ -5,10 +5,10 @@
 ***/
 
 // External Resources
-var mongoose = require('mongoose');
-    bcrypt = require('bcrypt-nodejs');
-    Q = require('q');
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    bcrypt = require('bcrypt-nodejs'),
+    Q = require('q'),
+    Schema = mongoose.Schema,
     SALT_WORK_FACTOR = 10;
 // Create Mongoose Schema
 var userSchema = new Schema({

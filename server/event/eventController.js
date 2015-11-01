@@ -5,8 +5,8 @@
 ***/
 
 // External Resources
-var CrashEvent = require('./eventModel.js');
-    Utils = require('../config/utility.js');
+var CrashEvent = require('./eventModel.js'),
+    Utils = require('../config/utility.js'),
     Q = require('q');
 
 module.exports = {

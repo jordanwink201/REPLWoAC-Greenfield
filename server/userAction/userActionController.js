@@ -7,9 +7,9 @@
 ***/
 
 // External Resources
-var User = require('../user/userModel.js');
-    Utils = require('../config/utility.js');
-    Q = require('q');
+var User = require('../user/userModel.js'),
+    Utils = require('../config/utility.js'),
+    Q = require('q'),
     jwt = require('jwt-simple');
 
 module.exports = {
