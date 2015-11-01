@@ -6,14 +6,14 @@ todo: make the template in handlebars.js so the image and witness sections can b
 ***/
 var sendgrid = require('sendgrid')('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');
 //this should be in a separate template file:
-var html_body = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%.<br>Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-firstname% %-witness-lastname%</p><p>Phone Number: %-witness-phoneNumber%</p><p>Email: %-witness-email%</p></div></td></tr></table>";
+var template = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><br><br><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%.<br>Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Phone: %otherDriver-phone%</p><p>Insurance: %otherDriver-insurance%</p><p>Agent: %otherDriver-agent%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-fname% %-witness-lname%</p><p>Phone Number: %-witness-phone%</p><p>Email: %-witness-email%</p></div></td></tr></table>";
 
 //default email values:
 var params = {
   to: '',
   from: '',
   subject: 'I\'ve been in an accident',
-  html : html_body
+  html : template
 };
 //creates a new email object:
 var email = new sendgrid.Email(params);
@@ -21,83 +21,76 @@ var email = new sendgrid.Email(params);
 module.exports = {
 
   sendEmail : function(req, res, next){
-      
-  var mainSubs = {
-    "%user-agent%":[
-      req.user.agent       
-    ],
-    "%user-insurance%":[
-      req.user.insurance      
-    ],
-    "%user-agentEmail%": [
-      req.user.agentEmail   
-    ],
-    "%user-fname%": [
-      req.user.fname
-    ],
-    "%user-lname%": [
-      req.user.lname
-    ],
-    "%user-insurance%": [
-      req.user.insurance
-    ],
-    "%otherDriver-fname%": [
-      req.body.crashDriver.fname           
-    ],
-    "%otherDriver-lname%": [
-      req.body.crashDriver.lname
-    ],
-    "%accident-date%": [
-      new Date(req.body.crashDriver.createdAt).toDateString()//this is janky, use moment.js instead
-    ],
-    "%user-phone%":[
-      req.user.phone
-    ],
-    "%user-license%":[
-      req.user.license
-    ],
-    "%user-licenseState%":[
-      req.user.licenseState
-    ],
-    "%user-policy%":[
-      req.user.policy
-    ],
-    "%otherDriver-license%": [
-      req.body.crashDriver.license               
-    ],
-    "%otherDriver-licenseState%": [
-      req.body.crashDriver.licenseState                    
-    ],
-    "%otherDriver-policy%": [
-      req.body.crashDriver.policy           
-    ]
+
+  console.log(req.body.crashDriver);
+
+  var userInfo = req.user;
+  var otherDriver = req.body.crashDriver;
+  var accidentDate = new Date(req.body.crashDriver.createdAt).toDateString();
+
+  var userSubs = {
+
+    '%user-agent%'        : '',
+    '%user-insurance%'    : '',
+    '%user-agentEmail%'   : '',
+    '%user-fname%'        : '',
+    '%user-lname%'        : '',
+    '%user-insurance%'    : '',
+    '%user-phone%'        : '',
+    '%user-license%'      : '',
+    '%user-licenseState%' : '',
+    '%user-policy%'       : ''
   };
 
+  var otherDriverSubs = {
+
+    '%otherDriver-fname%'        : '',
+    '%otherDriver-lname%'        : '',
+    '%otherDriver-license%'      : '',            
+    '%otherDriver-licenseState%' : '',                 
+    '%otherDriver-policy%'       : '',          
+    'otherDriver-phone'          : '',
+    '%otherDriver-insurance%'    : '',
+    'otherDriver-agent'          : ''
+  }
+
   var witnessSubs = {
-    "%-witness-firstname%":
-      'firstname',
-    "%-witness-lastname%":
-      'lastname',
-    "%-witness-phoneNumber%":
-      'phone',
-    "%-witness-email%":
-      'email'        
+
+    '%-witness-fname%' : '',
+    '%-witness-lname%' : '',
+    '%-witness-phone%' : '',
+    '%-witness-email%' : ''        
   };
 
   var imageSubs = {
-    "%-image0-%" : 
-    'image',
-    "%-image1-%" :
-    'image',
-    "%-image3-%" :
-    'image'
+
+    '%-image0-%' : '',
+    '%-image1-%' : '',
+    '%-image2-%' : ''
   }
 
-  //adds main crash data to email:
-  for (var tag in mainSubs) {
-    email.addSubstitution(tag, mainSubs[tag]);
+  
+
+  //adds crash data to email:
+  email.addSubstitution('%accident-date%', accidentDate);
+
+  for (var key in userInfo){
+    userSubs['%user-' + key + '%'] = userInfo[key];
   }
-  //adds witness crash data to email:
+
+  for (var tag in userSubs) {
+    email.addSubstitution(tag, userSubs[tag]);
+  }
+
+  for (var key in otherDriver){
+    otherDriverSubs['%otherDriver-' + key + '%'] = otherDriver[key];
+  }
+
+  for (var tag in otherDriverSubs) {
+    email.addSubstitution(tag, otherDriverSubs[tag]);
+  }
+
+  //adds witness data to email:
   //**beware, it only works for a single witness currently!
   var witnessArray = req.body.witnessArr;
 
@@ -113,7 +106,7 @@ module.exports = {
   for(var tag in witnessSubs){
     email.addSubstitution(tag, witnessSubs[tag]);
   }
-
+  //adds images from s3
   var imageArr = req.body.eventImages;
 
   for(var i=0; i < imageArr.length; i++){
