@@ -1,25 +1,12 @@
 /***
 
 sendEmail() sends an email (or emails) containing crashObj data via SendGrid API
+todo: make the template in handlebars.js so the image and witness sections can be more dynamic
 
-using sendGrid templates for images:
-
-image base 64 does not work in gmail inline, we should use S3 and link the url to our email template(need to test this)
-
-***bug : addTo() doesn't send to the original 'to' property in params***
-   email.addTo('cyrus.gomeza@gmail.com');
-   email.addTo('jordanwink201@gmail.com');
-
-***bug : sends multiple emails via bcc***
-   email.bcc = ['cyrus.gomeza@gmail.com',  '1276stella@gmail.com', 'jordanwink201@gmail.com',
-  'royceleung@gmail.com'];
-
- (feat) add geolocation and date/time data
- 
 ***/
 var sendgrid = require('sendgrid')('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');
 //this should be in a separate template file:
-var html_body = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%. <br> Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-firstname% %-witness-lastname%</p><p>Phone Number: %-witness-phoneNumber%</p><p>Email: %-witness-email%</p></div> </td> </tr> </table>";
+var html_body = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%.<br>Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-firstname% %-witness-lastname%</p><p>Phone Number: %-witness-phoneNumber%</p><p>Email: %-witness-email%</p></div></td></tr></table>";
 
 //default email values:
 var params = {
@@ -34,11 +21,7 @@ var email = new sendgrid.Email(params);
 module.exports = {
 
   sendEmail : function(req, res, next){
-    console.log(email.to);
-    // console.log("user info------------>", req.user);
-    console.log("other driver info------------>", req.body);
-    
-    
+      
   var mainSubs = {
     "%user-agent%":[
       req.user.agent       
@@ -65,8 +48,7 @@ module.exports = {
       req.body.crashDriver.lname
     ],
     "%accident-date%": [
-      new Date(req.body.crashDriver.createdAt).toDateString()//this is soo janky 
-      // req.body.crashDriver.createdAt
+      new Date(req.body.crashDriver.createdAt).toDateString()//this is janky, use moment.js instead
     ],
     "%user-phone%":[
       req.user.phone
@@ -89,7 +71,6 @@ module.exports = {
     "%otherDriver-policy%": [
       req.body.crashDriver.policy           
     ]
-
   };
 
   var witnessSubs = {
@@ -121,6 +102,9 @@ module.exports = {
   var witnessArray = req.body.witnessArr;
 
   witnessArray.forEach(function(witness){
+    if(!witness){
+      return;
+    }
     for(var key in witness){
       witnessSubs['%-witness-' + key + '%'] = witness[key];
     }
@@ -139,9 +123,10 @@ module.exports = {
   for(var tag in imageSubs){
     email.addSubstitution(tag, imageSubs[tag]);
   }
-  // var emailArr = req.body.userEmailAddresses;
 
-  //iterates over req.body.userEmailAddresses array
+  //multiple emails is not functional currently:
+
+  // var emailArr = req.body.userEmailAddresses;
 
   // for (var address in emailArr){
   //   // email.addTo(emailArr[address]);
@@ -151,7 +136,7 @@ module.exports = {
   email.to = req.user.agentEmail;
   email.from = req.user.email;
 
-  // sends the email:
+  // sends the email to sendGrid:
     sendgrid.send(email, function(err, json) {
       if (err) { return console.error(err); }
       console.log('', json);
