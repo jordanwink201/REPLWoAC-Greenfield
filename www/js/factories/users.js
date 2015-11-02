@@ -10,7 +10,7 @@ angular.module('crash.userService', [])
   var signin = function(userObj){
     return $http({
       method : 'POST',
-      url : 'api/user/signin',
+      url : 'https://crashninjaionic.herokuapp.com/api/user/signin',
       data : userObj
     })
     .then(function(res){
@@ -27,7 +27,7 @@ angular.module('crash.userService', [])
   var createAccount = function(userObj){
     return $http({
       method : 'POST',
-      url : 'api/user/create',
+      url : 'https://crashninjaionic.herokuapp.com/api/user/create',
       data : userObj
     })
     .then(function(res){
@@ -43,7 +43,7 @@ angular.module('crash.userService', [])
   var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'api/userAction/read'
+      url : 'https://crashninjaionic.herokuapp.com/api/userAction/read'
     })
     .then(function(res){
       return res.data;
@@ -58,7 +58,7 @@ angular.module('crash.userService', [])
   var updateUserAccount = function(userObj){
     return $http({
       method : 'POST',
-      url : 'api/user/updateuser',
+      url : 'https://crashninjaionic.herokuapp.com/api/user/updateuser',
       data : userObj
     })
     .then(function(res){
@@ -74,7 +74,7 @@ angular.module('crash.userService', [])
   var getAccountByUsername = function(username){
     return $http({
       method : 'GET',
-      url : 'api/user/read',
+      url : 'https://crashninjaionic.herokuapp.com/api/user/read',
       params : {username : username}
     })
     .then(function(res){
@@ -90,7 +90,7 @@ angular.module('crash.userService', [])
   var readAllUsers = function(){
     return $http({
       method : 'GET',
-      url : 'api/userAction/readAll',
+      url : 'https://crashninjaionic.herokuapp.com/api/userAction/readAll',
     })
     .then(function(res){
       return res.data;

@@ -5,12 +5,14 @@
 ***/
 
 video#video {
-    display: block;
-    margin: auto;
-    margin-top: 100px;
+  display: block;
+  margin: auto;
+  margin-top: 100px;
+  width: 100%;
 }
 
 img#photo {
-    display: block;
-    margin: auto;
+  width: 100%;
+  display: block;
+  margin: auto;
 }
