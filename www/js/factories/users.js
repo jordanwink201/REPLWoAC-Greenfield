@@ -10,7 +10,7 @@ angular.module('crash.userService', [])
   var signin = function(userObj){
     return $http({
       method : 'POST',
-      url : 'api/user/signin',
+      url : 'https://crashninjaionic.herokuapp.com/api/user/signin',
       data : userObj
     })
     .then(function(res){
@@ -43,7 +43,7 @@ angular.module('crash.userService', [])
   var readAccount = function(){
     return $http({
       method : 'GET',
-      url : 'api/userAction/read'
+      url : 'https://crashninjaionic.herokuapp.com/api/userAction/read'
     })
     .then(function(res){
       return res.data;
