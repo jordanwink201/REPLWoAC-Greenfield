@@ -4,17 +4,19 @@
 
 ***/
 
-.container-progress{
+// .scroll{
+//   transform: translate3d(0px, 53px, 0px) scale(1) !important;
+// }
+
+.container-progress {
   top: 200px;
   /*background: #eee;*/
-  position: absolute;
-}
+  position: absolute; }
 
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 .next-step {
   background: #ccc;
@@ -26,53 +28,56 @@
   margin: 80px auto 0;
   border-radius: 4px;
   width: 150px;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .step-container {
   position: absolute;
   top: 50px;
   width: 100%;
-  text-align: center;
-}
+  text-align: center; }
+
 .step-container .step {
   position: relative;
   z-index: 2;
   display: inline-block;
   text-align: center;
-  background: #000;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   font-weight: bold;
   border-radius: 50%;
-  line-height: 28px;
+  line-height: 36px;
   transition: background 1000ms ease, color 1000ms ease;
   transition-delay: 800ms;
-  background: linear-gradient(to right, #79A529 50%, #fff 50%);
   background-size: 200% 100%;
   background-position: right bottom;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.11);
-  border: 1px solid #eee;
-}
+  border: 3px solid #eee;
+  color: #eee;
+  }
+
 .step-container .step.active {
   background-position: left bottom;
-  color: #fff;
+  color: #555;
+  border: 3px solid #555;
 }
+
+.step-container .step.completed {
+  color: #8cc43d;
+  border: 3px solid #8cc43d;
+}
+
 .step-container .step-separator {
   position: relative;
   z-index: 1;
   background: #444;
-  height: 8px;
-  width: 20%;
-  margin: 0px -10px 1px -10px;
+  height: 4px;
+  width: 10%;
+  margin: 0px -5px 3px -5px;
   display: inline-block;
-  background: linear-gradient(to right, #79A529 50%, rgba(255, 255, 255, 1) 50%);
+  background: linear-gradient(to right, #8cc43d 50%, white 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   transition: background 1000ms ease;
-  border: 1px solid #eee;
-  /* margin-top: 10px; */
 }
+
 .step-container .step-separator.active {
-  background-position: left bottom;
-}
+  background-position: left bottom; }

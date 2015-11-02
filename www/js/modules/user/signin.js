@@ -39,7 +39,7 @@ angular.module('crash.signin', ['ngOpenFB'])
         self.user.username = '';
         self.user.password = '';
         // Alert Error
-        PopupService.showAlert(err.data.error);
+        PopupService.showAlert(err);
         // Hide Loader
         LoadingService.hideLoader();
       });

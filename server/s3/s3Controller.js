@@ -20,8 +20,11 @@ module.exports = {
     Uploading images to AWS S3
   ***/
   upload : function(req, res, next){
+
+
     // Console Log
     console.log('Upload images to AWS...');
+    console.log('req.body IMAGE DATA : ', req.body.imgName);
     // AWS Config
     AWS.config.update({accessKeyId: 'AKIAJ2WOCLBOOX4UQWBA', secretAccessKey: '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'});
     AWS.config.update({region: 'us-west-1'});

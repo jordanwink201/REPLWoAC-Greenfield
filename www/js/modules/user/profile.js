@@ -9,7 +9,7 @@ angular.module('crash.profile', [])
 //   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 // })
 
-.controller('ProfileController', function(CrashEventObj, PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet, Camera, $cordovaCamera){
+.controller('ProfileController', function(CrashEventObj, PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet, Camera){
 
   var self = this;
   // ngModel
@@ -39,7 +39,7 @@ angular.module('crash.profile', [])
       })
       .catch(function(err){
         // Alert Error
-        PopupService.showAlert(err.data.error);
+        PopupService.showAlert(err);
         // Hide Loader
         LoadingService.hideLoader();
       });
@@ -78,7 +78,7 @@ angular.module('crash.profile', [])
         // Set ngModel Flag
         self.editMode = false;
         // Alert Error
-        PopupService.showAlert(err.data.error);
+        PopupService.showAlert(err);
         // Hide Loader
         LoadingService.hideLoader();
       });
@@ -106,28 +106,45 @@ angular.module('crash.profile', [])
       cancelText: 'Cancel',
       titleText : 'Choose Profile Image',
       buttonClicked : function(index){
-        // index : 0 is take photo
+        // Take Photo
         if (index === 0) {
 
-        }
-        // index : 1 is choose photo from library
-        if (index === 1) {
-          var options = {
+          navigator.camera.getPicture(onSuccess, onFail,
+          {
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            targetWidth: 200,
-            targetHeight: 200
-          };
-
-          $cordovaCamera.getPicture(options).then(function(imageUri) {
-            console.log('img', imageUri);
-            self.profileImgFile = imageUri;
-            // $scope.images.push(imageUri);
-
-          }, function(err) {
-          // error
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType : Camera.PictureSourceType.Camera,
+            encodingType: Camera.EncodingType.PNG,
           });
+
+          function onSuccess(imageData){
+            console.log('success');
+          }
+
+          function onFail(message){
+            console.log('faillll');
+          }
+
+        }
+        // Get Photo From Library
+        if (index === 1) {
+
+          navigator.camera.getPicture(onSuccess, onFail,
+          {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+            encodingType: Camera.EncodingType.PNG,
+          });
+
+          function onSuccess(imageData){
+            console.log('success');
+          }
+
+          function onFail(message){
+            console.log('faillll');
+          }
+
         }
       }
     });

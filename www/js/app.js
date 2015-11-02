@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
-  'ionic','ionic.service.core', 'ngCordova',
+  'ionic','ionic.service.core',
   'crash.eventService',
   'crash.userService',
   'crash.popupService',
@@ -24,8 +24,7 @@ angular.module('crash', [
   'crash.profile',
   'crash.signin',
   'crash.createAccount',
-  'ngOpenFB',
-  'crash.Testing'
+  'ngOpenFB'
 ])
 
 .run(function($ionicPlatform, ngFB) {
@@ -33,12 +32,10 @@ angular.module('crash', [
   ngFB.init({appId: '1516257468694166'});
 
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -50,16 +47,6 @@ angular.module('crash', [
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
-
-  // Testing
-  .state('Testing', {
-    url: '/testing',
-    templateUrl: 'templates/testing.html',
-    controller: 'TestingController as testingCl',
-    data : {
-      authenticate : false
-    }
-  })
 
   .state('signin', {
     url: '/signin',
