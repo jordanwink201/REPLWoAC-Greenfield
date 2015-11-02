@@ -1,6 +1,6 @@
 angular.module('crash.eventFinal', [])
 
-.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService, $state){
+.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService,SendGridService, $state){
 
   var self = this;
   // ngModel
@@ -33,14 +33,22 @@ angular.module('crash.eventFinal', [])
 
   /***
     save the final crash object into the database, which will be added to the driver's crash history
+    sends email to the insurance agent via sendGrid API
   ***/
   self.save = function(){
-    // Console Log
-    console.log('saving crash object... : ', finalCrashObj);
-    // Show Loader
-    LoadingService.showLoader();
-    // Factory Function
-    EventService.createCrashEvent(finalCrashObj)
+
+    console.log('\nsave final information...');
+    console.log('final crash object : ', self.finalCrashObj);
+
+    SendGridService.sendEmail(self.finalCrashObj)
+    .then(function(data){
+      console.log('success: ', data);
+    })
+    .catch(function(err){
+      console.log('error sending email', err);
+    });
+
+    EventService.createCrashEvent(self.finalCrashObj)
       .then(function(data){
         // Show Success
         PopupService.showSuccess();
