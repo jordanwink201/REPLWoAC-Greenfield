@@ -21,9 +21,9 @@
         <!-- Load the person you hit's profile img? -->
         <div class="item item-avatar">
           <img src="img/crashProfile2.jpg">
-          <h2>{{event.createdAt}}</h2>
+          <h2>{{event.createdAt.toLocaleString()}}</h2>
           <p>{{event.otherPartyInfo.fname}} {{event.otherPartyInfo.lname}}</p>
-          <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob}}</p>
+          <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob.toLocaleString()}}</p>
           <p>{{event.otherPartyInfo.email}}</p>
         </div>
 

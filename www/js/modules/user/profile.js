@@ -39,7 +39,7 @@ angular.module('crash.profile', [])
       })
       .catch(function(err){
         // Alert Error
-        PopupService.showAlert(err.data.error);
+        PopupService.showAlert(err);
         // Hide Loader
         LoadingService.hideLoader();
       });
@@ -78,7 +78,7 @@ angular.module('crash.profile', [])
         // Set ngModel Flag
         self.editMode = false;
         // Alert Error
-        PopupService.showAlert(err.data.error);
+        PopupService.showAlert(err);
         // Hide Loader
         LoadingService.hideLoader();
       });
