@@ -24,7 +24,9 @@ angular.module('crash', [
   'crash.profile',
   'crash.signin',
   'crash.createAccount',
-  'ngOpenFB'
+  'ngOpenFB',
+  'crash.Testing',
+  'crash.location'
 ])
 
 .run(function($ionicPlatform, ngFB) {

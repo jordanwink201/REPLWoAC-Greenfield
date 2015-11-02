@@ -5,6 +5,8 @@ angular.module('crash.history', [])
   var self = this;
   // ngModel
   self.crashEvents = [];
+  self.LongLat = "";
+
 
   /***
     Retreive all crash events that are in the database associated to the current user
@@ -21,6 +23,11 @@ angular.module('crash.history', [])
         console.log('events : ', data);
         // Set ngModel
         self.crashEvents = data;
+        for(var i = 0; i < self.crashEvents.length; i++){
+          self.LongLat = self.crashEvents[i].location[0] + "," + self.crashEvents[i].location[1];
+        }
+        console.log(self.LongLat);
+
         // Hide Loader
         LoadingService.hideLoader();
       })

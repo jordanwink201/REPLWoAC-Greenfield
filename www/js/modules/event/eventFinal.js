@@ -1,6 +1,7 @@
 angular.module('crash.eventFinal', [])
 
-.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, SendGridService, EventService, $state){
+
+.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService, $state, Location){
 
 
 
@@ -20,6 +21,8 @@ angular.module('crash.eventFinal', [])
     console.log('loading Service Object CrashEventObj : ', CrashEventObj);
     // Set Local from Service Object
     var crashObj = CrashEventObj.crashEvent;
+    //Setting geolocation
+    crashObj.locate = [Location.self.lat, Location.self.lon];
 
     // Set ngModel
     self.witnessArr = crashObj.witnessArr;
