@@ -6,12 +6,10 @@ todo: make the template in handlebars.js so the image and witness sections can b
 ***/
 var sendgrid = require('sendgrid')('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');
 //this should be in a separate template file:
-var template = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance%</p><p>%user-agentEmail%</p><br><br><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%.<br>Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Phone: %otherDriver-phone%</p><p>Insurance: %otherDriver-insurance%</p><p>Agent: %otherDriver-agent%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-fname% %-witness-lname%</p><p>Phone Number: %-witness-phone%</p><p>Email: %-witness-email%</p></div></td></tr></table>";
+var template = "<table style=\"border: solid 1px #000; background-color: #666; font-family: verdana, tahoma, sans-serif; color: #fff;\"> <tr> <td><h3 style='text-align: center;'>CrashNinja Accident Report</h3><div><hr/><div style='text-align:right;'></div><div></div><div></div></div><p>ATTN: %user-agent%,</p><p>%user-insurance% agent</p><p>%user-agentEmail%</p><br><br><div><p>My name is %user-fname% %user-lname% and I was recently involved in an auto accident with %otherDriver-fname% %otherDriver-lname% on %accident-date%.<br>Please contact me immediately at %user-phone% for details.</p><h4>My Information: </h4><hr><p>Driver License ID: %user-license%</p><p>Driver License State: %user-licenseState%</p><p>Policy Number: %user-policy%</p><br><h4>%otherDriver-fname% %otherDriver-lname%'s Information: </h4><hr><p>Driver License ID: %otherDriver-license%</p><p>Driver License State: %otherDriver-licenseState%</p><p>Phone: %otherDriver-phone%</p><p>Insurance: %otherDriver-insurance%</p><p>Agent: %otherDriver-agent%</p><p>Policy Number: %otherDriver-policy%</p></div><div><h4>Crash Photos</h4><hr><img src='%-image0-%'><img src='%-image1-%'><img src='%-image2-%'><h4>Witness information:</h4><hr/><p>Full Name: %-witness-fname% %-witness-lname%</p><p>Phone Number: %-witness-phone%</p><p>Email: %-witness-email%</p></div></td></tr></table>";
 
 //default email values:
 var params = {
-  to: '',
-  from: '',
   subject: 'I\'ve been in an accident',
   html : template
 };
@@ -26,6 +24,8 @@ module.exports = {
 
   var userInfo = req.user;
   var otherDriver = req.body.crashDriver;
+
+  //this is janky, refactor with moment.js:
   var accidentDate = new Date(req.body.crashDriver.createdAt).toDateString();
 
   var userSubs = {
@@ -56,10 +56,10 @@ module.exports = {
 
   var witnessSubs = {
 
-    '%-witness-fname%' : '',
-    '%-witness-lname%' : '',
-    '%-witness-phone%' : '',
-    '%-witness-email%' : ''        
+    '%-witness-fname%' : 'none',
+    '%-witness-lname%' : 'none',
+    '%-witness-phone%' : 'none',
+    '%-witness-email%' : 'none'        
   };
 
   var imageSubs = {
@@ -95,10 +95,11 @@ module.exports = {
   var witnessArray = req.body.witnessArr;
 
   witnessArray.forEach(function(witness){
-    if(!witness){
-      return;
-    }
+    
     for(var key in witness){
+      if(!witness){
+        return;
+      }
       witnessSubs['%-witness-' + key + '%'] = witness[key];
     }
   });
@@ -129,11 +130,11 @@ module.exports = {
   email.to = req.user.agentEmail;
   email.from = req.user.email;
 
-  // sends the email to sendGrid:
-    sendgrid.send(email, function(err, json) {
-      if (err) { return console.error(err); }
-      console.log('', json);
-    });
+  // sends the email to sendGrid (uncomment to go live):  
+    // sendgrid.send(email, function(err, json) {
+    //   if (err) { return console.error(err); }
+    //   console.log('', json);
+    // });
   }
 
 }

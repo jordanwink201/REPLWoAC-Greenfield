@@ -1,10 +1,6 @@
 angular.module('crash.eventFinal', [])
 
-<<<<<<< HEAD
-.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService, $state){
-=======
-.controller('EventFinalController', function(CrashEventObj, EventService, SendGridService, $state){
->>>>>>> template back to normal
+.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService,SendGridService, $state){
 
   var self = this;
   // ngModel
