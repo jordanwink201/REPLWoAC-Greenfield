@@ -65,6 +65,7 @@ angular.module('crash.eventPhoto', [])
       context.drawImage(video, 0, 0, width, height);
 
       var imageData = canvas.toDataURL('image/png');
+      console.log('image is: ', imageData);
       photo.setAttribute('src', imageData);
 
       /***

@@ -128,21 +128,6 @@ angular.module('crash.profile', [])
         // Get Photo From Library
         if (index === 1) {
 
-          navigator.camera.getPicture(onSuccess, onFail,
-          {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
-            encodingType: Camera.EncodingType.PNG,
-          });
-
-          function onSuccess(imageData){
-            console.log('success');
-          }
-
-          function onFail(message){
-            console.log('faillll');
-          }
 
         }
       }
