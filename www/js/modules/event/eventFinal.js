@@ -1,6 +1,6 @@
 angular.module('crash.eventFinal', [])
 
-.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, EventService,SendGridService, $state){
+.controller('EventFinalController', function(PopupService, CrashEventObj, LoadingService, SendGridService, EventService, $state){
 
   var self = this;
   // ngModel
@@ -29,6 +29,7 @@ angular.module('crash.eventFinal', [])
 
     // Set local
     finalCrashObj = crashObj;
+    console.log('in eventFinal.js-------------->', finalCrashObj);
   };
 
   /***
@@ -38,9 +39,9 @@ angular.module('crash.eventFinal', [])
   self.save = function(){
 
     console.log('\nsave final information...');
-    console.log('final crash object : ', self.finalCrashObj);
+    console.log('final crash object : ', finalCrashObj);
 
-    SendGridService.sendEmail(self.finalCrashObj)
+    SendGridService.sendEmail(finalCrashObj)
     .then(function(data){
       console.log('success: ', data);
     })
@@ -48,7 +49,7 @@ angular.module('crash.eventFinal', [])
       console.log('error sending email', err);
     });
 
-    EventService.createCrashEvent(self.finalCrashObj)
+    EventService.createCrashEvent(finalCrashObj)
       .then(function(data){
         // Show Success
         PopupService.showSuccess();

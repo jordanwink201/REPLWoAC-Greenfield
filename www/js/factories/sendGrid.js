@@ -3,6 +3,7 @@ angular.module('crash.sendGrid', [])
 
     var sendEmail = function(crashObj){
       console.log('in sendGrid service!');
+      console.log('crashObj------------->', crashObj);
       return $http({
         method : 'POST',
         url : 'api/sendGrid/sendEmail',
