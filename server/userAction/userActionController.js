@@ -51,7 +51,7 @@ module.exports = {
     // Create Promise
     var findAllUsers = Q.nbind(User.find, User);
     // Mongoose Query
-    findAllUsers({}, 'username fname lname')
+    findAllUsers({}, 'username fname lname profileImgUrl')
       .then(function(allUsers){
         // Console Log
         console.log('All users from DB : ', allUsers);
