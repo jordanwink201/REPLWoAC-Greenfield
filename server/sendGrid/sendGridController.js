@@ -19,8 +19,8 @@ var email = new sendgrid.Email(params);
 module.exports = {
 
   sendEmail : function(req, res, next){
-
-  console.log(req.body.crashDriver);
+  console.log('req.user----------->', req.user.createdAt);
+  console.log(req.body);
 
   var userInfo = req.user;
   var otherDriver = req.body.crashDriver;
@@ -131,10 +131,10 @@ module.exports = {
   email.from = req.user.email;
 
   // sends the email to sendGrid (uncomment to go live):  
-    // sendgrid.send(email, function(err, json) {
-    //   if (err) { return console.error(err); }
-    //   console.log('', json);
-    // });
+    sendgrid.send(email, function(err, json) {
+      if (err) { return console.error(err); }
+      console.log('', json);
+    });
   }
 
 }
