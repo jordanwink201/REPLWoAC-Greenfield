@@ -111,6 +111,7 @@ module.exports = {
             phone : req.body.phone,
             dob : req.body.dob,
             email : req.body.email,
+            profileImgUrl : req.body.profileImgUrl,
             license : req.body.license,
             licenseState : req.body.licenseState,
             insurance : req.body.insurance,
@@ -144,6 +145,9 @@ module.exports = {
     console.log('Update existing user...');
     // Create New Object
     var userUpdate = {
+      fname : req.body.fname,
+      lname : req.body.lname,
+      dob : req.body.dob,
       phone : req.body.phone,
       email : req.body.email,
       license : req.body.license,

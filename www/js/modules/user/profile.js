@@ -14,8 +14,6 @@ angular.module('crash.profile', [])
   var self = this;
   // ngModel
   self.userObj = {};
-  self.profileImg = '../img/crashProfile2.jpg';
-  self.profileImgFile = '';
   // ngModel Flag
   self.editMode = false;
 
@@ -35,6 +33,7 @@ angular.module('crash.profile', [])
         // Set ngModel
         self.userObj = user.data;
         // Hide Loader
+        self.userObj.dob = new Date(user.data.dob);
         LoadingService.hideLoader();
       })
       .catch(function(err){
