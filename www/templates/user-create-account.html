@@ -1,7 +1,7 @@
 <ion-view view-title="Create Account" hide-back-button="true" ng-init="createAccountCl.getUser()">
   <ion-content>
   <div class="list list-inset">
-    <ion-list>
+    <ion-list style="text-align:center;">
 
     <label class="item item-input" ng-show="!createAccountCl.facebookLogin">
     <i class="icon ion-person placeholder-icon"></i>
@@ -63,7 +63,8 @@
     </label>
 
     <button class="button button-block button-positive" ng-click="createAccountCl.create()">Create Account</button>
-    <button class="button button-block button-transparent" ng-click="createAccountCl.signin()">Sign In</button>
+
+    Already have an account? <a href="/#/signin">Sign In</a>
 
     </ion-list>
   </div>

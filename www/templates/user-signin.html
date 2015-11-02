@@ -5,7 +5,7 @@
   <!-- Gangnam Style -->
   <div id="login"></div>
 
-    <div class="list list-inset">
+    <div class="list list-inset" style="text-align:center;">
 
       <label class="item item-input">
         <i class="icon ion-person placeholder-icon"></i>
@@ -18,10 +18,9 @@
       </label>
 
       <button class="button button-block button-positive" ng-click="signinCl.signin()">Sign In</button>
+      <button class="fbButton button button-block button-positive" ng-click="signinCl.fbLogin()" style="  background-color: #3A5795 !important;border-color: #3A5795 !important;">Login with Facebook</button>
 
-      <button class="button button-block button-transparent" ng-click="signinCl.signup()">Sign Up</button>
-
-      <button class="button button-block button-positive" ng-click="signinCl.fbLogin()">Login with Facebook</button>
+      Don't have an account? <a href="/#/createAccount">Sign Up</a>
 
     </div>
 
