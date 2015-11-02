@@ -14,8 +14,6 @@ angular.module('crash.profile', [])
   var self = this;
   // ngModel
   self.userObj = {};
-  self.profileImg = '../img/crashProfile2.jpg';
-  self.profileImgFile = '';
   // ngModel Flag
   self.editMode = false;
 

@@ -111,6 +111,7 @@ module.exports = {
             phone : req.body.phone,
             dob : req.body.dob,
             email : req.body.email,
+            profileImgUrl : req.body.profileImgUrl,
             license : req.body.license,
             licenseState : req.body.licenseState,
             insurance : req.body.insurance,

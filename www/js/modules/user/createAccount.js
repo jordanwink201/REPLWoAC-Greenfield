@@ -7,6 +7,7 @@ angular.module('crash.createAccount', [])
   var self = this;
   // ngModel
   self.user = {};
+  self.user.profileImgUrl = '../img/crashProfile2.jpg';
   // Reset Input Fields
   self.userMaster = {
     username : '',
@@ -92,6 +93,7 @@ angular.module('crash.createAccount', [])
             self.user.fname = user.first_name;
             self.user.lname = user.last_name;
             self.user.email = user.email;
+            self.user.profileImgUrl = "http://graph.facebook.com/" + user.id + "/picture?width=270&height=270";
 
             console.log('user', user);
           },

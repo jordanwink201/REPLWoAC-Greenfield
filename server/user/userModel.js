@@ -19,6 +19,7 @@ var userSchema = new Schema({
   phone : String,
   dob : String,
   email : String,
+  profileImgUrl: String,  
   license : String,
   licenseState : String,
   insurance : String,
