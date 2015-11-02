@@ -5,7 +5,7 @@ angular.module('crash.eventPhoto', [])
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
-.controller('EventPhotoController', function(S3Service, CrashEventObj, Camera, $state, $scope) {
+.controller('EventPhotoController', function(S3Service, CrashEventObj, Camera, $state, $scope, $rootScope) {
 
   var self = this;
   // ngModel
@@ -88,7 +88,7 @@ angular.module('crash.eventPhoto', [])
     }
   }
 
-  $scope.takePhoto = function(){
+  $rootScope.takePhoto = function(){
     takepicture();
   };
 

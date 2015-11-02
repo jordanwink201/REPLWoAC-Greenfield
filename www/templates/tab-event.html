@@ -26,7 +26,7 @@
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="eventCl.getPhoto()" ng-cloak><i class="icon ion-ios-camera" ng-cloak></i></button>
+    <button class="button button-clear button-light" ng-show="eventCl.index === 1" ng-click="takePhoto()" ng-cloak><i class="icon ion-ios-camera" ng-cloak></i></button>
   </ion-nav-buttons>
 
   <ion-nav-bar class="bar-positive"></ion-nav-bar>
@@ -82,7 +82,6 @@
 
       <div class="camera">
         <video id="video">Video stream not available</video>
-        <button ng-click="takePhoto()">Take photo</button>
       </div>
 
       <canvas ng-show="crashPhotoCtrl.streaming" id="canvas"></canvas>
