@@ -4,6 +4,8 @@
 
 ## Getting Started
 ```bash
+npm install
+bower install
 npm install -g ionic
 ionic serve
 ```
