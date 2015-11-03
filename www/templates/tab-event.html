@@ -1,4 +1,4 @@
-<ion-view view-title="Report Crash">
+<ion-view view-title="{{ eventCl.title }}">
 
   <!-- Steps -->
   <!-- Should turn this into a custom directive... -->
@@ -40,9 +40,6 @@
 
         <!-- Hack Fix -->
         <div class="topPaddingForSteps"></div>
-
-        <p>Check on the other driver's status. If injured, please call 911 immediately.</p>
-        <p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
 
         <label class="item item-input">
           <input type="text" placeholder="First Name" ng-model="witnessCl.witness.fname">
@@ -128,6 +125,7 @@
         <a class="item item-avatar" href="#" ng-show="!personCl.enterManual" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filter : query | limitTo : 10" ng-click="personCl.getUser(user.username)">
           <img ng-src="{{user.profileImgUrl}}">
           <h2>{{user.username}}</h2>
+          <p>{{user}}</p>
           <p>{{user.fname}} {{user.lname}}</p>
         </a>
 

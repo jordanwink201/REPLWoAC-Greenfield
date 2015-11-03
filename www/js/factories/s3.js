@@ -11,7 +11,7 @@ angular.module('crash.S3', [])
 
     return $http({
       method : 'POST',
-      url : 'api/s3/upload',
+      url : 'https://crashninjaionic.herokuapp.com/api/s3/upload',
       data : ({imgName : description, imageData: imageData}),
     })
     .then(function(res){
