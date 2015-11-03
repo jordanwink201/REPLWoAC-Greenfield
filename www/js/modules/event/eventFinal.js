@@ -59,6 +59,11 @@ angular.module('crash.eventFinal', [])
         PopupService.showSuccess();
         // Hide Loader
         LoadingService.hideLoader();
+        // Clear Service Object
+        CrashEventObj.crashEvent = {};
+        // Clear Local Object
+        finalCrashObj = {};
+        console.log('CLEAR : ', CrashEventObj.crashEvent, finalCrashObj);
         // Navigation
         $state.go('tab.history');
       })

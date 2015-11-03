@@ -9205,6 +9205,9 @@ img.profileImg {
   border: 2px solid #F4F4F4;
   margin-bottom: 20px; }
 
+#googleMap {
+  width: 100%; }
+
 /***
 
   Concat all styles from folder
@@ -9261,7 +9264,7 @@ img.profileImg {
 
 ***/
 .popup-container .popup {
-  border-radius: 8px; }
+  border-radius: 4px; }
 
 .popup-body {
   text-align: center; }
