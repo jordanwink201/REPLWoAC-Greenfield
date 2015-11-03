@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
   'ionic','ionic.service.core',
+  'ngCordova',
   'crash.eventService',
   'crash.userService',
   'crash.popupService',
@@ -24,12 +25,16 @@ angular.module('crash', [
   'crash.profile',
   'crash.signin',
   'crash.createAccount',
-  'ngOpenFB'
+  'ngOpenFB',
+  'crash.Testing',
+  'crash.location'
 ])
 
 .run(function($ionicPlatform, ngFB) {
   // Facebook App ID
   ngFB.init({appId: '1516257468694166'});
+
+
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)

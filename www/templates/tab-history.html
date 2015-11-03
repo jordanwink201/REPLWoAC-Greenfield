@@ -18,6 +18,9 @@
       <!-- Create a Card Out of Crash History Object, the card should be editable as well -->
       <div class="list card" ng-repeat="event in historyCl.crashEvents | orderBy : 'event.createdAt' | filter : query ">
 
+
+      
+
         <!-- Load the person you hit's profile img? -->
         <div class="item item-avatar">
           <img src="img/crashProfile2.jpg">
@@ -33,6 +36,9 @@
           <img src="img/crashProfile2.jpg">
         </div>
 
+        <!-- Crash Site Static Google -->
+         <img src="https://maps.googleapis.com/maps/api/staticmap?center={{historyCl.LongLat}}&zoom=17&size=355x200&markers=color:blue|label:|{{historyCl.LongLat}}&key=AIzaSyCbAq9AFLqqCyipYxZadOE9FRjZ0-D1_Vk">
+    
         <!-- Display the Witnesses -->
 
         <!-- No Witnesses -->
