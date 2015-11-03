@@ -59,7 +59,7 @@
           <textarea placeholder="Comments" ng-model="witnessCl.witness.comments"></textarea>
         </label>
 
-        <button class="button button-full button-positive" ng-click="witnessCl.addWitness()">Add Witness</button>
+        <button class="button button-block button-positive" ng-click="witnessCl.addWitness()">Add Witness</button>
 
         <!-- Create a Card Out of Each Added Witness, the card should be editable as well -->
         <div class="card" ng-repeat="witness in witnessCl.witnessArr">
@@ -125,7 +125,6 @@
         <a class="item item-avatar" href="#" ng-show="!personCl.enterManual" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filter : query | limitTo : 10" ng-click="personCl.getUser(user.username)">
           <img ng-src="{{user.profileImgUrl}}">
           <h2>{{user.username}}</h2>
-          <p>{{user}}</p>
           <p>{{user.fname}} {{user.lname}}</p>
         </a>
 

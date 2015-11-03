@@ -9146,7 +9146,7 @@ SCSS Variables
   Header & Navigation bar
 
 ***/
-.bar-stable.bar.bar-header {
+.bar-stable.bar.bar-header, .bar.bar-positive {
   background-color: #444A59; }
 
 .bar.bar-stable .title {
@@ -9312,6 +9312,10 @@ img.profileImg {
   Event Steps/Processes
 
 ***/
+.topPaddingForSteps {
+  display: block;
+  padding-top: 50px; }
+
 .container-progress {
   top: 200px;
   /*background: #eee;*/
@@ -9390,12 +9394,19 @@ img.profileImg {
 video#video {
   display: block;
   margin: auto;
-  margin-top: 100px; }
+  margin-top: 100px;
+  width: 100%; }
 
 img#photo {
+  width: 100%;
   display: block;
   margin: auto; }
 
+/***
+
+  Buttons
+
+***/
 /***
 
   Concat all styles from folder
