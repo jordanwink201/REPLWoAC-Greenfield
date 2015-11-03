@@ -125,6 +125,7 @@
         <a class="item item-avatar" href="#" ng-show="!personCl.enterManual" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filter : query | limitTo : 10" ng-click="personCl.getUser(user.username)">
           <img ng-src="{{user.profileImgUrl}}">
           <h2>{{user.username}}</h2>
+          <p>{{user}}</p>
           <p>{{user.fname}} {{user.lname}}</p>
         </a>
 
