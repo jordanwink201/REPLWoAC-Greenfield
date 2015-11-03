@@ -33,7 +33,7 @@ angular.module('crash.popupService', [])
   this.confirmation = function() {
     var confirmPopup = $ionicPopup.confirm({
       title: 'Emergency',
-      template: 'Are you sure?',
+      template: 'Call 911?',
       buttons : [
         {text : 'Cancel', type: 'button-light'},
         {text : 'Call Now', type: 'button-assertive'}

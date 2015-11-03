@@ -61,7 +61,7 @@ module.exports = {
     var newCrashEvent = {
       user : req.user.username,
       witness : req.body.witnessArr,
-      accidentPhotoUrls : [],
+      accidentPhotoUrls : req.body.eventImages,
       createdAt : new Date(),
       otherPartyInfo : {
         fname : req.body.crashDriver.fname,

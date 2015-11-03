@@ -18,13 +18,10 @@
       <!-- Create a Card Out of Crash History Object, the card should be editable as well -->
       <div class="list card" ng-repeat="event in historyCl.crashEvents | orderBy : 'event.createdAt' | filter : query ">
 
-
-      
-
         <!-- Load the person you hit's profile img? -->
         <div class="item item-avatar">
-          <img src="img/crashProfile2.jpg">
-          <h2>{{event.createdAt.toLocaleString()}}</h2>
+          <img ng-src="img/crashProfile2.jpg">
+          <h2>{{event.createdAt | date : 'fullDate'}}</h2>
           <p>{{event.otherPartyInfo.fname}} {{event.otherPartyInfo.lname}}</p>
           <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob.toLocaleString()}}</p>
           <p>{{event.otherPartyInfo.email}}</p>
@@ -32,13 +29,15 @@
 
         <!-- Display the Crash Photos if any... -->
         <!-- Should have a 'ion-slide' out of all the crash photos -->
-        <div class="item item-image">
-          <img src="img/crashProfile2.jpg">
+
+        <!-- Crash Images -->
+        <div class="item item-image" ng-repeat="image in event.accidentPhotoUrls">
+          <img ng-src="{{image.imageURL}}">
         </div>
 
         <!-- Crash Site Static Google -->
-         <img src="https://maps.googleapis.com/maps/api/staticmap?center={{historyCl.LongLat}}&zoom=17&size=355x200&markers=color:blue|label:|{{historyCl.LongLat}}&key=AIzaSyCbAq9AFLqqCyipYxZadOE9FRjZ0-D1_Vk">
-    
+         <img id="googleMap" src="https://maps.googleapis.com/maps/api/staticmap?center={{historyCl.LongLat}}&zoom=17&size=355x200&markers=color:blue|label:|{{historyCl.LongLat}}&key=AIzaSyCbAq9AFLqqCyipYxZadOE9FRjZ0-D1_Vk">
+
         <!-- Display the Witnesses -->
 
         <!-- No Witnesses -->
