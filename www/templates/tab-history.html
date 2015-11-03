@@ -23,7 +23,7 @@
 
         <!-- Load the person you hit's profile img? -->
         <div class="item item-avatar">
-          <img src="img/crashProfile2.jpg">
+          <img ng-src="img/crashProfile2.jpg">
           <h2>{{event.createdAt.toLocaleString()}}</h2>
           <p>{{event.otherPartyInfo.fname}} {{event.otherPartyInfo.lname}}</p>
           <p>{{event.otherPartyInfo.phone}} {{event.otherPartyInfo.dob.toLocaleString()}}</p>
@@ -32,8 +32,10 @@
 
         <!-- Display the Crash Photos if any... -->
         <!-- Should have a 'ion-slide' out of all the crash photos -->
+
+        <!-- Crash Images -->
         <div class="item item-image">
-          <img src="img/crashProfile2.jpg">
+          <img ng-src="{{image}}" ng-repeat="image in event.accidentPhotoUrls">
         </div>
 
         <!-- Crash Site Static Google -->

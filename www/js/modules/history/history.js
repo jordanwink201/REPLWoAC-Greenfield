@@ -13,7 +13,7 @@ angular.module('crash.history', [])
   ***/
   self.load = function(){
     // Console Log
-    console.log('LOAD HISTORY...');
+    console.log('loading history of crash events...');
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
