@@ -26,7 +26,6 @@ angular.module('crash', [
   'crash.signin',
   'crash.createAccount',
   'ngOpenFB',
-  'crash.Testing',
   'crash.location'
 ])
 
