@@ -6,6 +6,8 @@ angular.module('crash.event', [])
   // ngModel
   self.currentStep = 1;
   self.index = 0;
+  self.title = 'Record Witnesses';
+  var titles = ['Record Witnesses','Crash Photos',' Info','Review'];
 
   /***
     Global controller eventCl
@@ -16,6 +18,7 @@ angular.module('crash.event', [])
     // Set ngModel
     self.currentStep = index + 1;
     self.index = index;
+    self.title = titles[index];
   };
 
   /***
