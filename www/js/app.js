@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('crash', [
   'ionic','ionic.service.core',
+  'ngCordova',
   'crash.eventService',
   'crash.userService',
   'crash.popupService',
