@@ -5,7 +5,7 @@ angular.module('crash.eventPhoto', [])
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
-.controller('EventPhotoController', function(S3Service, CrashEventObj, Camera, $state, $scope, $rootScope) {
+.controller('EventPhotoController', function(S3Service, CrashEventObj, LoadingService, PopupService, Camera, $state, $scope, $rootScope) {
 
   var self = this;
   // ngModel
@@ -66,20 +66,27 @@ angular.module('crash.eventPhoto', [])
 
       var imageData = canvas.toDataURL('image/png');
       photo.setAttribute('src', imageData);
+
       /***
         Send the buffer to the server
         send the image description 'scene'
       ***/
+
+      // Show Loader
+      LoadingService.showLoader();
+      // Factory Function
       S3Service.uploadImage(imageData, 'scene')
         .then(function(imgUrl){
           // Console Log
           console.log('successfully saved to S3...');
           // Add Image URL to Crash Event Object
           self.eventImages.push(imgUrl);
-          // Add to Service Object
+          // Set Service Object
           CrashEventObj.crashEvent.eventImages = self.eventImages;
-          //
-          console.log(CrashEventObj.crashEvent);
+          // Show Success
+          PopupService.showSuccess();
+          // Hide Loader
+          LoadingService.hideLoader();
         })
         .catch(function(err){
           console.log('error saving image...', err);

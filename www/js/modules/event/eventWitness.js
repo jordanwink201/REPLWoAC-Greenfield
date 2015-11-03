@@ -1,6 +1,6 @@
 angular.module('crash.eventWitness', [])
 
-.controller('EventWitnessController', function($state, CrashEventObj) {
+.controller('EventWitnessController', function(PopupService, $state, CrashEventObj) {
 
   var self = this;
   // ngModel
@@ -27,6 +27,8 @@ angular.module('crash.eventWitness', [])
     console.log('add witness...');
     // Set ngModel
     self.witnessArr.push(self.witness);
+    // Show Success
+    PopupService.showSuccess();
     // Set Service Object
     CrashEventObj.crashEvent.witnessArr = self.witnessArr;
     // Reset Input Fields

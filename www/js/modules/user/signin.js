@@ -46,15 +46,8 @@ angular.module('crash.signin', ['ngOpenFB'])
   };
 
   /***
-    Redirect to create account page
+    Facebook Login
   ***/
-  self.signup = function(){
-    // Reset Input Fields
-    self.user = angular.copy(self.userMaster);
-    // Navigation
-    $state.go('createAccount');
-  };
-
   self.fbLogin = function () {
     ngFB.login({scope: 'email,publish_actions'}).then(
         function (response) {
@@ -83,7 +76,7 @@ angular.module('crash.signin', ['ngOpenFB'])
                 },
                 function (error) {
                     alert('Facebook error: ' + error.error_description);
-                }); 
+                });
 
               console.log('Facebook login succeeded');
             } else {

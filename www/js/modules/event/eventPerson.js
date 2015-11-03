@@ -100,7 +100,7 @@ angular.module('crash.eventPerson', [])
 
   /***
     // RUNS AT THE BEGINNING, when ionic slide box is loaded
-    get all of the users USERNAMES that exist so that you can search through and filter the one you are looking for
+    get all of the users (some of their info) that exist so that you can search through and filter the user you are looking for
   ***/
   self.getAllUsers = function(){
     // Console Log

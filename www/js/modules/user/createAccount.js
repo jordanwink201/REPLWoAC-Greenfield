@@ -68,18 +68,8 @@ angular.module('crash.createAccount', [])
   };
 
   /***
-    Redirect to signin page
+    Facebook get user
   ***/
-  self.signin = function(){
-
-    self.facebookLogin = false;
-
-    // Reset Input Fields
-    self.user = angular.copy(self.userMaster);
-    // Navigation
-    $state.go('signin');
-  };
-
   self.getUser = function(){
     var self = this;
       ngFB.api({

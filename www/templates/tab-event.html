@@ -1,4 +1,4 @@
-<ion-view view-title="Report Crash">
+<ion-view view-title="{{ eventCl.title }}">
 
   <!-- Steps -->
   <!-- Should turn this into a custom directive... -->
@@ -38,8 +38,8 @@
 
       <div class="list list-inset">
 
-        <p>Check on the other driver's status. If injured, please call 911 immediately.</p>
-        <p>Check for witnesses. Ask for their information. If there is no witnesses, please click next.</p>
+        <!-- Hack Fix -->
+        <div class="topPaddingForSteps"></div>
 
         <label class="item item-input">
           <input type="text" placeholder="First Name" ng-model="witnessCl.witness.fname">
@@ -59,7 +59,7 @@
           <textarea placeholder="Comments" ng-model="witnessCl.witness.comments"></textarea>
         </label>
 
-        <button class="button button-full button-positive" ng-click="witnessCl.addWitness()">Add Witness</button>
+        <button class="button button-block button-positive" ng-click="witnessCl.addWitness()">Add Witness</button>
 
         <!-- Create a Card Out of Each Added Witness, the card should be editable as well -->
         <div class="card" ng-repeat="witness in witnessCl.witnessArr">
@@ -100,6 +100,9 @@
     <ion-slide ng-controller="EventPersonController as personCl">
       <ion-content ng-init="personCl.getAllUsers()">
 
+      <!-- Hack Fix -->
+      <div class="topPaddingForSteps"></div>
+
       <!--
         Lookup the User by username
         Need to retreive all users from the database to search for them by name
@@ -120,8 +123,9 @@
         </div>
 
         <a class="item item-avatar" href="#" ng-show="!personCl.enterManual" ng-repeat="user in personCl.allUsers | orderBy : 'username' | filter : query | limitTo : 10" ng-click="personCl.getUser(user.username)">
-          <img src="img/crashProfile2.jpg">
+          <img ng-src="{{user.profileImgUrl}}">
           <h2>{{user.username}}</h2>
+          <p>{{user}}</p>
           <p>{{user.fname}} {{user.lname}}</p>
         </a>
 
@@ -182,6 +186,9 @@
     <!-- This is a dummy, if the index is 3 it calls the function -->
     <div ng-if="eventCl.index === 3" ng-init="eventFCl.load()"></div>
       <ion-content>
+
+      <!-- Hack Fix -->
+      <div class="topPaddingForSteps"></div>
 
       <!-- Witnesses -->
       <div class="item item-divider">
@@ -261,10 +268,10 @@
           <input type="text" class="form-control" placeholder="Last Name" ng-model="eventFCl.crashDriver.lname">
         </label>
         <label class="item item-input">
-          <input type="date" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
+          <input type="text" class="form-control" placeholder="DOB" ng-model="eventFCl.crashDriver.dob">
         </label>
         <label class="item item-input">
-          <input type="number" class="form-control" placeholder="Phone Number" ng-model="eventFCl.crashDriver.phone">
+          <input type="text" class="form-control" placeholder="Phone Number" ng-model="eventFCl.crashDriver.phone">
         </label>
         <label class="item item-input">
           <input type="email" class="form-control" placeholder="Email Address" ng-model="eventFCl.crashDriver.email">
@@ -280,7 +287,7 @@
          ="Insurance Company" ng-model="eventFCl.crashDriver.insurance">
         </label>
         <label class="item item-input">
-          <input type="number" class="form-control" placeholder="Insurance Policy Number" ng-model="eventFCl.crashDriver.policy">
+          <input type="text" class="form-control" placeholder="Insurance Policy Number" ng-model="eventFCl.crashDriver.policy">
         </label>
         <label class="item item-input">
           <input type="text" class="form-control" placeholder="Agent Name" ng-model="eventFCl.crashDriver.agent">

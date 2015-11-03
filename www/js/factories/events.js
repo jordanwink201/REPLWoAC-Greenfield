@@ -10,7 +10,7 @@ angular.module('crash.eventService', [])
   var createCrashEvent = function(crashObj){
     return $http({
       method : 'POST',
-      url : 'api/event/create',
+      url : 'https://crashninjaionic.herokuapp.com/api/event/create',
       data : crashObj
     })
     .then(function(res){
@@ -26,7 +26,7 @@ angular.module('crash.eventService', [])
   var readCrashEvent = function(username){
     return $http({
       method : 'GET',
-      url : 'api/event/read'
+      url : 'https://crashninjaionic.herokuapp.com/api/event/read'
     })
     .then(function(res){
       return res.data;
