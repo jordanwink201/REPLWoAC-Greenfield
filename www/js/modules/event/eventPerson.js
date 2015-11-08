@@ -10,7 +10,7 @@ angular.module('crash.eventPerson', [])
   // ngModel Flag
   self.enterManual = false;
 
-  // In the future, this should create a new account for the user you enter and then send them an email telling them to confirm their account
+  /*** In the future, this should create a new account for the user you enter and then send them an email telling them to confirm their account ***/
 
   // Reset Input Fields
   self.crashDriverMaster = {
@@ -48,7 +48,7 @@ angular.module('crash.eventPerson', [])
   ***/
   self.getUser = function(username){
     // Console Log
-    console.log('get user : ', username);
+    console.log('Get user : ', username);
     // Show Loader
     LoadingService.showLoader();
     // Factory Function
@@ -83,7 +83,7 @@ angular.module('crash.eventPerson', [])
   ***/
   self.saveDriver = function(){
     // Console Log
-    console.log('save : ');
+    console.log('Save Driver...');
     // Show Loader
     LoadingService.showLoader();
     // Set Service Object
@@ -104,12 +104,12 @@ angular.module('crash.eventPerson', [])
   ***/
   self.getAllUsers = function(){
     // Console Log
-    console.log('getting all users');
+    console.log('Getting all users...');
     // Factory Function
     UserService.readAllUsers()
       .then(function(allUsers){
         // Console Log
-        console.log('all users in db : ', allUsers);
+        console.log('All users in db : ', allUsers);
         // Set ngModel
         self.allUsers = allUsers.data;
       })

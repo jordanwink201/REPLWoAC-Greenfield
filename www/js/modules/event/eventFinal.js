@@ -1,6 +1,5 @@
 angular.module('crash.eventFinal', [])
 
-
 .controller('EventFinalController', function(PopupService, CrashEventObj, SendGridService, LoadingService, EventService, $state, Location){
 
   var self = this;

@@ -8,7 +8,8 @@ angular.module('crash.S3', [])
     the date/time is stored as the name with the description
   ***/
   var uploadImage = function(imageData, description){
-
+    // Console Log
+    console.log('S3 Service, uploading image...');
     return $http({
       method : 'POST',
       url : 'https://crashninjaionic.herokuapp.com/api/s3/upload',
