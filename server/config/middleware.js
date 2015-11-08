@@ -16,6 +16,7 @@ module.exports = function(app, express){
   var eventRouter = express.Router();
   var s3Router = express.Router();
   var sendGridRouter = express.Router();
+
   app.use(cors());
 
   // Define Middleware
