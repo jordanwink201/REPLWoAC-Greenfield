@@ -69,7 +69,7 @@ angular.module('crash.profile', [])
         // Hide Loader
         LoadingService.hideLoader();
         // Navigation
-        $state.go('tab.history');
+        // $state.go('tab.history');
       })
       .catch(function(err){
         // Reset Input Fields
@@ -118,8 +118,6 @@ angular.module('crash.profile', [])
           };
 
           Camera.getPicture(cameraOptions).then(function(imageURI) {
-            // Show Loader
-            LoadingService.showLoader();
             // Factory Function
             S3Service.uploadImage(imageURI, 'profile')
               .then(function(imgUrl){
@@ -127,17 +125,11 @@ angular.module('crash.profile', [])
                 console.log('successfully saved to S3...');
                 // Set Profile image
                 self.userObj.profileImgUrl = imgUrl;
-                // Show Success
-                PopupService.showSuccess();
-                // Hide Loader
-                LoadingService.hideLoader();
                 // Update User Profile Image
                 self.updateUser();
               })
               .catch(function(err){
                 console.log('error saving image...', err);
-                // Hide Loader
-                LoadingService.hideLoader();
                 // Show Alert
                 PopupService.showAlert();
               });
