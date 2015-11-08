@@ -69,7 +69,7 @@ angular.module('crash.profile', [])
         // Hide Loader
         LoadingService.hideLoader();
         // Navigation
-        // $state.go('tab.profile');
+        $state.go('tab.history');
       })
       .catch(function(err){
         // Reset Input Fields
@@ -109,10 +109,12 @@ angular.module('crash.profile', [])
         if (index === 0) {
 
           var cameraOptions = {
-            quality: 50,
+            quality: 100,
             destinationType: 0, // Camera.DestinationType.DATA_URL
             encodingType: 1, // Camera.EncodingType.PNG
             sourceType: 1, // Camera.PictureSourceType.CAMERA
+            targetWidth : 120,
+            targetHeight : 120,
           };
 
           Camera.getPicture(cameraOptions).then(function(imageURI) {
@@ -129,6 +131,8 @@ angular.module('crash.profile', [])
                 PopupService.showSuccess();
                 // Hide Loader
                 LoadingService.hideLoader();
+                // Update User Profile Image
+                self.updateUser();
               })
               .catch(function(err){
                 console.log('error saving image...', err);
@@ -146,10 +150,12 @@ angular.module('crash.profile', [])
         if (index === 1) {
 
           var cameraOptions2 = {
-            quality: 50,
+            quality: 100,
             destinationType: 0, // Camera.DestinationType.DATA_URL
             encodingType: 1, // Camera.EncodingType.PNG
             sourceType: 0, // Camera.PictureSourceType.PHOTOLIBRARY
+            targetWidth : 120,
+            targetHeight : 120,
           };
 
           Camera.getPicture(cameraOptions2).then(function(imageURI) {
@@ -166,6 +172,8 @@ angular.module('crash.profile', [])
                 PopupService.showSuccess();
                 // Hide Loader
                 LoadingService.hideLoader();
+                // Update User Profile Image
+                self.updateUser();
               })
               .catch(function(err){
                 console.log('error saving image...', err);

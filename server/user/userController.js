@@ -155,7 +155,8 @@ module.exports = {
       insurance : req.body.insurance,
       policy : req.body.policy,
       agent : req.body.agent,
-      agentEmail : req.body.agentEmail
+      agentEmail : req.body.agentEmail,
+      profileImgUrl : req.body.profileImgUrl
     };
     // Create Promise
     var findUserUpdate = Q.nbind(User.findOneAndUpdate, User);

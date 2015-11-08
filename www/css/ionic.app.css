@@ -9200,7 +9200,10 @@ img.profileImg {
   display: block;
   margin: auto;
   border-radius: 100%;
-  width: 8em;
+  min-width: 120px;
+  min-height: 120px;
+  max-width: 120px;
+  max-height: 120px;
   margin-top: 10px;
   box-shadow: 1px 1px 1px #CFCFCF;
   border: 2px solid #F4F4F4;
