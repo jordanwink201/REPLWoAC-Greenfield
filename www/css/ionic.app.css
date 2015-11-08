@@ -9147,7 +9147,8 @@ SCSS Variables
 
 ***/
 .bar-stable.bar.bar-header, .bar.bar-positive {
-  background-color: #444A59; }
+  background-color: #444A59;
+  border-color: #444A59; }
 
 .bar.bar-stable .title {
   color: white; }
