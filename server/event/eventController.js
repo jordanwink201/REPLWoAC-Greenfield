@@ -62,6 +62,7 @@ module.exports = {
       user : req.user.username,
       witness : req.body.witnessArr,
       accidentPhotoUrls : req.body.eventImages,
+      location: req.body.locate,
       createdAt : new Date(),
       otherPartyInfo : {
         fname : req.body.crashDriver.fname,
