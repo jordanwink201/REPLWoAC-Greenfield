@@ -29,7 +29,7 @@ angular.module('crash.eventService', [])
       url : 'https://crashninjaionic.herokuapp.com/api/event/read'
     })
     .then(function(res){
-      
+
       return res.data;
     });
   };

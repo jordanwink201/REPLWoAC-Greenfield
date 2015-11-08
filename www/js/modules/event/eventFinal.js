@@ -19,8 +19,6 @@ angular.module('crash.eventFinal', [])
     console.log('loading Service Object CrashEventObj : ', CrashEventObj);
     // Set Local from Service Object
     var crashObj = CrashEventObj.crashEvent;
-    // Setting geolocation
-    crashObj.locate = [Location.self.lat, Location.self.lon];
 
     // Set ngModel
     self.witnessArr = crashObj.witnessArr;
@@ -32,6 +30,9 @@ angular.module('crash.eventFinal', [])
     console.log('self.eventImages : ', self.eventImages);
     console.log('self.crashDriver : ', self.crashDriver);
 
+    // Set Geolocation
+    crashObj.locate = [Location.self.lat, Location.self.lon];
+
     // Set local
     finalCrashObj = crashObj;
   };
@@ -41,18 +42,21 @@ angular.module('crash.eventFinal', [])
     sends email to the insurance agent via sendGrid API
   ***/
   self.save = function(){
+    // Console Log
+    console.log('Save Crash Object : ', finalCrashObj);
 
-    console.log('\nsave final information...');
-    console.log('final crash object : ', finalCrashObj);
-
+    // Send Email
     SendGridService.sendEmail(finalCrashObj)
-    .then(function(data){
-      console.log('success: ', data);
-    })
-    .catch(function(err){
-      console.log('error sending email', err);
-    });
+      .then(function(data){
+        // Console Log
+        console.log('Successfully Sent Email: ', data);
+      })
+      .catch(function(err){
+        // Alert Error
+        PopupService.showAlert(err.data.error);
+      });
 
+    // Create Crash Event
     EventService.createCrashEvent(finalCrashObj)
       .then(function(data){
         // Show Success

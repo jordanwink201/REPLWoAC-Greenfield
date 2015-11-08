@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;
 var crashSchema = new Schema({
   user : String,
   timeStamp: { type: Date, default: Date.now },
-  createdAt: String,
+  createdAt: Date,
   location : Array,
 
   witness : Array,
