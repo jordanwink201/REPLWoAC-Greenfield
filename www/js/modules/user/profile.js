@@ -9,7 +9,7 @@ angular.module('crash.profile', [])
 //   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 // })
 
-.controller('ProfileController', function(CrashEventObj, PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet, Camera){
+.controller('ProfileController', function(S3Service, CrashEventObj, PopupService, LoadingService, UserService, $state, $window, $ionicActionSheet, Camera){
 
   var self = this;
   // ngModel
@@ -108,43 +108,79 @@ angular.module('crash.profile', [])
         // Take Photo
         if (index === 0) {
 
-          navigator.camera.getPicture(onSuccess, onFail,
-          {
+          var cameraOptions = {
             quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType : Camera.PictureSourceType.Camera,
-            encodingType: Camera.EncodingType.PNG,
+            destinationType: 0, // Camera.DestinationType.DATA_URL
+            encodingType: 1, // Camera.EncodingType.PNG
+            sourceType: 1, // Camera.PictureSourceType.CAMERA
+          };
+
+          Camera.getPicture(cameraOptions).then(function(imageURI) {
+            // Show Loader
+            LoadingService.showLoader();
+            // Factory Function
+            S3Service.uploadImage(imageURI, 'profile')
+              .then(function(imgUrl){
+                // Console Log
+                console.log('successfully saved to S3...');
+                // Set Profile image
+                self.userObj.profileImgUrl = imgUrl;
+                // Show Success
+                PopupService.showSuccess();
+                // Hide Loader
+                LoadingService.hideLoader();
+              })
+              .catch(function(err){
+                console.log('error saving image...', err);
+                // Hide Loader
+                LoadingService.hideLoader();
+                // Show Alert
+                PopupService.showAlert();
+              });
+          }, function(err) {
+            console.err(err);
           });
-
-          function onSuccess(imageData){
-            console.log('success');
-          }
-
-          function onFail(message){
-            console.log('faillll');
-          }
 
         }
         // Get Photo From Library
         if (index === 1) {
 
-          navigator.camera.getPicture(onSuccess, onFail,
-          {
+          var cameraOptions2 = {
             quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
-            encodingType: Camera.EncodingType.PNG,
+            destinationType: 0, // Camera.DestinationType.DATA_URL
+            encodingType: 1, // Camera.EncodingType.PNG
+            sourceType: 0, // Camera.PictureSourceType.PHOTOLIBRARY
+          };
+
+          Camera.getPicture(cameraOptions2).then(function(imageURI) {
+            // Show Loader
+            LoadingService.showLoader();
+            // Factory Function
+            S3Service.uploadImage(imageURI, 'profile')
+              .then(function(imgUrl){
+                // Console Log
+                console.log('successfully saved to S3...');
+                // Set Profile image
+                self.userObj.profileImgUrl = imgUrl;
+                // Show Success
+                PopupService.showSuccess();
+                // Hide Loader
+                LoadingService.hideLoader();
+              })
+              .catch(function(err){
+                console.log('error saving image...', err);
+                // Hide Loader
+                LoadingService.hideLoader();
+                // Show Alert
+                PopupService.showAlert();
+              });
+
+          }, function(err) {
+            console.err(err);
           });
 
-          function onSuccess(imageData){
-            console.log('success');
-          }
-
-          function onFail(message){
-            console.log('faillll');
-          }
-
         }
+
       }
     });
   };

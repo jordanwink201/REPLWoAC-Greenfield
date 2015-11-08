@@ -45,6 +45,7 @@ angular.module('crash.location', [])
     return deferred.promise;
   };
 
+  // Self Invoking on startup so the user can be asked permission for current location
   self.load();
 
   // You shouldn't have to do this if the above is a service, it's only necessary to return an object if it was a factory

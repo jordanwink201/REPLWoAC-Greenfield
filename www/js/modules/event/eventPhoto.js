@@ -95,38 +95,43 @@ angular.module('crash.eventPhoto', [])
     }
   }
 
+  /***
+    Camera Icon on screen fires the take picture function
+  ***/
   $rootScope.takePhoto = function(){
-    takepicture();
+    // Browser take photo function
+    // takepicture();
+    // Mobile take photo function
+    self.getPhoto();
   };
 
   /***
     save the images into the CrashEventObj.crashEvent object
   ***/
   self.save = function(){
-
-    console.log('CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.eventImages);
+    console.log('Save CrashEventObj.crashEvent.images : ', CrashEventObj.crashEvent.eventImages);
   };
 
   /***
     MOBILE GET PHOTO
   ***/
-  // self.getPhoto = function() {
-  //   Camera.getPicture().then(function(imageURI) {
-  //     // Console Log
-  //     console.log(imageURI);
-  //     // Set ngModel
-  //     self.eventImages.push(imageURI);
-  //     // Set ngModel
-  //     self.lastPhoto = imageURI;
-  //   }, function(err) {
-  //     PopupService.showAlert(err);
-  //   }, {
-  //     quality: 75,
-  //     targetWidth: 50,
-  //     targetHeight: 50,
-  //     saveToPhotoAlbum: false
-  //   });
-  // };
+  self.getPhoto = function() {
+    Camera.getPicture().then(function(imageURI) {
+      // Console Log
+      console.log('IMAGE URI : ', imageURI);
+      // Set ngModel
+      self.eventImages.push(imageURI);
+      // Set ngModel
+      self.lastPhoto = imageURI;
+    }, function(err) {
+      PopupService.showAlert(err);
+    }, {
+      quality: 75,
+      targetWidth: 50,
+      targetHeight: 50,
+      saveToPhotoAlbum: false
+    });
+  };
 
   // S3Service.uploadImage(imageData, 'scene')
   //   .then(function(imgUrl){
