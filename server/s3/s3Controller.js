@@ -9,7 +9,7 @@
 // External Resources
 var Utils = require('../config/utility.js'),
     AWS = require('aws-sdk'),
-    BUCKET = '';
+    BUCKET = 'crashninja';
 
 module.exports = {
 /***
@@ -20,13 +20,10 @@ module.exports = {
     Uploading images to AWS S3
   ***/
   upload : function(req, res, next){
-
-
     // Console Log
-    console.log('Upload images to AWS...');
-    console.log('req.body IMAGE DATA : ', req.body.imgName);
+    console.log('Upload images to AWS... image data : ', req.body.imgName);
     // AWS Config
-    AWS.config.update({accessKeyId: '', secretAccessKey: ''});
+    AWS.config.update({accessKeyId: 'AKIAICC7KNLC5HGPV3XA', secretAccessKey: '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'});
     AWS.config.update({region: 'us-west-1'});
     // Define AWS S3 Bucket
     var s3Bucket = new AWS.S3({ params : { Bucket : BUCKET }});

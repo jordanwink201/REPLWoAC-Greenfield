@@ -19,7 +19,7 @@ var userSchema = new Schema({
   phone : String,
   dob : String,
   email : String,
-  profileImgUrl: { type : String, default : 'img/crashProfile2.jpg' },
+  profileImgUrl: { type : String, default : 'https://s3-us-west-1.amazonaws.com/crashninja/defaultProfileImg.png' },
   license : String,
   licenseState : String,
   insurance : String,
