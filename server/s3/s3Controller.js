@@ -48,7 +48,7 @@ module.exports = {
         // Console Log
         console.log('S3 image url : ', data.Location);
         // Propogate Success to Client
-        res.json({ imageURL : data.Location });
+        res.json({ data.Location });
       }
     });
   }

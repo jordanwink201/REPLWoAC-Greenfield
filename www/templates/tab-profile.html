@@ -15,14 +15,7 @@
     <ion-list>
 
       <!-- Add a Profile Image Here -->
-      <img ng-src="{{profileCl.userObj.profileImgUrl.imageURL}}" class="profileImg" ng-click="profileCl.changeProfileImg()">
-
-      <!-- Facebook Image uses .profileImgUrl -->
-      <!-- Upload Image uses .profileImgUrl.imageURL -->
-
       <img ng-src="{{profileCl.userObj.profileImgUrl}}" class="profileImg" ng-click="profileCl.changeProfileImg()">
-
-<!--       <img src="http://graph.facebook.com/{{profileCl.userObj.username}}/picture?width=270&height=270" class="profileImg" ng-click="profileCl.changProfileImg()"> -->
 
       <div class="center">
         <h4>{{profileCl.userObj.fname}} {{profileCl.userObj.lname}}</h4>
